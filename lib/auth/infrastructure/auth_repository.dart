@@ -6,8 +6,10 @@ import 'package:simple_todo_app/auth/domain/auth_failure.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
 import 'package:simple_todo_app/auth/infrastructure/firebase_user_mapper.dart';
 
-class FirebaseAuthFacade {
-  const FirebaseAuthFacade(
+typedef SignInSuccessCallback = void Function(User, bool);
+
+class AuthRepository {
+  const AuthRepository(
     this._firebaseAuth,
     this._googleSignIn,
     this._firebaseUserMapper,
@@ -33,8 +35,10 @@ class FirebaseAuthFacade {
           )
           .then((_) => right(unit));
     } on PlatformException catch (e) {
-      if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+      if (e.code == 'email-already-in-use') {
         return left(const AuthFailure.emailAlreadyInUse());
+      } else if (e.code == 'invalid-email') {
+        return left(const AuthFailure.invalidEmail());
       } else {
         return left(const AuthFailure.serverError());
       }
@@ -42,16 +46,22 @@ class FirebaseAuthFacade {
   }
 
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword({
-    required String emailAddressStr,
-    required String passwordStr,
+    required String email,
+    required String password,
+    SignInSuccessCallback? onSuccess,
   }) async {
     try {
-      return await _firebaseAuth
-          .signInWithEmailAndPassword(
-            email: emailAddressStr,
-            password: passwordStr,
-          )
-          .then((_) => right(unit));
+      final credentials = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final user = FirebaseUserMapper().toDomain(credentials.user);
+      if (user == null) {
+        // Should not happen.
+        return left(const AuthFailure.userNotFound());
+      }
+      onSuccess?.call(user, credentials.additionalUserInfo?.isNewUser ?? false);
+      return right(unit);
     } on PlatformException catch (e) {
       if (e.code == 'ERROR_WRONG_PASSWORD' ||
           e.code == 'ERROR_USER_NOT_FOUND') {
@@ -61,7 +71,9 @@ class FirebaseAuthFacade {
     }
   }
 
-  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
+  Future<Either<AuthFailure, Unit>> signInWithGoogle({
+    SignInSuccessCallback? onSuccess,
+  }) async {
     try {
       final googleUser = await _googleSignIn.signIn();
 
@@ -74,9 +86,15 @@ class FirebaseAuthFacade {
         accessToken: googleAuthentication.accessToken,
         idToken: googleAuthentication.idToken,
       );
-      return _firebaseAuth
-          .signInWithCredential(authCredential)
-          .then((r) => right(unit));
+      final credentials =
+          await _firebaseAuth.signInWithCredential(authCredential);
+      final user = FirebaseUserMapper().toDomain(credentials.user);
+      if (user == null) {
+        // Should not happen.
+        return left(const AuthFailure.userNotFound());
+      }
+      onSuccess?.call(user, credentials.additionalUserInfo?.isNewUser ?? false);
+      return right(unit);
     } on PlatformException catch (_) {
       return left(const AuthFailure.serverError());
     }
@@ -87,5 +105,22 @@ class FirebaseAuthFacade {
       _googleSignIn.signOut(),
       _firebaseAuth.signOut(),
     ]);
+  }
+
+  Future<Either<AuthFailure, Unit>> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return right(unit);
+    } on firebase.FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        return left(const AuthFailure.invalidEmail());
+      } else if (e.code == 'user-not-found') {
+        return left(const AuthFailure.userNotFound());
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

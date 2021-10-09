@@ -14,7 +14,7 @@ analyzer:
     prefer_const_literals_to_create_immutables: warning
     prefer_constructors_over_static_methods: warning
     omit_local_variable_types: ignore
-    file_names: ignore
+    prefer_int_literals: ignore
   exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart, lib/build.yaml]
 
 
