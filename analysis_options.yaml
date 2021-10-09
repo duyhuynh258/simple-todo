@@ -1,4 +1,26 @@
 include: package:very_good_analysis/analysis_options.yaml
+analyzer:
+  errors:
+    missing_return: error
+    must_be_immutable: error
+    must_call_super: error
+    invalid_use_of_protected_member: error
+    parameter_assignments: error
+    sort_unnamed_constructors_first: ignore
+    sort_pub_dependencies: ignore
+    prefer_const_constructors: warning
+    prefer_const_constructors_in_immutables: warning
+    prefer_const_declarations: warning
+    prefer_const_literals_to_create_immutables: warning
+    prefer_constructors_over_static_methods: warning
+    omit_local_variable_types: ignore
+    file_names: ignore
+  exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart, lib/build.yaml]
+
+
+
 linter:
   rules:
     public_member_api_docs: false
+    use_key_in_widget_constructors: false
+    lines_longer_than_80_chars: false
