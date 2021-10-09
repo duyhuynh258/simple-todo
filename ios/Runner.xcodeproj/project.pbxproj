@@ -106,6 +106,7 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				9740EEB61CF901F6004384FC /* Run Script */,
+				684AD7302711A6BF0071799E /* Flavor script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
@@ -182,6 +183,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+		};
+		684AD7302711A6BF0071799E /* Flavor script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Flavor script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug-production\" ] || [ \"${CONFIGURATION}\" == \"Release-production\" ] || [ \"${CONFIGURATION}\" == \"Profile-production\" ] || [ \"${CONFIGURATION}\" == \"Release\" ]; then\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Prod/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Prod/Debug.xcconfig\" \"${PROJECT_DIR}/Flutter/Debug.xcconfig\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Prod/Release.xcconfig\" \"${PROJECT_DIR}/Flutter/Release.xcconfig\"\n\necho \"Production plist copied\"\n\nelif [ \"${CONFIGURATION}\" == \"Debug-development\" ] || [ \"${CONFIGURATION}\" == \"Release-development\" ] || [ \"${CONFIGURATION}\" == \"Profile-development\" ] || [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Dev/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Dev/Debug.xcconfig\" \"${PROJECT_DIR}/Flutter/Debug.xcconfig\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Dev/Release.xcconfig\" \"${PROJECT_DIR}/Flutter/Release.xcconfig\"\n\necho \"Development plist copied\"\n\nelif [ \"${CONFIGURATION}\" == \"Debug-staging\" ] || [ \"${CONFIGURATION}\" == \"Release-staging\" ] || [ \"${CONFIGURATION}\" == \"Profile-staging\" ] || [ \"${CONFIGURATION}\" == \"Profile\" ]; then\n\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Stg/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Stg/Debug.xcconfig\" \"${PROJECT_DIR}/Flutter/Debug.xcconfig\"\ncp -r \"${PROJECT_DIR}/Runner/FlavorConfig/Stg/Release.xcconfig\" \"${PROJECT_DIR}/Flutter/Release.xcconfig\"\n\necho \"Staging plist copied\"\nfi\n";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -290,7 +309,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -421,7 +439,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -444,7 +461,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,7 +538,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -598,7 +613,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -671,7 +685,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -749,7 +762,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -825,7 +837,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -898,7 +909,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
-				FLAVOR_APP_NAME = "Simple Todo App";
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
