@@ -13,11 +13,15 @@ class SplashPage extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/images/icon_trello.svg',
+              color: Theme.of(context).primaryColor,
               width: 150,
               height: 150,
             ),
             const SizedBox(height: 16),
-            const LinearProgressIndicator(),
+            LinearProgressIndicator(
+              color: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
           ],
         ),
       ),

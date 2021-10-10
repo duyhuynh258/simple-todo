@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_todo_app/auth/application/auth_bloc.dart';
-import 'package:simple_todo_app/auth/application/sign_bloc.dart';
+import 'package:simple_todo_app/auth/application/sign_in_bloc.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 import 'package:simple_todo_app/core/presentation/app/app_router.dart';
 import 'package:simple_todo_app/core/presentation/circular_progress_container.dart';
@@ -104,6 +104,7 @@ class SignInPageState extends State<SignInPage> {
       transformAlignment: Alignment.topCenter,
       child: SvgPicture.asset(
         'assets/images/icon_trello.svg',
+        color: Theme.of(context).primaryColor,
       ),
     );
   }

@@ -1,11 +1,10 @@
-//State
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 
-part 'sign_bloc.freezed.dart';
+part 'sign_in_bloc.freezed.dart';
 
 @freezed
 class SignInState with _$SignInState {
@@ -73,12 +72,24 @@ class SignInBloc extends Cubit<SignInState> {
   }
 
   Future<void> signInWithGoogle() async {
+    late User signedInUser;
+    late bool isSignedInUserNew;
     final signInWithGoogleFailureOrSuccess =
-        await _authRepository.signInWithGoogle();
+        await _authRepository.signInWithGoogle(onSuccess: (user, isNewUser) {
+      signedInUser = user;
+      isSignedInUserNew = isNewUser;
+    });
 
     signInWithGoogleFailureOrSuccess.fold(
         (l) => emit(SignInState.failure(
-            errorMessage: l.toString(), authProvider: AuthProvider.gmail)),
-        (r) => null);
+            errorMessage: l.toString(),
+            authProvider: AuthProvider.gmail)), (r) {
+      //success
+      emit(SignInState.success(
+          user: signedInUser,
+          authProvider: AuthProvider.gmail,
+          isNewUser: isSignedInUserNew));
+      _authBloc.add(const AuthEvent.authCheckRequested());
+    });
   }
 }

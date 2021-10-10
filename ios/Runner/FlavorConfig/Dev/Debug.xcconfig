@@ -1,5 +1,5 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
 #include "Generated.xcconfig"
-REVERSED_CLIENT_ID=com.googleusercontent.apps.692738422865-tche609chj2vrceg5dm0v01e2em03jhq
+REVERSED_CLIENT_ID=com.googleusercontent.apps.496065058117-si1r40n3c48l72180lf6nm6k7t73tehv
 APP_DISPLAY_NAME=SimpleTodoDevDebug
 FLUTTER_TARGET=lib/main_development.dart
