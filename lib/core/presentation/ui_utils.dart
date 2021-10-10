@@ -16,7 +16,7 @@ class UiUtils {
       action: showAction
           ? SnackBarAction(
               label: 'Retry',
-              onPressed: onPressedAction as void Function(),
+              onPressed: onPressedAction as VoidCallback? ?? () {},
               textColor: Theme.of(context).backgroundColor,
             )
           : null,

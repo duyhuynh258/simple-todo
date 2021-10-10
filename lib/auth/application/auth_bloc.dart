@@ -10,8 +10,20 @@ part 'auth_bloc.freezed.dart';
 enum AuthProvider { gmail, fb, email, mobile, apple }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(this._authRepository) : super(const AuthState.initial());
+  AuthBloc(this._authRepository) : super(const AuthState.initial()) {
+    _userChangesSubscription = _authRepository.onUserChanged().listen((user) {
+      add(const AuthEvent.authCheckRequested());
+    });
+  }
+
   final AuthRepository _authRepository;
+  late StreamSubscription _userChangesSubscription;
+
+  @override
+  Future<void> close() {
+    _userChangesSubscription.cancel();
+    return super.close();
+  }
 
   @override
   Stream<AuthState> mapEventToState(
@@ -36,12 +48,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 @freezed
 class AuthEvent with _$AuthEvent {
   const factory AuthEvent.authCheckRequested() = _AuthCheckRequested;
+
   const factory AuthEvent.signedOut() = _SignedOut;
 }
 
 @freezed
 class AuthState with _$AuthState {
   const factory AuthState.initial() = _Initial;
+
   const factory AuthState.authenticated(User user) = _Authenticated;
+
   const factory AuthState.unauthenticated() = _Unauthenticated;
 }

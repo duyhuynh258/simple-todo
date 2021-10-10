@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:simple_todo_app/auth/domain/auth_failure.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
 import 'package:simple_todo_app/auth/infrastructure/firebase_exception_code_mapper.dart';
@@ -24,6 +25,12 @@ class AuthRepository {
 
   Future<Option<User>> getSignedInUser() async {
     return optionOf(_firebaseUserMapper.toDomain(_firebaseAuth.currentUser));
+  }
+
+  Stream<Option<User>> onUserChanged() async* {
+    yield* _firebaseAuth.userChanges().flatMap((firebaseUser) async* {
+      yield optionOf(_firebaseUserMapper.toDomain(firebaseUser));
+    });
   }
 
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
