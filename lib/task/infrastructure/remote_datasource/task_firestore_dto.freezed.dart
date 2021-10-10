@@ -2,7 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'task_dto.dart';
+part of 'task_firestore_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,20 +13,20 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-TaskDTO _$TaskDTOFromJson(Map<String, dynamic> json) {
-  return _TaskDTO.fromJson(json);
+TaskFirestoreDTO _$TaskFirestoreDTOFromJson(Map<String, dynamic> json) {
+  return _TaskFirestoreDTO.fromJson(json);
 }
 
 /// @nodoc
-class _$TaskDTOTearOff {
-  const _$TaskDTOTearOff();
+class _$TaskFirestoreDTOTearOff {
+  const _$TaskFirestoreDTOTearOff();
 
-  _TaskDTO call(
+  _TaskFirestoreDTO call(
       {@JsonKey(ignore: true) String? id,
       required String body,
       required bool isCompleted,
       @ServerTimestampConverter() required FieldValue serverTimeStamp}) {
-    return _TaskDTO(
+    return _TaskFirestoreDTO(
       id: id,
       body: body,
       isCompleted: isCompleted,
@@ -34,16 +34,16 @@ class _$TaskDTOTearOff {
     );
   }
 
-  TaskDTO fromJson(Map<String, Object?> json) {
-    return TaskDTO.fromJson(json);
+  TaskFirestoreDTO fromJson(Map<String, Object?> json) {
+    return TaskFirestoreDTO.fromJson(json);
   }
 }
 
 /// @nodoc
-const $TaskDTO = _$TaskDTOTearOff();
+const $TaskFirestoreDTO = _$TaskFirestoreDTOTearOff();
 
 /// @nodoc
-mixin _$TaskDTO {
+mixin _$TaskFirestoreDTO {
   @JsonKey(ignore: true)
   String? get id => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
@@ -53,13 +53,15 @@ mixin _$TaskDTO {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TaskDTOCopyWith<TaskDTO> get copyWith => throw _privateConstructorUsedError;
+  $TaskFirestoreDTOCopyWith<TaskFirestoreDTO> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TaskDTOCopyWith<$Res> {
-  factory $TaskDTOCopyWith(TaskDTO value, $Res Function(TaskDTO) then) =
-      _$TaskDTOCopyWithImpl<$Res>;
+abstract class $TaskFirestoreDTOCopyWith<$Res> {
+  factory $TaskFirestoreDTOCopyWith(
+          TaskFirestoreDTO value, $Res Function(TaskFirestoreDTO) then) =
+      _$TaskFirestoreDTOCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(ignore: true) String? id,
       String body,
@@ -68,12 +70,13 @@ abstract class $TaskDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TaskDTOCopyWithImpl<$Res> implements $TaskDTOCopyWith<$Res> {
-  _$TaskDTOCopyWithImpl(this._value, this._then);
+class _$TaskFirestoreDTOCopyWithImpl<$Res>
+    implements $TaskFirestoreDTOCopyWith<$Res> {
+  _$TaskFirestoreDTOCopyWithImpl(this._value, this._then);
 
-  final TaskDTO _value;
+  final TaskFirestoreDTO _value;
   // ignore: unused_field
-  final $Res Function(TaskDTO) _then;
+  final $Res Function(TaskFirestoreDTO) _then;
 
   @override
   $Res call({
@@ -104,9 +107,11 @@ class _$TaskDTOCopyWithImpl<$Res> implements $TaskDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$TaskDTOCopyWith<$Res> implements $TaskDTOCopyWith<$Res> {
-  factory _$TaskDTOCopyWith(_TaskDTO value, $Res Function(_TaskDTO) then) =
-      __$TaskDTOCopyWithImpl<$Res>;
+abstract class _$TaskFirestoreDTOCopyWith<$Res>
+    implements $TaskFirestoreDTOCopyWith<$Res> {
+  factory _$TaskFirestoreDTOCopyWith(
+          _TaskFirestoreDTO value, $Res Function(_TaskFirestoreDTO) then) =
+      __$TaskFirestoreDTOCopyWithImpl<$Res>;
   @override
   $Res call(
       {@JsonKey(ignore: true) String? id,
@@ -116,13 +121,15 @@ abstract class _$TaskDTOCopyWith<$Res> implements $TaskDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$TaskDTOCopyWithImpl<$Res> extends _$TaskDTOCopyWithImpl<$Res>
-    implements _$TaskDTOCopyWith<$Res> {
-  __$TaskDTOCopyWithImpl(_TaskDTO _value, $Res Function(_TaskDTO) _then)
-      : super(_value, (v) => _then(v as _TaskDTO));
+class __$TaskFirestoreDTOCopyWithImpl<$Res>
+    extends _$TaskFirestoreDTOCopyWithImpl<$Res>
+    implements _$TaskFirestoreDTOCopyWith<$Res> {
+  __$TaskFirestoreDTOCopyWithImpl(
+      _TaskFirestoreDTO _value, $Res Function(_TaskFirestoreDTO) _then)
+      : super(_value, (v) => _then(v as _TaskFirestoreDTO));
 
   @override
-  _TaskDTO get _value => super._value as _TaskDTO;
+  _TaskFirestoreDTO get _value => super._value as _TaskFirestoreDTO;
 
   @override
   $Res call({
@@ -131,7 +138,7 @@ class __$TaskDTOCopyWithImpl<$Res> extends _$TaskDTOCopyWithImpl<$Res>
     Object? isCompleted = freezed,
     Object? serverTimeStamp = freezed,
   }) {
-    return _then(_TaskDTO(
+    return _then(_TaskFirestoreDTO(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -154,15 +161,15 @@ class __$TaskDTOCopyWithImpl<$Res> extends _$TaskDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TaskDTO implements _TaskDTO {
-  _$_TaskDTO(
+class _$_TaskFirestoreDTO implements _TaskFirestoreDTO {
+  _$_TaskFirestoreDTO(
       {@JsonKey(ignore: true) this.id,
       required this.body,
       required this.isCompleted,
       @ServerTimestampConverter() required this.serverTimeStamp});
 
-  factory _$_TaskDTO.fromJson(Map<String, dynamic> json) =>
-      _$$_TaskDTOFromJson(json);
+  factory _$_TaskFirestoreDTO.fromJson(Map<String, dynamic> json) =>
+      _$$_TaskFirestoreDTOFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -177,14 +184,14 @@ class _$_TaskDTO implements _TaskDTO {
 
   @override
   String toString() {
-    return 'TaskDTO(id: $id, body: $body, isCompleted: $isCompleted, serverTimeStamp: $serverTimeStamp)';
+    return 'TaskFirestoreDTO(id: $id, body: $body, isCompleted: $isCompleted, serverTimeStamp: $serverTimeStamp)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _TaskDTO &&
+            other is _TaskFirestoreDTO &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.body, body) || other.body == body) &&
             (identical(other.isCompleted, isCompleted) ||
@@ -199,24 +206,25 @@ class _$_TaskDTO implements _TaskDTO {
 
   @JsonKey(ignore: true)
   @override
-  _$TaskDTOCopyWith<_TaskDTO> get copyWith =>
-      __$TaskDTOCopyWithImpl<_TaskDTO>(this, _$identity);
+  _$TaskFirestoreDTOCopyWith<_TaskFirestoreDTO> get copyWith =>
+      __$TaskFirestoreDTOCopyWithImpl<_TaskFirestoreDTO>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TaskDTOToJson(this);
+    return _$$_TaskFirestoreDTOToJson(this);
   }
 }
 
-abstract class _TaskDTO implements TaskDTO {
-  factory _TaskDTO(
+abstract class _TaskFirestoreDTO implements TaskFirestoreDTO {
+  factory _TaskFirestoreDTO(
           {@JsonKey(ignore: true) String? id,
           required String body,
           required bool isCompleted,
           @ServerTimestampConverter() required FieldValue serverTimeStamp}) =
-      _$_TaskDTO;
+      _$_TaskFirestoreDTO;
 
-  factory _TaskDTO.fromJson(Map<String, dynamic> json) = _$_TaskDTO.fromJson;
+  factory _TaskFirestoreDTO.fromJson(Map<String, dynamic> json) =
+      _$_TaskFirestoreDTO.fromJson;
 
   @override
   @JsonKey(ignore: true)
@@ -230,6 +238,6 @@ abstract class _TaskDTO implements TaskDTO {
   FieldValue get serverTimeStamp;
   @override
   @JsonKey(ignore: true)
-  _$TaskDTOCopyWith<_TaskDTO> get copyWith =>
+  _$TaskFirestoreDTOCopyWith<_TaskFirestoreDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

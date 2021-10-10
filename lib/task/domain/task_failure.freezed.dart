@@ -28,6 +28,13 @@ class _$TaskFailureTearOff {
   UnableToUpdate unableToUpdate() {
     return const UnableToUpdate();
   }
+
+  _CreatedLocalButSyncFailed createdLocalButSyncFailed(
+      {required Task localTask}) {
+    return _CreatedLocalButSyncFailed(
+      localTask: localTask,
+    );
+  }
 }
 
 /// @nodoc
@@ -40,6 +47,7 @@ mixin _$TaskFailure {
     required TResult Function() unexpected,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +55,7 @@ mixin _$TaskFailure {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +63,7 @@ mixin _$TaskFailure {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +73,8 @@ mixin _$TaskFailure {
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +82,8 @@ mixin _$TaskFailure {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,6 +91,8 @@ mixin _$TaskFailure {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +156,7 @@ class _$Unexpected extends Unexpected {
     required TResult Function() unexpected,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return unexpected();
   }
@@ -150,6 +167,7 @@ class _$Unexpected extends Unexpected {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return unexpected?.call();
   }
@@ -160,6 +178,7 @@ class _$Unexpected extends Unexpected {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -175,6 +194,8 @@ class _$Unexpected extends Unexpected {
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
   }) {
     return unexpected(this);
   }
@@ -185,6 +206,8 @@ class _$Unexpected extends Unexpected {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
   }) {
     return unexpected?.call(this);
   }
@@ -195,6 +218,8 @@ class _$Unexpected extends Unexpected {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (unexpected != null) {
@@ -253,6 +278,7 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     required TResult Function() unexpected,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return insufficientPermissions();
   }
@@ -263,6 +289,7 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return insufficientPermissions?.call();
   }
@@ -273,6 +300,7 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (insufficientPermissions != null) {
@@ -288,6 +316,8 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
   }) {
     return insufficientPermissions(this);
   }
@@ -298,6 +328,8 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
   }) {
     return insufficientPermissions?.call(this);
   }
@@ -308,6 +340,8 @@ class _$InsufficientPermissions extends InsufficientPermissions {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (insufficientPermissions != null) {
@@ -365,6 +399,7 @@ class _$UnableToUpdate extends UnableToUpdate {
     required TResult Function() unexpected,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return unableToUpdate();
   }
@@ -375,6 +410,7 @@ class _$UnableToUpdate extends UnableToUpdate {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return unableToUpdate?.call();
   }
@@ -385,6 +421,7 @@ class _$UnableToUpdate extends UnableToUpdate {
     TResult Function()? unexpected,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (unableToUpdate != null) {
@@ -400,6 +437,8 @@ class _$UnableToUpdate extends UnableToUpdate {
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
   }) {
     return unableToUpdate(this);
   }
@@ -410,6 +449,8 @@ class _$UnableToUpdate extends UnableToUpdate {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
   }) {
     return unableToUpdate?.call(this);
   }
@@ -420,6 +461,8 @@ class _$UnableToUpdate extends UnableToUpdate {
     TResult Function(Unexpected value)? unexpected,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
     if (unableToUpdate != null) {
@@ -432,4 +475,168 @@ class _$UnableToUpdate extends UnableToUpdate {
 abstract class UnableToUpdate extends TaskFailure {
   const factory UnableToUpdate() = _$UnableToUpdate;
   const UnableToUpdate._() : super._();
+}
+
+/// @nodoc
+abstract class _$CreatedLocalButSyncFailedCopyWith<$Res> {
+  factory _$CreatedLocalButSyncFailedCopyWith(_CreatedLocalButSyncFailed value,
+          $Res Function(_CreatedLocalButSyncFailed) then) =
+      __$CreatedLocalButSyncFailedCopyWithImpl<$Res>;
+  $Res call({Task localTask});
+
+  $TaskCopyWith<$Res> get localTask;
+}
+
+/// @nodoc
+class __$CreatedLocalButSyncFailedCopyWithImpl<$Res>
+    extends _$TaskFailureCopyWithImpl<$Res>
+    implements _$CreatedLocalButSyncFailedCopyWith<$Res> {
+  __$CreatedLocalButSyncFailedCopyWithImpl(_CreatedLocalButSyncFailed _value,
+      $Res Function(_CreatedLocalButSyncFailed) _then)
+      : super(_value, (v) => _then(v as _CreatedLocalButSyncFailed));
+
+  @override
+  _CreatedLocalButSyncFailed get _value =>
+      super._value as _CreatedLocalButSyncFailed;
+
+  @override
+  $Res call({
+    Object? localTask = freezed,
+  }) {
+    return _then(_CreatedLocalButSyncFailed(
+      localTask: localTask == freezed
+          ? _value.localTask
+          : localTask // ignore: cast_nullable_to_non_nullable
+              as Task,
+    ));
+  }
+
+  @override
+  $TaskCopyWith<$Res> get localTask {
+    return $TaskCopyWith<$Res>(_value.localTask, (value) {
+      return _then(_value.copyWith(localTask: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
+  const _$_CreatedLocalButSyncFailed({required this.localTask}) : super._();
+
+  @override
+  final Task localTask;
+
+  @override
+  String toString() {
+    return 'TaskFailure.createdLocalButSyncFailed(localTask: $localTask)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CreatedLocalButSyncFailed &&
+            (identical(other.localTask, localTask) ||
+                other.localTask == localTask));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, localTask);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CreatedLocalButSyncFailedCopyWith<_CreatedLocalButSyncFailed>
+      get copyWith =>
+          __$CreatedLocalButSyncFailedCopyWithImpl<_CreatedLocalButSyncFailed>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermissions,
+    required TResult Function() unableToUpdate,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
+  }) {
+    return createdLocalButSyncFailed(localTask);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+  }) {
+    return createdLocalButSyncFailed?.call(localTask);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (createdLocalButSyncFailed != null) {
+      return createdLocalButSyncFailed(localTask);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(InsufficientPermissions value)
+        insufficientPermissions,
+    required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
+  }) {
+    return createdLocalButSyncFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+  }) {
+    return createdLocalButSyncFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (createdLocalButSyncFailed != null) {
+      return createdLocalButSyncFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreatedLocalButSyncFailed extends TaskFailure {
+  const factory _CreatedLocalButSyncFailed({required Task localTask}) =
+      _$_CreatedLocalButSyncFailed;
+  const _CreatedLocalButSyncFailed._() : super._();
+
+  Task get localTask;
+  @JsonKey(ignore: true)
+  _$CreatedLocalButSyncFailedCopyWith<_CreatedLocalButSyncFailed>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -17,7 +17,14 @@ class _HomePageState extends State<HomePage> {
       create: (context) => TabBarBloc(),
       child: Builder(builder: (context) {
         return Scaffold(
-          bottomNavigationBar: NavigationBarWidget(),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
+            splashColor: Theme.of(context).scaffoldBackgroundColor,
+            highlightElevation: 3.0,
+            onPressed: () {},
+            child: const Icon(Icons.add),
+          ),
+          bottomNavigationBar: const NavigationBarWidget(),
         );
       }),
     );

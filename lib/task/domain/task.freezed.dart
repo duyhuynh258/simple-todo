@@ -18,10 +18,14 @@ class _$TaskTearOff {
   const _$TaskTearOff();
 
   _Task call(
-      {required String id, required String body, required bool isComplete}) {
+      {required String id,
+      required String body,
+      required bool isSynchronized,
+      required bool isComplete}) {
     return _Task(
       id: id,
       body: body,
+      isSynchronized: isSynchronized,
       isComplete: isComplete,
     );
   }
@@ -34,6 +38,7 @@ const $Task = _$TaskTearOff();
 mixin _$Task {
   String get id => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
+  bool get isSynchronized => throw _privateConstructorUsedError;
   bool get isComplete => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -44,7 +49,7 @@ mixin _$Task {
 abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res>;
-  $Res call({String id, String body, bool isComplete});
+  $Res call({String id, String body, bool isSynchronized, bool isComplete});
 }
 
 /// @nodoc
@@ -59,6 +64,7 @@ class _$TaskCopyWithImpl<$Res> implements $TaskCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? body = freezed,
+    Object? isSynchronized = freezed,
     Object? isComplete = freezed,
   }) {
     return _then(_value.copyWith(
@@ -70,6 +76,10 @@ class _$TaskCopyWithImpl<$Res> implements $TaskCopyWith<$Res> {
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      isSynchronized: isSynchronized == freezed
+          ? _value.isSynchronized
+          : isSynchronized // ignore: cast_nullable_to_non_nullable
+              as bool,
       isComplete: isComplete == freezed
           ? _value.isComplete
           : isComplete // ignore: cast_nullable_to_non_nullable
@@ -83,7 +93,7 @@ abstract class _$TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
   factory _$TaskCopyWith(_Task value, $Res Function(_Task) then) =
       __$TaskCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String body, bool isComplete});
+  $Res call({String id, String body, bool isSynchronized, bool isComplete});
 }
 
 /// @nodoc
@@ -99,6 +109,7 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? body = freezed,
+    Object? isSynchronized = freezed,
     Object? isComplete = freezed,
   }) {
     return _then(_Task(
@@ -110,6 +121,10 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      isSynchronized: isSynchronized == freezed
+          ? _value.isSynchronized
+          : isSynchronized // ignore: cast_nullable_to_non_nullable
+              as bool,
       isComplete: isComplete == freezed
           ? _value.isComplete
           : isComplete // ignore: cast_nullable_to_non_nullable
@@ -122,7 +137,10 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
 
 class _$_Task extends _Task {
   const _$_Task(
-      {required this.id, required this.body, required this.isComplete})
+      {required this.id,
+      required this.body,
+      required this.isSynchronized,
+      required this.isComplete})
       : super._();
 
   @override
@@ -130,11 +148,13 @@ class _$_Task extends _Task {
   @override
   final String body;
   @override
+  final bool isSynchronized;
+  @override
   final bool isComplete;
 
   @override
   String toString() {
-    return 'Task(id: $id, body: $body, isComplete: $isComplete)';
+    return 'Task(id: $id, body: $body, isSynchronized: $isSynchronized, isComplete: $isComplete)';
   }
 
   @override
@@ -144,12 +164,15 @@ class _$_Task extends _Task {
             other is _Task &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.body, body) || other.body == body) &&
+            (identical(other.isSynchronized, isSynchronized) ||
+                other.isSynchronized == isSynchronized) &&
             (identical(other.isComplete, isComplete) ||
                 other.isComplete == isComplete));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, body, isComplete);
+  int get hashCode =>
+      Object.hash(runtimeType, id, body, isSynchronized, isComplete);
 
   @JsonKey(ignore: true)
   @override
@@ -161,6 +184,7 @@ abstract class _Task extends Task {
   const factory _Task(
       {required String id,
       required String body,
+      required bool isSynchronized,
       required bool isComplete}) = _$_Task;
   const _Task._() : super._();
 
@@ -168,6 +192,8 @@ abstract class _Task extends Task {
   String get id;
   @override
   String get body;
+  @override
+  bool get isSynchronized;
   @override
   bool get isComplete;
   @override

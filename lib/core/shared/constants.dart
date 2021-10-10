@@ -1,6 +1,7 @@
 //Sembast all stores name
 const String authStore = 'auth';
 const String settingsStore = 'settings';
+const String tasksStore = 'tasks';
 
 //settings box keys & values
 const String vibrationKey = 'vibration';
