@@ -12,3 +12,5 @@ const Color darkSecondaryColor = Colors.white; //work as secondary color
 const Color darkBackgroundColor = Color(0xff393939);
 const Color darkPageBackgroundColor = Color(0xFF3D3D3D);
 const Color darkCanvasColor = Color(0xff5A5A5A);
+const Color todoColor = Colors.lightBlueAccent;
+const Color completedColor = Colors.lightGreen;
