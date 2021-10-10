@@ -19,14 +19,13 @@ class SettingsState with _$SettingsState {
 }
 
 class SettingsBloc extends Cubit<SettingsState> {
-  SettingsBloc(this._settingsRepository) : super(SettingsState.initial()) {
-    _getCurrentSettings();
-  }
+  SettingsBloc(this._settingsRepository) : super(SettingsState.initial());
 
   final SettingsRepository _settingsRepository;
 
-  void _getCurrentSettings() {
-    _settingsRepository.getCurrentSettings().fold((l) {
+  Future<void> init() async {
+    final failureOrSettings = await _settingsRepository.getCurrentSettings();
+    failureOrSettings.fold((l) {
       emit(state.copyWith(failure: l));
     }, (r) {
       emit(state.copyWith(settings: r));

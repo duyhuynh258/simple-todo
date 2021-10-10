@@ -1,6 +1,6 @@
-//Hive all boxes name
-const String authBox = 'auth';
-const String settingsBox = 'settings';
+//Sembast all stores name
+const String authStore = 'auth';
+const String settingsStore = 'settings';
 
 //settings box keys & values
 const String vibrationKey = 'vibration';

@@ -2,7 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'setting_dto.dart';
+part of 'settings_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,60 +13,60 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SettingDTO _$SettingDTOFromJson(Map<String, dynamic> json) {
-  return _SettingDTO.fromJson(json);
+SettingsDTO _$SettingsDTOFromJson(Map<String, dynamic> json) {
+  return _SettingsDTO.fromJson(json);
 }
 
 /// @nodoc
-class _$SettingDTOTearOff {
-  const _$SettingDTOTearOff();
+class _$SettingsDTOTearOff {
+  const _$SettingsDTOTearOff();
 
-  _SettingDTO call(
+  _SettingsDTO call(
       {required bool vibration,
       required String theme,
       required double fontSize}) {
-    return _SettingDTO(
+    return _SettingsDTO(
       vibration: vibration,
       theme: theme,
       fontSize: fontSize,
     );
   }
 
-  SettingDTO fromJson(Map<String, Object?> json) {
-    return SettingDTO.fromJson(json);
+  SettingsDTO fromJson(Map<String, Object?> json) {
+    return SettingsDTO.fromJson(json);
   }
 }
 
 /// @nodoc
-const $SettingDTO = _$SettingDTOTearOff();
+const $SettingsDTO = _$SettingsDTOTearOff();
 
 /// @nodoc
-mixin _$SettingDTO {
+mixin _$SettingsDTO {
   bool get vibration => throw _privateConstructorUsedError;
   String get theme => throw _privateConstructorUsedError;
   double get fontSize => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SettingDTOCopyWith<SettingDTO> get copyWith =>
+  $SettingsDTOCopyWith<SettingsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SettingDTOCopyWith<$Res> {
-  factory $SettingDTOCopyWith(
-          SettingDTO value, $Res Function(SettingDTO) then) =
-      _$SettingDTOCopyWithImpl<$Res>;
+abstract class $SettingsDTOCopyWith<$Res> {
+  factory $SettingsDTOCopyWith(
+          SettingsDTO value, $Res Function(SettingsDTO) then) =
+      _$SettingsDTOCopyWithImpl<$Res>;
   $Res call({bool vibration, String theme, double fontSize});
 }
 
 /// @nodoc
-class _$SettingDTOCopyWithImpl<$Res> implements $SettingDTOCopyWith<$Res> {
-  _$SettingDTOCopyWithImpl(this._value, this._then);
+class _$SettingsDTOCopyWithImpl<$Res> implements $SettingsDTOCopyWith<$Res> {
+  _$SettingsDTOCopyWithImpl(this._value, this._then);
 
-  final SettingDTO _value;
+  final SettingsDTO _value;
   // ignore: unused_field
-  final $Res Function(SettingDTO) _then;
+  final $Res Function(SettingsDTO) _then;
 
   @override
   $Res call({
@@ -92,23 +92,24 @@ class _$SettingDTOCopyWithImpl<$Res> implements $SettingDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SettingDTOCopyWith<$Res> implements $SettingDTOCopyWith<$Res> {
-  factory _$SettingDTOCopyWith(
-          _SettingDTO value, $Res Function(_SettingDTO) then) =
-      __$SettingDTOCopyWithImpl<$Res>;
+abstract class _$SettingsDTOCopyWith<$Res>
+    implements $SettingsDTOCopyWith<$Res> {
+  factory _$SettingsDTOCopyWith(
+          _SettingsDTO value, $Res Function(_SettingsDTO) then) =
+      __$SettingsDTOCopyWithImpl<$Res>;
   @override
   $Res call({bool vibration, String theme, double fontSize});
 }
 
 /// @nodoc
-class __$SettingDTOCopyWithImpl<$Res> extends _$SettingDTOCopyWithImpl<$Res>
-    implements _$SettingDTOCopyWith<$Res> {
-  __$SettingDTOCopyWithImpl(
-      _SettingDTO _value, $Res Function(_SettingDTO) _then)
-      : super(_value, (v) => _then(v as _SettingDTO));
+class __$SettingsDTOCopyWithImpl<$Res> extends _$SettingsDTOCopyWithImpl<$Res>
+    implements _$SettingsDTOCopyWith<$Res> {
+  __$SettingsDTOCopyWithImpl(
+      _SettingsDTO _value, $Res Function(_SettingsDTO) _then)
+      : super(_value, (v) => _then(v as _SettingsDTO));
 
   @override
-  _SettingDTO get _value => super._value as _SettingDTO;
+  _SettingsDTO get _value => super._value as _SettingsDTO;
 
   @override
   $Res call({
@@ -116,7 +117,7 @@ class __$SettingDTOCopyWithImpl<$Res> extends _$SettingDTOCopyWithImpl<$Res>
     Object? theme = freezed,
     Object? fontSize = freezed,
   }) {
-    return _then(_SettingDTO(
+    return _then(_SettingsDTO(
       vibration: vibration == freezed
           ? _value.vibration
           : vibration // ignore: cast_nullable_to_non_nullable
@@ -135,13 +136,13 @@ class __$SettingDTOCopyWithImpl<$Res> extends _$SettingDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SettingDTO extends _SettingDTO {
-  const _$_SettingDTO(
+class _$_SettingsDTO extends _SettingsDTO {
+  const _$_SettingsDTO(
       {required this.vibration, required this.theme, required this.fontSize})
       : super._();
 
-  factory _$_SettingDTO.fromJson(Map<String, dynamic> json) =>
-      _$$_SettingDTOFromJson(json);
+  factory _$_SettingsDTO.fromJson(Map<String, dynamic> json) =>
+      _$$_SettingsDTOFromJson(json);
 
   @override
   final bool vibration;
@@ -152,14 +153,14 @@ class _$_SettingDTO extends _SettingDTO {
 
   @override
   String toString() {
-    return 'SettingDTO(vibration: $vibration, theme: $theme, fontSize: $fontSize)';
+    return 'SettingsDTO(vibration: $vibration, theme: $theme, fontSize: $fontSize)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SettingDTO &&
+            other is _SettingsDTO &&
             (identical(other.vibration, vibration) ||
                 other.vibration == vibration) &&
             (identical(other.theme, theme) || other.theme == theme) &&
@@ -172,24 +173,24 @@ class _$_SettingDTO extends _SettingDTO {
 
   @JsonKey(ignore: true)
   @override
-  _$SettingDTOCopyWith<_SettingDTO> get copyWith =>
-      __$SettingDTOCopyWithImpl<_SettingDTO>(this, _$identity);
+  _$SettingsDTOCopyWith<_SettingsDTO> get copyWith =>
+      __$SettingsDTOCopyWithImpl<_SettingsDTO>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SettingDTOToJson(this);
+    return _$$_SettingsDTOToJson(this);
   }
 }
 
-abstract class _SettingDTO extends SettingDTO {
-  const factory _SettingDTO(
+abstract class _SettingsDTO extends SettingsDTO {
+  const factory _SettingsDTO(
       {required bool vibration,
       required String theme,
-      required double fontSize}) = _$_SettingDTO;
-  const _SettingDTO._() : super._();
+      required double fontSize}) = _$_SettingsDTO;
+  const _SettingsDTO._() : super._();
 
-  factory _SettingDTO.fromJson(Map<String, dynamic> json) =
-      _$_SettingDTO.fromJson;
+  factory _SettingsDTO.fromJson(Map<String, dynamic> json) =
+      _$_SettingsDTO.fromJson;
 
   @override
   bool get vibration;
@@ -199,6 +200,6 @@ abstract class _SettingDTO extends SettingDTO {
   double get fontSize;
   @override
   @JsonKey(ignore: true)
-  _$SettingDTOCopyWith<_SettingDTO> get copyWith =>
+  _$SettingsDTOCopyWith<_SettingsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }

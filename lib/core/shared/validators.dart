@@ -6,7 +6,7 @@ class Validators {
     } else if (!RegExp(
             r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
             r'*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+'
-            r'[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
+            '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?')
         .hasMatch(value)) {
       return validEmailMessage;
     } else {
@@ -21,7 +21,7 @@ class Validators {
     final pattern =
         RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
             r'*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+'
-            r'[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
+            '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
     return pattern.hasMatch(value);
   }
 

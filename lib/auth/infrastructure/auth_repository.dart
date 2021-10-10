@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:simple_todo_app/auth/domain/auth_failure.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
+import 'package:simple_todo_app/auth/infrastructure/firebase_exception_code_mapper.dart';
 import 'package:simple_todo_app/auth/infrastructure/firebase_user_mapper.dart';
 
 typedef SignInSuccessCallback = void Function(User, bool);
@@ -121,6 +124,33 @@ class AuthRepository {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  //create user account
+  Future<Either<AuthFailure, Unit>> signUpUserWithEmailAndPassword({
+    required String email,
+    required String password,
+    SignInSuccessCallback? onSuccess,
+  }) async {
+    try {
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final user = FirebaseUserMapper().toDomain(userCredential.user);
+      if (user == null) {
+        return left(const AuthFailure.userNotFound());
+      }
+      //verify email address
+      await userCredential.user!.sendEmailVerification().then((value) =>
+          onSuccess?.call(
+              user, userCredential.additionalUserInfo?.isNewUser ?? false));
+      return right(unit);
+    } on firebase.FirebaseAuthException catch (e) {
+      return left(e.code.firebaseErrorCodeToFailure());
+    } on SocketException catch (_) {
+      return left(const AuthFailure.noInternet());
+    } catch (e) {
+      return left(AuthFailure.serverError(errorMessage: e.toString()));
     }
   }
 }

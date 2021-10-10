@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/auth/application/sign_bloc.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
@@ -103,7 +102,9 @@ class SignInPageState extends State<SignInPage> {
   Widget showTopImage() {
     return Container(
       transformAlignment: Alignment.topCenter,
-      child: const Icon(MdiIcons.trello),
+      child: SvgPicture.asset(
+        'assets/images/icon_trello.svg',
+      ),
     );
   }
 
@@ -403,10 +404,10 @@ class SignInPageState extends State<SignInPage> {
                   child: InkWell(
                     onTap: () async {
                       UiUtils.setSnackBar('Coming soon', context, false);
-                      // context.read<SignInCubit>().signInUser(AuthProvider.fb);
+                      //TODO: Handle sign in with apple flow
                     },
                     child: SvgPicture.asset(
-                      'assets/images/Icon ionic-logo-apple.svg',
+                      'assets/images/icon_apple.svg',
                       height: MediaQuery.of(context).size.height * .07,
                       width: MediaQuery.of(context).size.width * .1,
                     ),
@@ -417,43 +418,14 @@ class SignInPageState extends State<SignInPage> {
                 child: InkWell(
                   onTap: () async {
                     await context.read<SignInBloc>().signInWithGoogle();
-                    // context.read<SignInCubit>().signInUser(AuthProvider.fb);
                   },
                   child: SvgPicture.asset(
-                    'assets/images/google_icon.svg',
-                    height: MediaQuery.of(context).size.height * .07,
-                    width: MediaQuery.of(context).size.width * .1,
+                    'assets/images/icon_google.svg',
+                    height: MediaQuery.of(context).size.height * .055,
+                    width: MediaQuery.of(context).size.width * .085,
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              //   child: InkWell(
-              //     onTap: () async {
-              //       context.read<SignInCubit>().signInUser(AuthProvider.fb);
-              //       // context.read<SignInCubit>().signInUser(AuthProvider.gmail);
-              //     },
-              //     child: SvgPicture.asset(
-              //       'assets/images/facebook_icon.svg',
-              //       height: MediaQuery.of(context).size.height * .07,
-              //       width: MediaQuery.of(context).size.width * .1,
-              //     ),
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(
-              //       context,
-              //       PageRouteBuilder(
-              //           pageBuilder: (context, anim1, anim2) => OtpScreen()),
-              //     );
-              //   },
-              //   child: SvgPicture.asset(
-              //     'assets/images/phone_icon.svg',
-              //     height: MediaQuery.of(context).size.height * .07,
-              //     width: MediaQuery.of(context).size.width * .1,
-              //   ),
-              // ),
             ],
           ),
         );

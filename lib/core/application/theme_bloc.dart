@@ -19,16 +19,20 @@ class ThemeState with _$ThemeState {
 }
 
 class ThemeBloc extends Cubit<ThemeState> {
-  ThemeBloc(this.settingsRepository) : super(ThemeState.initial()) {
-    settingsRepository.getCurrentSettings().fold((l) {
-      emit(state.copyWith(failure: l));
-      log('Failed to load theme from local settings.');
-    }, (r) {
-      emit(ThemeState(appTheme: r.theme));
-    });
-  }
+  ThemeBloc(this.settingsRepository) : super(ThemeState.initial());
 
   final SettingsRepository settingsRepository;
+
+  Future<void> init() async {
+    await settingsRepository.getCurrentSettings().then((failureOrSettings) {
+      failureOrSettings.fold((l) {
+        emit(state.copyWith(failure: l));
+        log('Failed to load theme from local settings.');
+      }, (r) {
+        emit(ThemeState(appTheme: r.theme));
+      });
+    });
+  }
 
   void changeTheme(AppTheme appTheme) {
     settingsRepository.changeTheme(appTheme).fold((l) {

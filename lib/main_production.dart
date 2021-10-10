@@ -3,17 +3,18 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:simple_todo_app/core/presentation/app/app.dart';
 import 'package:simple_todo_app/core/presentation/app/app_bloc_observer.dart';
+import 'package:simple_todo_app/core/presentation/app/app_widget.dart';
 
-void main() {
+Future<void> main() async {
+  await flutterInitialize();
   Bloc.observer = AppBlocObserver();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  runZonedGuarded(
-    () => runApp(const App()),
+  await runZonedGuarded(
+    () async => runApp(const AppWidget()),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

@@ -392,13 +392,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  hive:
-    dependency: "direct main"
-    description:
-      name: hive
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.4"
   http:
     dependency: transitive
     description:
@@ -483,13 +476,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.10"
-  material_design_icons_flutter:
-    dependency: "direct main"
-    description:
-      name: material_design_icons_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.5955"
   meta:
     dependency: transitive
     description:
@@ -554,7 +540,7 @@ packages:
     source: hosted
     version: "0.2.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -672,6 +658,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.2"
+  sembast:
+    dependency: "direct main"
+    description:
+      name: sembast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   shelf:
     dependency: transitive
     description:
@@ -768,6 +761,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   term_glyph:
     dependency: transitive
     description:

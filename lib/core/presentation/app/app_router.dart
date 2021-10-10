@@ -5,8 +5,8 @@ import 'package:simple_todo_app/auth/presentation/sign_up_page.dart';
 import 'package:simple_todo_app/splash/presentation/splash_page.dart';
 
 class Routes {
-  static const home = '/';
-  static const login = 'login';
+  static const home = '/home';
+  static const signIn = 'signIn';
   static const splash = 'splash';
   static const signUp = 'signUp';
 
@@ -18,7 +18,7 @@ class Routes {
       // case home:
       //   return HomeScreen.route(routeSettings);
 
-      case login:
+      case signIn:
         return CupertinoPageRoute<void>(
             builder: (context) => const SignInPage());
       case signUp:
