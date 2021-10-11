@@ -6,10 +6,12 @@ part 'task_failure.freezed.dart';
 @freezed
 class TaskFailure with _$TaskFailure {
   const factory TaskFailure.unexpected() = Unexpected;
+  const factory TaskFailure.noInternet() = _NoInternet;
 
   const factory TaskFailure.insufficientPermissions() = InsufficientPermissions;
 
   const factory TaskFailure.unableToUpdate() = UnableToUpdate;
+  const factory TaskFailure.localStorage() = _LocalStorage;
   const factory TaskFailure.createdLocalButSyncFailed(
       {required Task localTask}) = _CreatedLocalButSyncFailed;
 

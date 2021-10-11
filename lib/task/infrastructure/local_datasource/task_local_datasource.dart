@@ -1,65 +1,94 @@
 import 'package:sembast/sembast.dart';
+import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
 import 'package:simple_todo_app/core/shared/constants.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
+import 'package:simple_todo_app/task/infrastructure/exceptions.dart';
+import 'package:simple_todo_app/task/infrastructure/local_datasource/task_paginated_sembast_query.dart';
+import 'package:simple_todo_app/task/infrastructure/local_datasource/task_sembast_dto.dart';
+import 'package:simple_todo_app/task/infrastructure/pagination_config.dart';
 
 class TaskLocalDatasource {
-  TaskLocalDatasource(this._sembastDatabase);
+  TaskLocalDatasource(this._sembastDatabase) {
+    _watchAllPaginatedFinder = TaskPaginatedSembastFinder(
+        numberOfItemToFetch:
+            PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
+        finder: Finder(sortOrders: [SortOrder('serverTimeStamp', false)]));
+
+    _watchUncompletedPaginatedFinder = TaskPaginatedSembastFinder(
+        numberOfItemToFetch:
+            PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
+        finder: Finder(
+            sortOrders: [SortOrder('serverTimeStamp', false)],
+            filter: Filter.equals('isCompleted', false)));
+  }
 
   final SembastDatabase _sembastDatabase;
   final _store = stringMapStoreFactory.store(tasksStore);
 
-  Stream<List<Task>> watchAll() async* {
-    _store
-        .query(
-            finder: Finder(sortOrders: [SortOrder('serverTimeStamp', false)]))
-        .onSnapshot(_sembastDatabase.instance);
-    // final userDoc = await _firestore.userDocument(user);
-    // yield* userDoc.taskCollection
-    //     .orderBy('serverTimeStamp', descending: true)
-    //     .snapshots()
-    //     .map(
-    //       (snapshot) => dartz.right<TaskFailure, List<Task>>(
-    //         snapshot.docs
-    //             .map((doc) => TaskDTO.fromFirestore(doc).toDomain())
-    //             .toList(growable: false),
-    //       ),
-    //     )
-    //     .onErrorReturnWith((e, s) {
-    //   if (e is PlatformException &&
-    //       (e.message?.contains('PERMISSION_DENIED') ?? false)) {
-    //     return dartz.left(const TaskFailure.insufficientPermissions());
-    //   } else {
-    //     // TODO: Log these unexpected errors everywhere
-    //     return dartz.left(const TaskFailure.unexpected());
-    //   }
-    // });
+  late TaskPaginatedSembastFinder _watchAllPaginatedFinder;
+  late TaskPaginatedSembastFinder _watchUncompletedPaginatedFinder;
+
+  Future<PaginatedList<Task>> getAllTasks(
+      {bool nextPage = false, int loadedItemsCount = 0}) async {
+    if (nextPage == false) {
+      _watchAllPaginatedFinder =
+          _watchAllPaginatedFinder.copyWith(lastRecord: null);
+    }
+    try {
+      final List<RecordSnapshot<String, Map<String, dynamic>>> records =
+          await _store
+              .query(finder: _watchAllPaginatedFinder.paginatedFinder)
+              .getSnapshots(_sembastDatabase.instance);
+
+      final isNextPageAvailable =
+          records.length > PaginationConfig.itemsPerPage;
+      final List<RecordSnapshot<String, Map<String, dynamic>>> pageRecords =
+          records..removeRecordsOutOfPage();
+      // Update last doc
+      _watchAllPaginatedFinder =
+          _watchAllPaginatedFinder.copyWith(lastRecord: pageRecords.last);
+      return PaginatedList(
+        entities: pageRecords
+            .map((record) => TaskSembastDTO.fromSembast(record).toDomain())
+            .toList(growable: false),
+        isNextPageAvailable: isNextPageAvailable,
+      );
+    } catch (e) {
+      //TODO: handle more exceptions
+      throw const TaskLocalDataSourceException.platformException();
+    }
   }
 
-  Stream<List<Task>> watchUncompleted() async* {
-    // final userDoc = await _firestore.userDocument(user);
-    // yield* userDoc.taskCollection
-    //     .orderBy('serverTimeStamp', descending: true)
-    //     .snapshots()
-    //     .map(
-    //       (snapshot) =>
-    //           snapshot.docs.map((doc) => TaskDTO.fromFirestore(doc).toDomain()),
-    //     )
-    //     .map(
-    //       (tasks) => dartz.right<TaskFailure, List<Task>>(
-    //         tasks
-    //             .where((task) => task.isComplete == false)
-    //             .toList(growable: false),
-    //       ),
-    //     )
-    //     .onErrorReturnWith((e, s) {
-    //   if (e is PlatformException &&
-    //       (e.message?.contains('PERMISSION_DENIED') ?? false)) {
-    //     return dartz.left(const TaskFailure.insufficientPermissions());
-    //   } else {
-    //     return dartz.left(const TaskFailure.unexpected());
-    //   }
-    // });
+  Future<PaginatedList<Task>> getUncompletedTasks(
+      {bool nextPage = false, int loadedItemsCount = 0}) async {
+    if (nextPage == false) {
+      _watchUncompletedPaginatedFinder =
+          _watchUncompletedPaginatedFinder.copyWith(lastRecord: null);
+    }
+    try {
+      final List<RecordSnapshot<String, Map<String, dynamic>>> records =
+          await _store
+              .query(finder: _watchUncompletedPaginatedFinder.paginatedFinder)
+              .getSnapshots(_sembastDatabase.instance);
+
+      final isNextPageAvailable =
+          records.length > PaginationConfig.itemsPerPage;
+      final List<RecordSnapshot<String, Map<String, dynamic>>> pageRecords =
+          records..removeRecordsOutOfPage();
+      // Update last doc
+      _watchUncompletedPaginatedFinder = _watchUncompletedPaginatedFinder
+          .copyWith(lastRecord: pageRecords.last);
+      return PaginatedList(
+        entities: pageRecords
+            .map((record) => TaskSembastDTO.fromSembast(record).toDomain())
+            .toList(growable: false),
+        isNextPageAvailable: isNextPageAvailable,
+      );
+    } catch (e) {
+      //TODO: handle more exceptions
+      throw const TaskLocalDataSourceException.platformException();
+    }
   }
 
   Future<void> create(Task task) async {
@@ -117,5 +146,18 @@ class TaskLocalDatasource {
     //     return dartz.left(const TaskFailure.unexpected());
     //   }
     // }
+  }
+}
+
+extension RemoveDocsOutOfPage
+    on List<RecordSnapshot<String, Map<String, dynamic>>> {
+  void removeRecordsOutOfPage() {
+    if (length <= PaginationConfig.itemsPerPage) {
+      return;
+    }
+    final snapshotsOutOfPageCount = length - PaginationConfig.itemsPerPage;
+    for (int i = 0; i < snapshotsOutOfPageCount; i++) {
+      removeLast();
+    }
   }
 }

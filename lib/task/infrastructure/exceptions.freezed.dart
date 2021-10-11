@@ -439,3 +439,169 @@ abstract class _InsufficientPermissions extends TaskRemoteDataSourceException {
   const factory _InsufficientPermissions() = _$_InsufficientPermissions;
   const _InsufficientPermissions._() : super._();
 }
+
+/// @nodoc
+class _$TaskLocalDataSourceExceptionTearOff {
+  const _$TaskLocalDataSourceExceptionTearOff();
+
+  _PlatformException platformException() {
+    return const _PlatformException();
+  }
+}
+
+/// @nodoc
+const $TaskLocalDataSourceException = _$TaskLocalDataSourceExceptionTearOff();
+
+/// @nodoc
+mixin _$TaskLocalDataSourceException {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() platformException,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? platformException,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? platformException,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PlatformException value) platformException,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PlatformException value)? platformException,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PlatformException value)? platformException,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TaskLocalDataSourceExceptionCopyWith<$Res> {
+  factory $TaskLocalDataSourceExceptionCopyWith(
+          TaskLocalDataSourceException value,
+          $Res Function(TaskLocalDataSourceException) then) =
+      _$TaskLocalDataSourceExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$TaskLocalDataSourceExceptionCopyWithImpl<$Res>
+    implements $TaskLocalDataSourceExceptionCopyWith<$Res> {
+  _$TaskLocalDataSourceExceptionCopyWithImpl(this._value, this._then);
+
+  final TaskLocalDataSourceException _value;
+  // ignore: unused_field
+  final $Res Function(TaskLocalDataSourceException) _then;
+}
+
+/// @nodoc
+abstract class _$PlatformExceptionCopyWith<$Res> {
+  factory _$PlatformExceptionCopyWith(
+          _PlatformException value, $Res Function(_PlatformException) then) =
+      __$PlatformExceptionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PlatformExceptionCopyWithImpl<$Res>
+    extends _$TaskLocalDataSourceExceptionCopyWithImpl<$Res>
+    implements _$PlatformExceptionCopyWith<$Res> {
+  __$PlatformExceptionCopyWithImpl(
+      _PlatformException _value, $Res Function(_PlatformException) _then)
+      : super(_value, (v) => _then(v as _PlatformException));
+
+  @override
+  _PlatformException get _value => super._value as _PlatformException;
+}
+
+/// @nodoc
+
+class _$_PlatformException extends _PlatformException {
+  const _$_PlatformException() : super._();
+
+  @override
+  String toString() {
+    return 'TaskLocalDataSourceException.platformException()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _PlatformException);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() platformException,
+  }) {
+    return platformException();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? platformException,
+  }) {
+    return platformException?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? platformException,
+    required TResult orElse(),
+  }) {
+    if (platformException != null) {
+      return platformException();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PlatformException value) platformException,
+  }) {
+    return platformException(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PlatformException value)? platformException,
+  }) {
+    return platformException?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PlatformException value)? platformException,
+    required TResult orElse(),
+  }) {
+    if (platformException != null) {
+      return platformException(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PlatformException extends TaskLocalDataSourceException {
+  const factory _PlatformException() = _$_PlatformException;
+  const _PlatformException._() : super._();
+}

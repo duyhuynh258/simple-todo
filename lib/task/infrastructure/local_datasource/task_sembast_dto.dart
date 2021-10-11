@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sembast/sembast.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 
 part 'task_sembast_dto.freezed.dart';
@@ -12,14 +13,14 @@ class TaskSembastDTO with _$TaskSembastDTO {
     required String body,
     required bool isCompleted,
     required bool isSynchronized,
-    @ServerTimestampConverter() required FieldValue serverTimeStamp,
+    @ServerTimestampConverter() required firestore.FieldValue serverTimeStamp,
   }) = _TaskSembastDTO;
 
   factory TaskSembastDTO.fromDomain(Task task) {
     return TaskSembastDTO(
       id: task.id,
       body: task.body,
-      serverTimeStamp: FieldValue.serverTimestamp(),
+      serverTimeStamp: firestore.FieldValue.serverTimestamp(),
       isCompleted: task.isComplete,
       isSynchronized: task.isSynchronized,
     );
@@ -28,30 +29,33 @@ class TaskSembastDTO with _$TaskSembastDTO {
   factory TaskSembastDTO.fromJson(Map<String, dynamic> json) =>
       _$TaskSembastDTOFromJson(json);
 
-  factory TaskSembastDTO.fromFirestore(DocumentSnapshot? doc) {
-    return TaskSembastDTO.fromJson(doc!.data()! as Map<String, dynamic>)
-        .copyWith(id: doc.id);
+  factory TaskSembastDTO.fromSembast(
+    RecordSnapshot<String, Map<String, dynamic>> snapshot,
+  ) {
+    final copiedMap = Map<String, dynamic>.from(snapshot.value);
+    return TaskSembastDTO.fromJson(copiedMap);
   }
 }
 
-class ServerTimestampConverter implements JsonConverter<FieldValue, Object> {
+class ServerTimestampConverter
+    implements JsonConverter<firestore.FieldValue, Object> {
   const ServerTimestampConverter();
 
   @override
-  FieldValue fromJson(Object json) {
-    return FieldValue.serverTimestamp();
+  firestore.FieldValue fromJson(Object json) {
+    return firestore.FieldValue.serverTimestamp();
   }
 
   @override
-  Object toJson(FieldValue fieldValue) => fieldValue;
+  Object toJson(firestore.FieldValue fieldValue) => fieldValue;
 }
 
 extension TaskSembastDTOX on TaskSembastDTO {
   Task toDomain() {
     return Task(
+      id: id!,
       body: body,
       isComplete: isCompleted,
-      id: id!,
       isSynchronized: isSynchronized,
     );
   }

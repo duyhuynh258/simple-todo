@@ -21,12 +21,20 @@ class _$TaskFailureTearOff {
     return const Unexpected();
   }
 
+  _NoInternet noInternet() {
+    return const _NoInternet();
+  }
+
   InsufficientPermissions insufficientPermissions() {
     return const InsufficientPermissions();
   }
 
   UnableToUpdate unableToUpdate() {
     return const UnableToUpdate();
+  }
+
+  _LocalStorage localStorage() {
+    return const _LocalStorage();
   }
 
   _CreatedLocalButSyncFailed createdLocalButSyncFailed(
@@ -45,24 +53,30 @@ mixin _$TaskFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
+    required TResult Function() noInternet,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
     required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) =>
@@ -70,9 +84,11 @@ mixin _$TaskFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
     required TResult Function(_CreatedLocalButSyncFailed value)
         createdLocalButSyncFailed,
   }) =>
@@ -80,8 +96,10 @@ mixin _$TaskFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
   }) =>
@@ -89,8 +107,10 @@ mixin _$TaskFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
     required TResult orElse(),
@@ -154,8 +174,10 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
+    required TResult Function() noInternet,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
     required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return unexpected();
@@ -165,8 +187,10 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return unexpected?.call();
@@ -176,8 +200,10 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
@@ -191,9 +217,11 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
     required TResult Function(_CreatedLocalButSyncFailed value)
         createdLocalButSyncFailed,
   }) {
@@ -204,8 +232,10 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
   }) {
@@ -216,8 +246,10 @@ class _$Unexpected extends Unexpected {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
     required TResult orElse(),
@@ -232,6 +264,139 @@ class _$Unexpected extends Unexpected {
 abstract class Unexpected extends TaskFailure {
   const factory Unexpected() = _$Unexpected;
   const Unexpected._() : super._();
+}
+
+/// @nodoc
+abstract class _$NoInternetCopyWith<$Res> {
+  factory _$NoInternetCopyWith(
+          _NoInternet value, $Res Function(_NoInternet) then) =
+      __$NoInternetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$NoInternetCopyWithImpl<$Res> extends _$TaskFailureCopyWithImpl<$Res>
+    implements _$NoInternetCopyWith<$Res> {
+  __$NoInternetCopyWithImpl(
+      _NoInternet _value, $Res Function(_NoInternet) _then)
+      : super(_value, (v) => _then(v as _NoInternet));
+
+  @override
+  _NoInternet get _value => super._value as _NoInternet;
+}
+
+/// @nodoc
+
+class _$_NoInternet extends _NoInternet {
+  const _$_NoInternet() : super._();
+
+  @override
+  String toString() {
+    return 'TaskFailure.noInternet()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _NoInternet);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+    required TResult Function() noInternet,
+    required TResult Function() insufficientPermissions,
+    required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
+  }) {
+    return noInternet();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? noInternet,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+  }) {
+    return noInternet?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? noInternet,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (noInternet != null) {
+      return noInternet();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(InsufficientPermissions value)
+        insufficientPermissions,
+    required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
+  }) {
+    return noInternet(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+  }) {
+    return noInternet?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (noInternet != null) {
+      return noInternet(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NoInternet extends TaskFailure {
+  const factory _NoInternet() = _$_NoInternet;
+  const _NoInternet._() : super._();
 }
 
 /// @nodoc
@@ -276,8 +441,10 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
+    required TResult Function() noInternet,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
     required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return insufficientPermissions();
@@ -287,8 +454,10 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return insufficientPermissions?.call();
@@ -298,8 +467,10 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
@@ -313,9 +484,11 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
     required TResult Function(_CreatedLocalButSyncFailed value)
         createdLocalButSyncFailed,
   }) {
@@ -326,8 +499,10 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
   }) {
@@ -338,8 +513,10 @@ class _$InsufficientPermissions extends InsufficientPermissions {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
     required TResult orElse(),
@@ -397,8 +574,10 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
+    required TResult Function() noInternet,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
     required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return unableToUpdate();
@@ -408,8 +587,10 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return unableToUpdate?.call();
@@ -419,8 +600,10 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
@@ -434,9 +617,11 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
     required TResult Function(_CreatedLocalButSyncFailed value)
         createdLocalButSyncFailed,
   }) {
@@ -447,8 +632,10 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
   }) {
@@ -459,8 +646,10 @@ class _$UnableToUpdate extends UnableToUpdate {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
     required TResult orElse(),
@@ -475,6 +664,139 @@ class _$UnableToUpdate extends UnableToUpdate {
 abstract class UnableToUpdate extends TaskFailure {
   const factory UnableToUpdate() = _$UnableToUpdate;
   const UnableToUpdate._() : super._();
+}
+
+/// @nodoc
+abstract class _$LocalStorageCopyWith<$Res> {
+  factory _$LocalStorageCopyWith(
+          _LocalStorage value, $Res Function(_LocalStorage) then) =
+      __$LocalStorageCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LocalStorageCopyWithImpl<$Res> extends _$TaskFailureCopyWithImpl<$Res>
+    implements _$LocalStorageCopyWith<$Res> {
+  __$LocalStorageCopyWithImpl(
+      _LocalStorage _value, $Res Function(_LocalStorage) _then)
+      : super(_value, (v) => _then(v as _LocalStorage));
+
+  @override
+  _LocalStorage get _value => super._value as _LocalStorage;
+}
+
+/// @nodoc
+
+class _$_LocalStorage extends _LocalStorage {
+  const _$_LocalStorage() : super._();
+
+  @override
+  String toString() {
+    return 'TaskFailure.localStorage()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LocalStorage);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+    required TResult Function() noInternet,
+    required TResult Function() insufficientPermissions,
+    required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
+    required TResult Function(Task localTask) createdLocalButSyncFailed,
+  }) {
+    return localStorage();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? noInternet,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+  }) {
+    return localStorage?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    TResult Function()? noInternet,
+    TResult Function()? insufficientPermissions,
+    TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
+    TResult Function(Task localTask)? createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (localStorage != null) {
+      return localStorage();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(InsufficientPermissions value)
+        insufficientPermissions,
+    required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
+    required TResult Function(_CreatedLocalButSyncFailed value)
+        createdLocalButSyncFailed,
+  }) {
+    return localStorage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+  }) {
+    return localStorage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(InsufficientPermissions value)? insufficientPermissions,
+    TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
+    TResult Function(_CreatedLocalButSyncFailed value)?
+        createdLocalButSyncFailed,
+    required TResult orElse(),
+  }) {
+    if (localStorage != null) {
+      return localStorage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocalStorage extends TaskFailure {
+  const factory _LocalStorage() = _$_LocalStorage;
+  const _LocalStorage._() : super._();
 }
 
 /// @nodoc
@@ -555,8 +877,10 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unexpected,
+    required TResult Function() noInternet,
     required TResult Function() insufficientPermissions,
     required TResult Function() unableToUpdate,
+    required TResult Function() localStorage,
     required TResult Function(Task localTask) createdLocalButSyncFailed,
   }) {
     return createdLocalButSyncFailed(localTask);
@@ -566,8 +890,10 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
   }) {
     return createdLocalButSyncFailed?.call(localTask);
@@ -577,8 +903,10 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unexpected,
+    TResult Function()? noInternet,
     TResult Function()? insufficientPermissions,
     TResult Function()? unableToUpdate,
+    TResult Function()? localStorage,
     TResult Function(Task localTask)? createdLocalButSyncFailed,
     required TResult orElse(),
   }) {
@@ -592,9 +920,11 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Unexpected value) unexpected,
+    required TResult Function(_NoInternet value) noInternet,
     required TResult Function(InsufficientPermissions value)
         insufficientPermissions,
     required TResult Function(UnableToUpdate value) unableToUpdate,
+    required TResult Function(_LocalStorage value) localStorage,
     required TResult Function(_CreatedLocalButSyncFailed value)
         createdLocalButSyncFailed,
   }) {
@@ -605,8 +935,10 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
   }) {
@@ -617,8 +949,10 @@ class _$_CreatedLocalButSyncFailed extends _CreatedLocalButSyncFailed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Unexpected value)? unexpected,
+    TResult Function(_NoInternet value)? noInternet,
     TResult Function(InsufficientPermissions value)? insufficientPermissions,
     TResult Function(UnableToUpdate value)? unableToUpdate,
+    TResult Function(_LocalStorage value)? localStorage,
     TResult Function(_CreatedLocalButSyncFailed value)?
         createdLocalButSyncFailed,
     required TResult orElse(),

@@ -11,38 +11,39 @@ import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_pagin
 
 class TaskRemoteDataSource {
   TaskRemoteDataSource(this._firestore, this.user) {
-    watchAllPaginatedQuery = TaskPaginatedFirestoreQuery(
+    _watchAllPaginatedQuery = TaskPaginatedFirestoreQuery(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
-        queryFuture: watchAllQuery);
+        queryFuture: _watchAllQuery);
 
-    watchUncompletedPaginatedQuery = TaskPaginatedFirestoreQuery(
+    _watchUncompletedPaginatedQuery = TaskPaginatedFirestoreQuery(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
-        queryFuture: watchUnCompletedQuery);
+        queryFuture: _watchUnCompletedQuery);
   }
 
   final User user;
   final FirebaseFirestore _firestore;
 
-  late TaskPaginatedFirestoreQuery watchAllPaginatedQuery;
-  late TaskPaginatedFirestoreQuery watchUncompletedPaginatedQuery;
+  late TaskPaginatedFirestoreQuery _watchAllPaginatedQuery;
+  late TaskPaginatedFirestoreQuery _watchUncompletedPaginatedQuery;
 
-  Future<Query> get watchAllQuery =>
+  Future<Query> get _watchAllQuery =>
       _firestore.userDocument(user).then((userDoc) =>
           userDoc.taskCollection.orderBy('serverTimeStamp', descending: true));
 
-  Future<Query> get watchUnCompletedQuery =>
+  Future<Query> get _watchUnCompletedQuery =>
       _firestore.userDocument(user).then((userDoc) => userDoc.taskCollection
           .orderBy('serverTimeStamp', descending: true)
           .where('isCompleted', isEqualTo: false));
 
-  Future<PaginatedList<Task>> watchAll({bool nextPage = false}) async {
+  Future<PaginatedList<Task>> getAllTasks(
+      {bool nextPage = false, int loadedItemsCount = 0}) async {
     if (nextPage == false) {
-      watchAllPaginatedQuery = watchAllPaginatedQuery.copyWith(lastDoc: null);
+      _watchAllPaginatedQuery = _watchAllPaginatedQuery.copyWith(lastDoc: null);
     }
     try {
-      final query = await watchAllPaginatedQuery.paginatedQuery;
+      final query = await _watchAllPaginatedQuery.paginatedQuery;
       final snapshot = await query.get();
 
       final isNextPageAvailable =
@@ -50,8 +51,8 @@ class TaskRemoteDataSource {
       final List<QueryDocumentSnapshot> docs = snapshot.docs
         ..removeDocsOutOfPage();
       // Update last doc
-      watchAllPaginatedQuery =
-          watchAllPaginatedQuery.copyWith(lastDoc: docs.last);
+      _watchAllPaginatedQuery =
+          _watchAllPaginatedQuery.copyWith(lastDoc: docs.last);
       return PaginatedList(
         entities: docs
             .map((doc) => TaskFirestoreDTO.fromFirestore(doc).toDomain())
@@ -68,13 +69,14 @@ class TaskRemoteDataSource {
     }
   }
 
-  Future<PaginatedList<Task>> watchUncompleted({bool nextPage = false}) async {
+  Future<PaginatedList<Task>> getUncompletedTasks(
+      {bool nextPage = false, int loadedItemsCount = 0}) async {
     if (nextPage == false) {
-      watchUncompletedPaginatedQuery =
-          watchUncompletedPaginatedQuery.copyWith(lastDoc: null);
+      _watchUncompletedPaginatedQuery =
+          _watchUncompletedPaginatedQuery.copyWith(lastDoc: null);
     }
     try {
-      final query = await watchUncompletedPaginatedQuery.paginatedQuery;
+      final query = await _watchUncompletedPaginatedQuery.paginatedQuery;
       final snapshot = await query.get();
 
       final isNextPageAvailable =
@@ -83,8 +85,8 @@ class TaskRemoteDataSource {
         ..removeDocsOutOfPage();
 
       // Update last doc
-      watchAllPaginatedQuery =
-          watchAllPaginatedQuery.copyWith(lastDoc: docs.last);
+      _watchAllPaginatedQuery =
+          _watchAllPaginatedQuery.copyWith(lastDoc: docs.last);
 
       // Return page
       return PaginatedList(

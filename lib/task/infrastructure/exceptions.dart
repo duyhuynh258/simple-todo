@@ -9,7 +9,19 @@ class TaskRemoteDataSourceException
   const TaskRemoteDataSourceException._();
 
   const factory TaskRemoteDataSourceException.noInternet() = _NoInternet;
+
   const factory TaskRemoteDataSourceException.unexpected() = _Unexpected;
+
   const factory TaskRemoteDataSourceException.insufficientPermissions() =
       _InsufficientPermissions;
+}
+
+@freezed
+class TaskLocalDataSourceException
+    with _$TaskLocalDataSourceException
+    implements Exception {
+  const TaskLocalDataSourceException._();
+
+  const factory TaskLocalDataSourceException.platformException() =
+      _PlatformException;
 }
