@@ -9,4 +9,7 @@ class TaskRemoteDataSourceException
   const TaskRemoteDataSourceException._();
 
   const factory TaskRemoteDataSourceException.noInternet() = _NoInternet;
+  const factory TaskRemoteDataSourceException.unexpected() = _Unexpected;
+  const factory TaskRemoteDataSourceException.insufficientPermissions() =
+      _InsufficientPermissions;
 }

@@ -20,6 +20,14 @@ class _$TaskRemoteDataSourceExceptionTearOff {
   _NoInternet noInternet() {
     return const _NoInternet();
   }
+
+  _Unexpected unexpected() {
+    return const _Unexpected();
+  }
+
+  _InsufficientPermissions insufficientPermissions() {
+    return const _InsufficientPermissions();
+  }
 }
 
 /// @nodoc
@@ -30,32 +38,45 @@ mixin _$TaskRemoteDataSourceException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() noInternet,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermissions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_InsufficientPermissions value)
+        insufficientPermissions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +142,8 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() noInternet,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermissions,
   }) {
     return noInternet();
   }
@@ -129,6 +152,8 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
   }) {
     return noInternet?.call();
   }
@@ -137,6 +162,8 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
     required TResult orElse(),
   }) {
     if (noInternet != null) {
@@ -149,6 +176,9 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_InsufficientPermissions value)
+        insufficientPermissions,
   }) {
     return noInternet(this);
   }
@@ -157,6 +187,8 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
   }) {
     return noInternet?.call(this);
   }
@@ -165,6 +197,8 @@ class _$_NoInternet extends _NoInternet {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
     required TResult orElse(),
   }) {
     if (noInternet != null) {
@@ -177,4 +211,231 @@ class _$_NoInternet extends _NoInternet {
 abstract class _NoInternet extends TaskRemoteDataSourceException {
   const factory _NoInternet() = _$_NoInternet;
   const _NoInternet._() : super._();
+}
+
+/// @nodoc
+abstract class _$UnexpectedCopyWith<$Res> {
+  factory _$UnexpectedCopyWith(
+          _Unexpected value, $Res Function(_Unexpected) then) =
+      __$UnexpectedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$UnexpectedCopyWithImpl<$Res>
+    extends _$TaskRemoteDataSourceExceptionCopyWithImpl<$Res>
+    implements _$UnexpectedCopyWith<$Res> {
+  __$UnexpectedCopyWithImpl(
+      _Unexpected _value, $Res Function(_Unexpected) _then)
+      : super(_value, (v) => _then(v as _Unexpected));
+
+  @override
+  _Unexpected get _value => super._value as _Unexpected;
+}
+
+/// @nodoc
+
+class _$_Unexpected extends _Unexpected {
+  const _$_Unexpected() : super._();
+
+  @override
+  String toString() {
+    return 'TaskRemoteDataSourceException.unexpected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Unexpected);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermissions,
+  }) {
+    return unexpected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+  }) {
+    return unexpected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_InsufficientPermissions value)
+        insufficientPermissions,
+  }) {
+    return unexpected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
+  }) {
+    return unexpected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Unexpected extends TaskRemoteDataSourceException {
+  const factory _Unexpected() = _$_Unexpected;
+  const _Unexpected._() : super._();
+}
+
+/// @nodoc
+abstract class _$InsufficientPermissionsCopyWith<$Res> {
+  factory _$InsufficientPermissionsCopyWith(_InsufficientPermissions value,
+          $Res Function(_InsufficientPermissions) then) =
+      __$InsufficientPermissionsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$InsufficientPermissionsCopyWithImpl<$Res>
+    extends _$TaskRemoteDataSourceExceptionCopyWithImpl<$Res>
+    implements _$InsufficientPermissionsCopyWith<$Res> {
+  __$InsufficientPermissionsCopyWithImpl(_InsufficientPermissions _value,
+      $Res Function(_InsufficientPermissions) _then)
+      : super(_value, (v) => _then(v as _InsufficientPermissions));
+
+  @override
+  _InsufficientPermissions get _value =>
+      super._value as _InsufficientPermissions;
+}
+
+/// @nodoc
+
+class _$_InsufficientPermissions extends _InsufficientPermissions {
+  const _$_InsufficientPermissions() : super._();
+
+  @override
+  String toString() {
+    return 'TaskRemoteDataSourceException.insufficientPermissions()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _InsufficientPermissions);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() noInternet,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermissions,
+  }) {
+    return insufficientPermissions();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+  }) {
+    return insufficientPermissions?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? noInternet,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermissions,
+    required TResult orElse(),
+  }) {
+    if (insufficientPermissions != null) {
+      return insufficientPermissions();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_NoInternet value) noInternet,
+    required TResult Function(_Unexpected value) unexpected,
+    required TResult Function(_InsufficientPermissions value)
+        insufficientPermissions,
+  }) {
+    return insufficientPermissions(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
+  }) {
+    return insufficientPermissions?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_NoInternet value)? noInternet,
+    TResult Function(_Unexpected value)? unexpected,
+    TResult Function(_InsufficientPermissions value)? insufficientPermissions,
+    required TResult orElse(),
+  }) {
+    if (insufficientPermissions != null) {
+      return insufficientPermissions(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InsufficientPermissions extends TaskRemoteDataSourceException {
+  const factory _InsufficientPermissions() = _$_InsufficientPermissions;
+  const _InsufficientPermissions._() : super._();
 }

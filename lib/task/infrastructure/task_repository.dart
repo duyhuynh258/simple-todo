@@ -1,16 +1,21 @@
-import 'package:dartz/dartz.dart' as dartz;
+import 'package:dartz/dartz.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
-import 'package:simple_todo_app/task/domain/task.dart';
+import 'package:simple_todo_app/task/domain/task.dart' as domain;
 import 'package:simple_todo_app/task/domain/task_failure.dart';
+import 'package:simple_todo_app/task/infrastructure/local_datasource/task_local_datasource.dart';
+import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_remote_data_source.dart';
 
 class TaskRepository {
-  const TaskRepository(this.user);
+  const TaskRepository(
+      this.user, this._taskRemoteDataSource, this._taskLocalDatasource);
 
+  final TaskRemoteDataSource _taskRemoteDataSource;
+  final TaskLocalDatasource _taskLocalDatasource;
   final User user;
 
-  Stream<dartz.Either<TaskFailure, List<Task>>> watchAll() async* {}
+  Stream<Either<TaskFailure, List<Task>>> watchAll() async* {}
 
-  Stream<dartz.Either<TaskFailure, List<Task>>> watchUncompleted() async* {}
+  Stream<Either<TaskFailure, List<Task>>> watchUncompleted() async* {}
 
-  Future<dartz.Either<TaskFailure, dartz.Unit>> save(Task task) async {}
+  Future<Either<TaskFailure, Unit>> sync(List<domain.Task> task) async {}
 }
