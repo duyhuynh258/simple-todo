@@ -1,11 +1,13 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_todo_app/core/application/home_bloc.dart';
 import 'package:simple_todo_app/core/presentation/colors.dart';
-import 'package:simple_todo_app/task/application/tab_bar/tab_bar_bloc.dart';
 
 class NavigationBarWidget extends StatefulWidget {
-  const NavigationBarWidget({Key? key}) : super(key: key);
+  const NavigationBarWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _NavigationBarWidgetState createState() => _NavigationBarWidgetState();
@@ -16,12 +18,12 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TabBarBloc, TabBarState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return BottomNavyBar(
-          selectedIndex: state.selectedIndex,
+          selectedIndex: state.selectedTabIndex,
           onItemSelected: (index) {
-            context.read<TabBarBloc>().changePage(index);
+            context.read<HomeBloc>().changeTab(index);
           },
           itemCornerRadius: 16,
           curve: Curves.easeIn,

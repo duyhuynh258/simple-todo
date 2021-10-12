@@ -7,18 +7,20 @@ class TaskWatcherState with _$TaskWatcherState {
   const factory TaskWatcherState({
     required bool isInProgress,
     required List<Task> allTasks,
-    required List<Task> unCompletedTasks,
     required bool isNextUnCompletedTasksAvailable,
-    required List<Task> completedTasks,
     required bool isNextCompletedTasksAvailable,
   }) = _TaskWatcherState;
 
   factory TaskWatcherState.initial() => const TaskWatcherState(
         isInProgress: true,
         allTasks: [],
-        unCompletedTasks: [],
         isNextUnCompletedTasksAvailable: false,
-        completedTasks: [],
         isNextCompletedTasksAvailable: false,
       );
+
+  List<Task> get unCompletedTasks =>
+      allTasks.where((element) => element.isComplete == false).toList();
+
+  List<Task> get completedTasks =>
+      allTasks.where((element) => element.isComplete == true).toList();
 }

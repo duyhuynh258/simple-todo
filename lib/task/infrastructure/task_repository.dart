@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:simple_todo_app/auth/domain/user.dart';
 import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/task/domain/task.dart' as domain;
 import 'package:simple_todo_app/task/domain/task_failure.dart';
@@ -8,12 +7,10 @@ import 'package:simple_todo_app/task/infrastructure/local_datasource/task_local_
 import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_remote_data_source.dart';
 
 class TaskRepository {
-  const TaskRepository(
-      this.user, this._taskRemoteDataSource, this._taskLocalDatasource);
+  const TaskRepository(this._taskRemoteDataSource, this._taskLocalDatasource);
 
   final TaskRemoteDataSource _taskRemoteDataSource;
   final TaskLocalDatasource _taskLocalDatasource;
-  final User user;
 
   Future<Either<TaskFailure, PaginatedList<domain.Task>>> getAllTasks({
     bool nextPage = false,

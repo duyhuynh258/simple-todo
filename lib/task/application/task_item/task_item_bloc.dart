@@ -8,15 +8,17 @@ part 'task_item_event.dart';
 part 'task_item_state.dart';
 
 class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
-  TaskItemBloc(this._taskRepository)
-      : super(TaskItemState.initial(task: Task.empty())) {
+  TaskItemBloc(this._taskRepository, {Task? task})
+      : super(TaskItemState(task: task ?? Task.empty())) {
     on<TaskItemEvent>((event, emit) {
       event.when(
-          saved: (task) {
-            _taskRepository.saveTasks([task]);
+          saved: () {},
+          completed: () {
+            _taskRepository.saveTasks([state.task.copyWith(isComplete: true)]);
           },
-          completed: (task) {},
-          unCompleted: (task) {});
+          unCompleted: () {
+            _taskRepository.saveTasks([state.task.copyWith(isComplete: false)]);
+          });
     });
   }
 

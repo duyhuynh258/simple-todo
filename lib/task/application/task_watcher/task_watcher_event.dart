@@ -5,4 +5,5 @@ class TaskWatcherEvent with _$TaskWatcherEvent {
   const TaskWatcherEvent._();
   const factory TaskWatcherEvent.tasksUpdated({required List<Task> tasks}) =
       _TasksUpdated;
+  const factory TaskWatcherEvent.createdDraftTask() = _CreatedDraftTask;
 }

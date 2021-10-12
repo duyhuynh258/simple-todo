@@ -13,4 +13,6 @@ const Color darkBackgroundColor = Color(0xff393939);
 const Color darkPageBackgroundColor = Color(0xFF3D3D3D);
 const Color darkCanvasColor = Color(0xff5A5A5A);
 const Color todoColor = Colors.lightBlueAccent;
+const Color todoBackgroundColor = Color(0xA4DEF9FF);
 const Color completedColor = Colors.lightGreen;
+const Color completedBackgroundColor = Color(0xE6E0FFCC);

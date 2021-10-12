@@ -22,6 +22,10 @@ class _$TaskWatcherEventTearOff {
       tasks: tasks,
     );
   }
+
+  _CreatedDraftTask createdDraftTask() {
+    return const _CreatedDraftTask();
+  }
 }
 
 /// @nodoc
@@ -29,43 +33,43 @@ const $TaskWatcherEvent = _$TaskWatcherEventTearOff();
 
 /// @nodoc
 mixin _$TaskWatcherEvent {
-  List<Task> get tasks => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Task> tasks) tasksUpdated,
+    required TResult Function() createdDraftTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TasksUpdated value) tasksUpdated,
+    required TResult Function(_CreatedDraftTask value) createdDraftTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $TaskWatcherEventCopyWith<TaskWatcherEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -74,7 +78,6 @@ abstract class $TaskWatcherEventCopyWith<$Res> {
   factory $TaskWatcherEventCopyWith(
           TaskWatcherEvent value, $Res Function(TaskWatcherEvent) then) =
       _$TaskWatcherEventCopyWithImpl<$Res>;
-  $Res call({List<Task> tasks});
 }
 
 /// @nodoc
@@ -85,27 +88,13 @@ class _$TaskWatcherEventCopyWithImpl<$Res>
   final TaskWatcherEvent _value;
   // ignore: unused_field
   final $Res Function(TaskWatcherEvent) _then;
-
-  @override
-  $Res call({
-    Object? tasks = freezed,
-  }) {
-    return _then(_value.copyWith(
-      tasks: tasks == freezed
-          ? _value.tasks
-          : tasks // ignore: cast_nullable_to_non_nullable
-              as List<Task>,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$TasksUpdatedCopyWith<$Res>
-    implements $TaskWatcherEventCopyWith<$Res> {
+abstract class _$TasksUpdatedCopyWith<$Res> {
   factory _$TasksUpdatedCopyWith(
           _TasksUpdated value, $Res Function(_TasksUpdated) then) =
       __$TasksUpdatedCopyWithImpl<$Res>;
-  @override
   $Res call({List<Task> tasks});
 }
 
@@ -167,6 +156,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<Task> tasks) tasksUpdated,
+    required TResult Function() createdDraftTask,
   }) {
     return tasksUpdated(tasks);
   }
@@ -175,6 +165,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
   }) {
     return tasksUpdated?.call(tasks);
   }
@@ -183,6 +174,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -195,6 +187,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_TasksUpdated value) tasksUpdated,
+    required TResult Function(_CreatedDraftTask value) createdDraftTask,
   }) {
     return tasksUpdated(this);
   }
@@ -203,6 +196,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
   }) {
     return tasksUpdated?.call(this);
   }
@@ -211,6 +205,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -224,12 +219,116 @@ abstract class _TasksUpdated extends TaskWatcherEvent {
   const factory _TasksUpdated({required List<Task> tasks}) = _$_TasksUpdated;
   const _TasksUpdated._() : super._();
 
-  @override
   List<Task> get tasks;
-  @override
   @JsonKey(ignore: true)
   _$TasksUpdatedCopyWith<_TasksUpdated> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$CreatedDraftTaskCopyWith<$Res> {
+  factory _$CreatedDraftTaskCopyWith(
+          _CreatedDraftTask value, $Res Function(_CreatedDraftTask) then) =
+      __$CreatedDraftTaskCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CreatedDraftTaskCopyWithImpl<$Res>
+    extends _$TaskWatcherEventCopyWithImpl<$Res>
+    implements _$CreatedDraftTaskCopyWith<$Res> {
+  __$CreatedDraftTaskCopyWithImpl(
+      _CreatedDraftTask _value, $Res Function(_CreatedDraftTask) _then)
+      : super(_value, (v) => _then(v as _CreatedDraftTask));
+
+  @override
+  _CreatedDraftTask get _value => super._value as _CreatedDraftTask;
+}
+
+/// @nodoc
+
+class _$_CreatedDraftTask extends _CreatedDraftTask {
+  const _$_CreatedDraftTask() : super._();
+
+  @override
+  String toString() {
+    return 'TaskWatcherEvent.createdDraftTask()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CreatedDraftTask);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Task> tasks) tasksUpdated,
+    required TResult Function() createdDraftTask,
+  }) {
+    return createdDraftTask();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+  }) {
+    return createdDraftTask?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+    required TResult orElse(),
+  }) {
+    if (createdDraftTask != null) {
+      return createdDraftTask();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TasksUpdated value) tasksUpdated,
+    required TResult Function(_CreatedDraftTask value) createdDraftTask,
+  }) {
+    return createdDraftTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+  }) {
+    return createdDraftTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    required TResult orElse(),
+  }) {
+    if (createdDraftTask != null) {
+      return createdDraftTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CreatedDraftTask extends TaskWatcherEvent {
+  const factory _CreatedDraftTask() = _$_CreatedDraftTask;
+  const _CreatedDraftTask._() : super._();
 }
 
 /// @nodoc
@@ -239,16 +338,12 @@ class _$TaskWatcherStateTearOff {
   _TaskWatcherState call(
       {required bool isInProgress,
       required List<Task> allTasks,
-      required List<Task> unCompletedTasks,
       required bool isNextUnCompletedTasksAvailable,
-      required List<Task> completedTasks,
       required bool isNextCompletedTasksAvailable}) {
     return _TaskWatcherState(
       isInProgress: isInProgress,
       allTasks: allTasks,
-      unCompletedTasks: unCompletedTasks,
       isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable,
-      completedTasks: completedTasks,
       isNextCompletedTasksAvailable: isNextCompletedTasksAvailable,
     );
   }
@@ -261,10 +356,8 @@ const $TaskWatcherState = _$TaskWatcherStateTearOff();
 mixin _$TaskWatcherState {
   bool get isInProgress => throw _privateConstructorUsedError;
   List<Task> get allTasks => throw _privateConstructorUsedError;
-  List<Task> get unCompletedTasks => throw _privateConstructorUsedError;
   bool get isNextUnCompletedTasksAvailable =>
       throw _privateConstructorUsedError;
-  List<Task> get completedTasks => throw _privateConstructorUsedError;
   bool get isNextCompletedTasksAvailable => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -280,9 +373,7 @@ abstract class $TaskWatcherStateCopyWith<$Res> {
   $Res call(
       {bool isInProgress,
       List<Task> allTasks,
-      List<Task> unCompletedTasks,
       bool isNextUnCompletedTasksAvailable,
-      List<Task> completedTasks,
       bool isNextCompletedTasksAvailable});
 }
 
@@ -299,9 +390,7 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? isInProgress = freezed,
     Object? allTasks = freezed,
-    Object? unCompletedTasks = freezed,
     Object? isNextUnCompletedTasksAvailable = freezed,
-    Object? completedTasks = freezed,
     Object? isNextCompletedTasksAvailable = freezed,
   }) {
     return _then(_value.copyWith(
@@ -313,19 +402,11 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
           ? _value.allTasks
           : allTasks // ignore: cast_nullable_to_non_nullable
               as List<Task>,
-      unCompletedTasks: unCompletedTasks == freezed
-          ? _value.unCompletedTasks
-          : unCompletedTasks // ignore: cast_nullable_to_non_nullable
-              as List<Task>,
       isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable ==
               freezed
           ? _value.isNextUnCompletedTasksAvailable
           : isNextUnCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      completedTasks: completedTasks == freezed
-          ? _value.completedTasks
-          : completedTasks // ignore: cast_nullable_to_non_nullable
-              as List<Task>,
       isNextCompletedTasksAvailable: isNextCompletedTasksAvailable == freezed
           ? _value.isNextCompletedTasksAvailable
           : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
@@ -344,9 +425,7 @@ abstract class _$TaskWatcherStateCopyWith<$Res>
   $Res call(
       {bool isInProgress,
       List<Task> allTasks,
-      List<Task> unCompletedTasks,
       bool isNextUnCompletedTasksAvailable,
-      List<Task> completedTasks,
       bool isNextCompletedTasksAvailable});
 }
 
@@ -365,9 +444,7 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
   $Res call({
     Object? isInProgress = freezed,
     Object? allTasks = freezed,
-    Object? unCompletedTasks = freezed,
     Object? isNextUnCompletedTasksAvailable = freezed,
-    Object? completedTasks = freezed,
     Object? isNextCompletedTasksAvailable = freezed,
   }) {
     return _then(_TaskWatcherState(
@@ -379,19 +456,11 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
           ? _value.allTasks
           : allTasks // ignore: cast_nullable_to_non_nullable
               as List<Task>,
-      unCompletedTasks: unCompletedTasks == freezed
-          ? _value.unCompletedTasks
-          : unCompletedTasks // ignore: cast_nullable_to_non_nullable
-              as List<Task>,
       isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable ==
               freezed
           ? _value.isNextUnCompletedTasksAvailable
           : isNextUnCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      completedTasks: completedTasks == freezed
-          ? _value.completedTasks
-          : completedTasks // ignore: cast_nullable_to_non_nullable
-              as List<Task>,
       isNextCompletedTasksAvailable: isNextCompletedTasksAvailable == freezed
           ? _value.isNextCompletedTasksAvailable
           : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
@@ -406,9 +475,7 @@ class _$_TaskWatcherState extends _TaskWatcherState {
   const _$_TaskWatcherState(
       {required this.isInProgress,
       required this.allTasks,
-      required this.unCompletedTasks,
       required this.isNextUnCompletedTasksAvailable,
-      required this.completedTasks,
       required this.isNextCompletedTasksAvailable})
       : super._();
 
@@ -417,17 +484,13 @@ class _$_TaskWatcherState extends _TaskWatcherState {
   @override
   final List<Task> allTasks;
   @override
-  final List<Task> unCompletedTasks;
-  @override
   final bool isNextUnCompletedTasksAvailable;
-  @override
-  final List<Task> completedTasks;
   @override
   final bool isNextCompletedTasksAvailable;
 
   @override
   String toString() {
-    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, unCompletedTasks: $unCompletedTasks, isNextUnCompletedTasksAvailable: $isNextUnCompletedTasksAvailable, completedTasks: $completedTasks, isNextCompletedTasksAvailable: $isNextCompletedTasksAvailable)';
+    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, isNextUnCompletedTasksAvailable: $isNextUnCompletedTasksAvailable, isNextCompletedTasksAvailable: $isNextCompletedTasksAvailable)';
   }
 
   @override
@@ -438,14 +501,10 @@ class _$_TaskWatcherState extends _TaskWatcherState {
             (identical(other.isInProgress, isInProgress) ||
                 other.isInProgress == isInProgress) &&
             const DeepCollectionEquality().equals(other.allTasks, allTasks) &&
-            const DeepCollectionEquality()
-                .equals(other.unCompletedTasks, unCompletedTasks) &&
             (identical(other.isNextUnCompletedTasksAvailable,
                     isNextUnCompletedTasksAvailable) ||
                 other.isNextUnCompletedTasksAvailable ==
                     isNextUnCompletedTasksAvailable) &&
-            const DeepCollectionEquality()
-                .equals(other.completedTasks, completedTasks) &&
             (identical(other.isNextCompletedTasksAvailable,
                     isNextCompletedTasksAvailable) ||
                 other.isNextCompletedTasksAvailable ==
@@ -457,9 +516,7 @@ class _$_TaskWatcherState extends _TaskWatcherState {
       runtimeType,
       isInProgress,
       const DeepCollectionEquality().hash(allTasks),
-      const DeepCollectionEquality().hash(unCompletedTasks),
       isNextUnCompletedTasksAvailable,
-      const DeepCollectionEquality().hash(completedTasks),
       isNextCompletedTasksAvailable);
 
   @JsonKey(ignore: true)
@@ -472,9 +529,7 @@ abstract class _TaskWatcherState extends TaskWatcherState {
   const factory _TaskWatcherState(
       {required bool isInProgress,
       required List<Task> allTasks,
-      required List<Task> unCompletedTasks,
       required bool isNextUnCompletedTasksAvailable,
-      required List<Task> completedTasks,
       required bool isNextCompletedTasksAvailable}) = _$_TaskWatcherState;
   const _TaskWatcherState._() : super._();
 
@@ -483,11 +538,7 @@ abstract class _TaskWatcherState extends TaskWatcherState {
   @override
   List<Task> get allTasks;
   @override
-  List<Task> get unCompletedTasks;
-  @override
   bool get isNextUnCompletedTasksAvailable;
-  @override
-  List<Task> get completedTasks;
   @override
   bool get isNextCompletedTasksAvailable;
   @override

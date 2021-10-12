@@ -10,9 +10,14 @@ part 'task_watcher_state.dart';
 class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   TaskWatcherBloc() : super(TaskWatcherState.initial()) {
     on<TaskWatcherEvent>((event, emit) {
-      // TODO: implement event handler
+      event.when(
+          tasksUpdated: (tasks) {},
+          createdDraftTask: () {
+            _addEmptyTask(emit);
+          });
     });
   }
+
   final Map<Task, TaskItemBloc> taskItemBlocs = {};
 
   @override
@@ -21,5 +26,9 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
       value.close();
     });
     return super.close();
+  }
+
+  void _addEmptyTask(Emitter<TaskWatcherState> emit) {
+    emit(state.copyWith(allTasks: [...state.allTasks, Task.empty()]));
   }
 }
