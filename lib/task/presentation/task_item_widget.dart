@@ -57,7 +57,7 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
               .add(TaskWatcherEvent.taskEndEdited(task: submittedTask));
         }
       });
-    _bodyTextController = TextEditingController();
+    _bodyTextController = TextEditingController()..text = widget.task.body;
   }
 
   @override
@@ -72,7 +72,6 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
     return BlocBuilder<TaskItemBloc, TaskItemState>(
       builder: (context, state) {
         final bool isAutoFocus = state.task.isEmpty;
-        _bodyTextController.text = state.task.body;
         final bool isTaskCompleted = state.task.isComplete;
         return ListTile(
           leading: RoundCheckBox(

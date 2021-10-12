@@ -22,12 +22,13 @@ class _CompletedTasksListPageState extends State<CompletedTasksListPage> {
           builder: (context, state) {
             final List<Task> tasks = state.completedTasks;
             if (tasks.isEmpty) {
-              return const Center(child: Text('No todo task'));
+              return const Center(child: Text('No completed task'));
             }
 
             return ListView.separated(
                 itemBuilder: (context, index) {
-                  return TaskItemWidgetWithProvider(task: tasks[index]);
+                  return TaskItemWidgetWithProvider(
+                      key: Key(tasks[index].id), task: tasks[index]);
                 },
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: tasks.length);

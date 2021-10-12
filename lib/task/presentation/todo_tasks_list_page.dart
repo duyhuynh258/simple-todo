@@ -18,26 +18,22 @@ class _TodoTasksListPageState extends State<TodoTasksListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: todoBackgroundColor,
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: SafeArea(
-          child: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
-            builder: (context, state) {
-              final List<Task> tasks = state.unCompletedTasks;
-              if (tasks.isEmpty) {
-                return const Center(child: Text('No todo task'));
-              }
+      body: SafeArea(
+        child: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
+          builder: (context, state) {
+            final List<Task> tasks = state.unCompletedTasks;
+            if (tasks.isEmpty) {
+              return const Center(child: Text('No todo task'));
+            }
 
-              return ListView.separated(
-                  itemBuilder: (context, index) {
-                    return TaskItemWidgetWithProvider(task: tasks[index]);
-                  },
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemCount: tasks.length);
-            },
-          ),
+            return ListView.separated(
+                itemBuilder: (context, index) {
+                  return TaskItemWidgetWithProvider(
+                      key: Key(tasks[index].id), task: tasks[index]);
+                },
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: tasks.length);
+          },
         ),
       ),
     );

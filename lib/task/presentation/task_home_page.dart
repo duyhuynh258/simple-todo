@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
 import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
 import 'package:simple_todo_app/core/shared/user_info_reader.dart';
@@ -41,17 +42,24 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 TaskWatcherBloc(context.read<TaskRepository>()),
           ),
         ],
-        child: Builder(builder: (context) {
-          return BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
-            builder: (context, state) {
+        child: KeyboardDismissOnTap(
+          child: KeyboardVisibilityBuilder(
+            builder: (context, isKeyboardVisible) {
               return Scaffold(
-                floatingActionButton: state.hasEmptyTask
+                floatingActionButton: isKeyboardVisible
                     ? null
                     : FloatingActionButton(
                         backgroundColor: Theme.of(context).primaryColor,
                         splashColor: Theme.of(context).scaffoldBackgroundColor,
                         highlightElevation: 3.0,
                         onPressed: () {
+                          if (context
+                              .read<TaskWatcherBloc>()
+                              .state
+                              .hasEmptyTask) {
+                            // Only allow one new
+                            return;
+                          }
                           context.read<HomeBloc>().changeToUnCompletedTab(
                               forAction: TaskAction.create);
                           context
@@ -61,8 +69,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
                         child: const Icon(Icons.add),
                       ),
                 bottomNavigationBar: const TabBarWidget(),
-                body: Builder(
-                  builder: (context) {
+                body: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
+                  builder: (context, state) {
                     if (state.isInProgress) {
                       return CircularProgressIndicator(
                         color: Theme.of(context).primaryColor,
@@ -83,8 +91,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 ),
               );
             },
-          );
-        }),
+          ),
+        ),
       ),
     );
   }
