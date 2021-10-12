@@ -9,6 +9,7 @@ class TaskWatcherState with _$TaskWatcherState {
     required List<Task> allTasks,
     required bool isNextUnCompletedTasksAvailable,
     required bool isNextCompletedTasksAvailable,
+    TaskFailure? failure,
   }) = _TaskWatcherState;
 
   factory TaskWatcherState.initial() => const TaskWatcherState(

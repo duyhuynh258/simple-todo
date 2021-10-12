@@ -8,18 +8,20 @@ part of 'task_sembast_dto.dart';
 
 _$_TaskSembastDTO _$$_TaskSembastDTOFromJson(Map<String, dynamic> json) =>
     _$_TaskSembastDTO(
+      id: json['id'] as String,
       body: json['body'] as String,
       isCompleted: json['isCompleted'] as bool,
       isSynchronized: json['isSynchronized'] as bool,
-      serverTimeStamp: const ServerTimestampConverter()
-          .fromJson(json['serverTimeStamp'] as Object),
+      localTimeStamp: const LocalTimestampConverter()
+          .fromJson(json['localTimeStamp'] as Object),
     );
 
 Map<String, dynamic> _$$_TaskSembastDTOToJson(_$_TaskSembastDTO instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'body': instance.body,
       'isCompleted': instance.isCompleted,
       'isSynchronized': instance.isSynchronized,
-      'serverTimeStamp':
-          const ServerTimestampConverter().toJson(instance.serverTimeStamp),
+      'localTimeStamp':
+          const LocalTimestampConverter().toJson(instance.localTimeStamp),
     };

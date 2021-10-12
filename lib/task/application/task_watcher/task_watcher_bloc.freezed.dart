@@ -32,6 +32,10 @@ class _$TaskWatcherEventTearOff {
       task: task,
     );
   }
+
+  _AllTasksRequested allTasksRequested() {
+    return const _AllTasksRequested();
+  }
 }
 
 /// @nodoc
@@ -44,6 +48,7 @@ mixin _$TaskWatcherEvent {
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
     required TResult Function(Task task) taskEndEdited,
+    required TResult Function() allTasksRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +56,7 @@ mixin _$TaskWatcherEvent {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +64,7 @@ mixin _$TaskWatcherEvent {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +73,7 @@ mixin _$TaskWatcherEvent {
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
     required TResult Function(_TaskEndEdited value) taskEndEdited,
+    required TResult Function(_AllTasksRequested value) allTasksRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,6 +81,7 @@ mixin _$TaskWatcherEvent {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,6 +89,7 @@ mixin _$TaskWatcherEvent {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -170,6 +180,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
     required TResult Function(Task task) taskEndEdited,
+    required TResult Function() allTasksRequested,
   }) {
     return tasksUpdated(tasks);
   }
@@ -180,6 +191,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
   }) {
     return tasksUpdated?.call(tasks);
   }
@@ -190,6 +202,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -204,6 +217,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
     required TResult Function(_TaskEndEdited value) taskEndEdited,
+    required TResult Function(_AllTasksRequested value) allTasksRequested,
   }) {
     return tasksUpdated(this);
   }
@@ -214,6 +228,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
   }) {
     return tasksUpdated?.call(this);
   }
@@ -224,6 +239,7 @@ class _$_TasksUpdated extends _TasksUpdated {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -287,6 +303,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
     required TResult Function(Task task) taskEndEdited,
+    required TResult Function() allTasksRequested,
   }) {
     return createdDraftTask();
   }
@@ -297,6 +314,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
   }) {
     return createdDraftTask?.call();
   }
@@ -307,6 +325,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
     required TResult orElse(),
   }) {
     if (createdDraftTask != null) {
@@ -321,6 +340,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
     required TResult Function(_TaskEndEdited value) taskEndEdited,
+    required TResult Function(_AllTasksRequested value) allTasksRequested,
   }) {
     return createdDraftTask(this);
   }
@@ -331,6 +351,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
   }) {
     return createdDraftTask?.call(this);
   }
@@ -341,6 +362,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
     required TResult orElse(),
   }) {
     if (createdDraftTask != null) {
@@ -431,6 +453,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
     required TResult Function(Task task) taskEndEdited,
+    required TResult Function() allTasksRequested,
   }) {
     return taskEndEdited(task);
   }
@@ -441,6 +464,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
   }) {
     return taskEndEdited?.call(task);
   }
@@ -451,6 +475,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
     TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
     required TResult orElse(),
   }) {
     if (taskEndEdited != null) {
@@ -465,6 +490,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
     required TResult Function(_TaskEndEdited value) taskEndEdited,
+    required TResult Function(_AllTasksRequested value) allTasksRequested,
   }) {
     return taskEndEdited(this);
   }
@@ -475,6 +501,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
   }) {
     return taskEndEdited?.call(this);
   }
@@ -485,6 +512,7 @@ class _$_TaskEndEdited extends _TaskEndEdited {
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
     TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
     required TResult orElse(),
   }) {
     if (taskEndEdited != null) {
@@ -505,6 +533,124 @@ abstract class _TaskEndEdited extends TaskWatcherEvent {
 }
 
 /// @nodoc
+abstract class _$AllTasksRequestedCopyWith<$Res> {
+  factory _$AllTasksRequestedCopyWith(
+          _AllTasksRequested value, $Res Function(_AllTasksRequested) then) =
+      __$AllTasksRequestedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$AllTasksRequestedCopyWithImpl<$Res>
+    extends _$TaskWatcherEventCopyWithImpl<$Res>
+    implements _$AllTasksRequestedCopyWith<$Res> {
+  __$AllTasksRequestedCopyWithImpl(
+      _AllTasksRequested _value, $Res Function(_AllTasksRequested) _then)
+      : super(_value, (v) => _then(v as _AllTasksRequested));
+
+  @override
+  _AllTasksRequested get _value => super._value as _AllTasksRequested;
+}
+
+/// @nodoc
+
+class _$_AllTasksRequested extends _AllTasksRequested {
+  const _$_AllTasksRequested() : super._();
+
+  @override
+  String toString() {
+    return 'TaskWatcherEvent.allTasksRequested()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _AllTasksRequested);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Task> tasks) tasksUpdated,
+    required TResult Function() createdDraftTask,
+    required TResult Function(Task task) taskEndEdited,
+    required TResult Function() allTasksRequested,
+  }) {
+    return allTasksRequested();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
+  }) {
+    return allTasksRequested?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
+    TResult Function()? allTasksRequested,
+    required TResult orElse(),
+  }) {
+    if (allTasksRequested != null) {
+      return allTasksRequested();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TasksUpdated value) tasksUpdated,
+    required TResult Function(_CreatedDraftTask value) createdDraftTask,
+    required TResult Function(_TaskEndEdited value) taskEndEdited,
+    required TResult Function(_AllTasksRequested value) allTasksRequested,
+  }) {
+    return allTasksRequested(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
+  }) {
+    return allTasksRequested?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
+    TResult Function(_AllTasksRequested value)? allTasksRequested,
+    required TResult orElse(),
+  }) {
+    if (allTasksRequested != null) {
+      return allTasksRequested(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AllTasksRequested extends TaskWatcherEvent {
+  const factory _AllTasksRequested() = _$_AllTasksRequested;
+  const _AllTasksRequested._() : super._();
+}
+
+/// @nodoc
 class _$TaskWatcherStateTearOff {
   const _$TaskWatcherStateTearOff();
 
@@ -512,12 +658,14 @@ class _$TaskWatcherStateTearOff {
       {required bool isInProgress,
       required List<Task> allTasks,
       required bool isNextUnCompletedTasksAvailable,
-      required bool isNextCompletedTasksAvailable}) {
+      required bool isNextCompletedTasksAvailable,
+      TaskFailure? failure}) {
     return _TaskWatcherState(
       isInProgress: isInProgress,
       allTasks: allTasks,
       isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable,
       isNextCompletedTasksAvailable: isNextCompletedTasksAvailable,
+      failure: failure,
     );
   }
 }
@@ -532,6 +680,7 @@ mixin _$TaskWatcherState {
   bool get isNextUnCompletedTasksAvailable =>
       throw _privateConstructorUsedError;
   bool get isNextCompletedTasksAvailable => throw _privateConstructorUsedError;
+  TaskFailure? get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TaskWatcherStateCopyWith<TaskWatcherState> get copyWith =>
@@ -547,7 +696,10 @@ abstract class $TaskWatcherStateCopyWith<$Res> {
       {bool isInProgress,
       List<Task> allTasks,
       bool isNextUnCompletedTasksAvailable,
-      bool isNextCompletedTasksAvailable});
+      bool isNextCompletedTasksAvailable,
+      TaskFailure? failure});
+
+  $TaskFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -565,6 +717,7 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
     Object? allTasks = freezed,
     Object? isNextUnCompletedTasksAvailable = freezed,
     Object? isNextCompletedTasksAvailable = freezed,
+    Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
       isInProgress: isInProgress == freezed
@@ -584,7 +737,22 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
           ? _value.isNextCompletedTasksAvailable
           : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      failure: failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as TaskFailure?,
     ));
+  }
+
+  @override
+  $TaskFailureCopyWith<$Res>? get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+
+    return $TaskFailureCopyWith<$Res>(_value.failure!, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
   }
 }
 
@@ -599,7 +767,11 @@ abstract class _$TaskWatcherStateCopyWith<$Res>
       {bool isInProgress,
       List<Task> allTasks,
       bool isNextUnCompletedTasksAvailable,
-      bool isNextCompletedTasksAvailable});
+      bool isNextCompletedTasksAvailable,
+      TaskFailure? failure});
+
+  @override
+  $TaskFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -619,6 +791,7 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
     Object? allTasks = freezed,
     Object? isNextUnCompletedTasksAvailable = freezed,
     Object? isNextCompletedTasksAvailable = freezed,
+    Object? failure = freezed,
   }) {
     return _then(_TaskWatcherState(
       isInProgress: isInProgress == freezed
@@ -638,6 +811,10 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
           ? _value.isNextCompletedTasksAvailable
           : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      failure: failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as TaskFailure?,
     ));
   }
 }
@@ -649,7 +826,8 @@ class _$_TaskWatcherState extends _TaskWatcherState {
       {required this.isInProgress,
       required this.allTasks,
       required this.isNextUnCompletedTasksAvailable,
-      required this.isNextCompletedTasksAvailable})
+      required this.isNextCompletedTasksAvailable,
+      this.failure})
       : super._();
 
   @override
@@ -660,10 +838,12 @@ class _$_TaskWatcherState extends _TaskWatcherState {
   final bool isNextUnCompletedTasksAvailable;
   @override
   final bool isNextCompletedTasksAvailable;
+  @override
+  final TaskFailure? failure;
 
   @override
   String toString() {
-    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, isNextUnCompletedTasksAvailable: $isNextUnCompletedTasksAvailable, isNextCompletedTasksAvailable: $isNextCompletedTasksAvailable)';
+    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, isNextUnCompletedTasksAvailable: $isNextUnCompletedTasksAvailable, isNextCompletedTasksAvailable: $isNextCompletedTasksAvailable, failure: $failure)';
   }
 
   @override
@@ -681,7 +861,8 @@ class _$_TaskWatcherState extends _TaskWatcherState {
             (identical(other.isNextCompletedTasksAvailable,
                     isNextCompletedTasksAvailable) ||
                 other.isNextCompletedTasksAvailable ==
-                    isNextCompletedTasksAvailable));
+                    isNextCompletedTasksAvailable) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
@@ -690,7 +871,8 @@ class _$_TaskWatcherState extends _TaskWatcherState {
       isInProgress,
       const DeepCollectionEquality().hash(allTasks),
       isNextUnCompletedTasksAvailable,
-      isNextCompletedTasksAvailable);
+      isNextCompletedTasksAvailable,
+      failure);
 
   @JsonKey(ignore: true)
   @override
@@ -703,7 +885,8 @@ abstract class _TaskWatcherState extends TaskWatcherState {
       {required bool isInProgress,
       required List<Task> allTasks,
       required bool isNextUnCompletedTasksAvailable,
-      required bool isNextCompletedTasksAvailable}) = _$_TaskWatcherState;
+      required bool isNextCompletedTasksAvailable,
+      TaskFailure? failure}) = _$_TaskWatcherState;
   const _TaskWatcherState._() : super._();
 
   @override
@@ -714,6 +897,8 @@ abstract class _TaskWatcherState extends TaskWatcherState {
   bool get isNextUnCompletedTasksAvailable;
   @override
   bool get isNextCompletedTasksAvailable;
+  @override
+  TaskFailure? get failure;
   @override
   @JsonKey(ignore: true)
   _$TaskWatcherStateCopyWith<_TaskWatcherState> get copyWith =>

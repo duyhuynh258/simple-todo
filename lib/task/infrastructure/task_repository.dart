@@ -4,6 +4,7 @@ import 'package:simple_todo_app/task/domain/task.dart' as domain;
 import 'package:simple_todo_app/task/domain/task_failure.dart';
 import 'package:simple_todo_app/task/infrastructure/exceptions.dart';
 import 'package:simple_todo_app/task/infrastructure/local_datasource/task_local_datasource.dart';
+import 'package:simple_todo_app/task/infrastructure/local_datasource/task_sembast_dto.dart';
 import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_remote_data_source.dart';
 
 class TaskRepository {
@@ -65,9 +66,28 @@ class TaskRepository {
     }
   }
 
-  Future<Either<TaskFailure, Unit>> saveTasks(List<domain.Task> task) async {
-    // TODO: implement
-    return right(unit);
+  Future<Either<TaskFailure, Unit>> upsertTasks(List<domain.Task> tasks) async {
+    try {
+      await _taskLocalDatasource.upsertTasks(TaskSembastDTO.fromDomains(tasks));
+      return right(unit);
+    } on TaskRemoteDataSourceException catch (e) {
+      return e.maybeWhen(
+        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet())),
+        insufficientPermissions: () => left(
+          const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.insufficientPermissions()),
+        ),
+        orElse: () async {
+          return left(const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected()));
+        },
+      );
+    } on TaskLocalDataSourceException catch (e) {
+      return left(const TaskFailure.localFailed());
+    } catch (e) {
+      return left(const TaskFailure.unexpected());
+    }
   }
 
   Future<Either<TaskFailure, Unit>> deleteTasks(List<domain.Task> task) async {

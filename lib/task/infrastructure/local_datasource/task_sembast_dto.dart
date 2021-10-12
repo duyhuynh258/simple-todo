@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 
 part 'task_sembast_dto.freezed.dart';
@@ -9,18 +9,18 @@ part 'task_sembast_dto.g.dart';
 @freezed
 class TaskSembastDTO with _$TaskSembastDTO {
   factory TaskSembastDTO({
-    @JsonKey(ignore: true) String? id,
+    required String id,
     required String body,
     required bool isCompleted,
     required bool isSynchronized,
-    @ServerTimestampConverter() required firestore.FieldValue serverTimeStamp,
+    @LocalTimestampConverter() required Timestamp localTimeStamp,
   }) = _TaskSembastDTO;
 
   factory TaskSembastDTO.fromDomain(Task task) {
     return TaskSembastDTO(
       id: task.id,
       body: task.body,
-      serverTimeStamp: firestore.FieldValue.serverTimestamp(),
+      localTimeStamp: Timestamp.now(),
       isCompleted: task.isComplete,
       isSynchronized: task.isSynchronized,
     );
@@ -35,25 +35,27 @@ class TaskSembastDTO with _$TaskSembastDTO {
     final copiedMap = Map<String, dynamic>.from(snapshot.value);
     return TaskSembastDTO.fromJson(copiedMap);
   }
+
+  static List<TaskSembastDTO> fromDomains(List<Task> tasks) =>
+      tasks.map((e) => TaskSembastDTO.fromDomain(e)).toList(growable: false);
 }
 
-class ServerTimestampConverter
-    implements JsonConverter<firestore.FieldValue, Object> {
-  const ServerTimestampConverter();
+class LocalTimestampConverter implements JsonConverter<Timestamp, Object> {
+  const LocalTimestampConverter();
 
   @override
-  firestore.FieldValue fromJson(Object json) {
-    return firestore.FieldValue.serverTimestamp();
+  Timestamp fromJson(Object json) {
+    return Timestamp.parse(json as String);
   }
 
   @override
-  Object toJson(firestore.FieldValue fieldValue) => fieldValue;
+  Object toJson(Timestamp timestamp) => timestamp.toString();
 }
 
 extension TaskSembastDTOX on TaskSembastDTO {
   Task toDomain() {
     return Task(
-      id: id!,
+      id: id,
       body: body,
       isComplete: isCompleted,
       isSynchronized: isSynchronized,

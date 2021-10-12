@@ -94,44 +94,19 @@ class TaskLocalDatasource {
     }
   }
 
-  Future<void> create(Task task) async {
-    // try {
-    //   final userDoc = await _firestore.userDocument(user);
-    //   final taskDTO = TaskDTO.fromDomain(task);
-    //
-    //   await userDoc.taskCollection.doc(taskDTO.id).set(taskDTO.toJson());
-    //
-    //   return dartz.right(dartz.unit);
-    // } on PlatformException catch (e) {
-    //   // These error codes and messages aren't in the documentation AFAIK,
-    //   // experiment in the debugger to find out about them.
-    //   if (e.message?.contains('PERMISSION_DENIED') ?? false) {
-    //     return dartz.left(const TaskFailure.insufficientPermissions());
-    //   } else {
-    //     return dartz.left(const TaskFailure.unexpected());
-    //   }
-    // }
-  }
-
-  Future<void> update(Task task) async {
-    // try {
-    //   final userDoc = await _firestore.userDocument(user);
-    //   final taskDTO = TaskDTO.fromDomain(task);
-    //
-    //   await userDoc.taskCollection.doc(taskDTO.id).update(taskDTO.toJson());
-    //
-    //   return dartz.right(dartz.unit);
-    // } on PlatformException catch (e) {
-    //   // These error codes and messages aren't in the documentation AFAIK,
-    //   // experience in the debugger to find out about them.
-    //   if (e.message?.contains('PERMISSION_DENIED') ?? false) {
-    //     return dartz.left(const TaskFailure.insufficientPermissions());
-    //   } else if (e.message?.contains('NOT_FOUND') ?? false) {
-    //     return dartz.left(const TaskFailure.unableToUpdate());
-    //   } else {
-    //     return dartz.left(const TaskFailure.unexpected());
-    //   }
-    // }
+  Future<void> upsertTasks(List<TaskSembastDTO> tasksDTO) async {
+    try {
+      // final records = await _store
+      //     .records(tasksDTO.map((e) => e.id).toList())
+      //     .get(_sembastDatabase.instance);
+      await _store.records(tasksDTO.map((e) => e.id).toList()).put(
+            _sembastDatabase.instance,
+            tasksDTO.map((e) => e.toJson()).toList(),
+          );
+    } catch (e) {
+      //TODO: handle more exceptions
+      throw const TaskLocalDataSourceException.platformException();
+    }
   }
 
   Future<void> delete(Task task) async {

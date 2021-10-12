@@ -8,4 +8,6 @@ class TaskWatcherEvent with _$TaskWatcherEvent {
   const factory TaskWatcherEvent.createdDraftTask() = _CreatedDraftTask;
   const factory TaskWatcherEvent.taskEndEdited({required Task task}) =
       _TaskEndEdited;
+
+  const factory TaskWatcherEvent.allTasksRequested() = _AllTasksRequested;
 }

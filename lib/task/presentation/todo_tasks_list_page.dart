@@ -40,18 +40,31 @@ class _TodoTasksListPageState extends State<TodoTasksListPage> {
                 return Center(child: Text('No todo task'));
               }
               for (final task in tasks) {
-                final bloc =
-                    TaskItemBloc(context.read<TaskRepository>(), task: task);
-                taskItemBlocsMap[task] = bloc;
-                taskItemFocusNodesMap[task] = FocusNode()
-                  ..addListener(() {
-                    if (taskItemFocusNodesMap[task]!.hasFocus == false) {
-                      final submittedTask = taskItemBlocsMap[task]!.state.task;
+                if (taskItemBlocsMap[task] == null) {
+                  final bloc = TaskItemBloc(
+                    context.read<TaskRepository>(),
+                    task: task,
+                    onAction: (Task? resultTask) {
+                      if (resultTask == null) {
+                        return;
+                      }
                       context.read<TaskWatcherBloc>().add(
-                          TaskWatcherEvent.taskEndEdited(task: submittedTask));
-                    }
-                  });
-                taskItemTextControllersMap[task] = TextEditingController();
+                          TaskWatcherEvent.tasksUpdated(tasks: [resultTask]));
+                    },
+                  );
+                  taskItemBlocsMap[task] = bloc;
+                  taskItemFocusNodesMap[task] = FocusNode()
+                    ..addListener(() {
+                      if (taskItemFocusNodesMap[task]!.hasFocus == false) {
+                        final submittedTask =
+                            taskItemBlocsMap[task]!.state.task;
+                        context.read<TaskWatcherBloc>().add(
+                            TaskWatcherEvent.taskEndEdited(
+                                task: submittedTask));
+                      }
+                    });
+                  taskItemTextControllersMap[task] = TextEditingController();
+                }
               }
 
               return ListView.separated(

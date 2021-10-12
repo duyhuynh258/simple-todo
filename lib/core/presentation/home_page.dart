@@ -37,7 +37,8 @@ class _HomePageState extends State<HomePage> {
             create: (context) => HomeBloc(),
           ),
           BlocProvider(
-            create: (context) => TaskWatcherBloc(),
+            create: (context) =>
+                TaskWatcherBloc(context.read<TaskRepository>()),
           ),
         ],
         child: Builder(builder: (context) {

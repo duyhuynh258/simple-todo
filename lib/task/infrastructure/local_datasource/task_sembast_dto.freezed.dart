@@ -22,19 +22,17 @@ class _$TaskSembastDTOTearOff {
   const _$TaskSembastDTOTearOff();
 
   _TaskSembastDTO call(
-      {@JsonKey(ignore: true)
-          String? id,
+      {required String id,
       required String body,
       required bool isCompleted,
       required bool isSynchronized,
-      @ServerTimestampConverter()
-          required firestore.FieldValue serverTimeStamp}) {
+      @LocalTimestampConverter() required Timestamp localTimeStamp}) {
     return _TaskSembastDTO(
       id: id,
       body: body,
       isCompleted: isCompleted,
       isSynchronized: isSynchronized,
-      serverTimeStamp: serverTimeStamp,
+      localTimeStamp: localTimeStamp,
     );
   }
 
@@ -48,14 +46,12 @@ const $TaskSembastDTO = _$TaskSembastDTOTearOff();
 
 /// @nodoc
 mixin _$TaskSembastDTO {
-  @JsonKey(ignore: true)
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   bool get isSynchronized => throw _privateConstructorUsedError;
-  @ServerTimestampConverter()
-  firestore.FieldValue get serverTimeStamp =>
-      throw _privateConstructorUsedError;
+  @LocalTimestampConverter()
+  Timestamp get localTimeStamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,11 +65,11 @@ abstract class $TaskSembastDTOCopyWith<$Res> {
           TaskSembastDTO value, $Res Function(TaskSembastDTO) then) =
       _$TaskSembastDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(ignore: true) String? id,
+      {String id,
       String body,
       bool isCompleted,
       bool isSynchronized,
-      @ServerTimestampConverter() firestore.FieldValue serverTimeStamp});
+      @LocalTimestampConverter() Timestamp localTimeStamp});
 }
 
 /// @nodoc
@@ -91,13 +87,13 @@ class _$TaskSembastDTOCopyWithImpl<$Res>
     Object? body = freezed,
     Object? isCompleted = freezed,
     Object? isSynchronized = freezed,
-    Object? serverTimeStamp = freezed,
+    Object? localTimeStamp = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -110,10 +106,10 @@ class _$TaskSembastDTOCopyWithImpl<$Res>
           ? _value.isSynchronized
           : isSynchronized // ignore: cast_nullable_to_non_nullable
               as bool,
-      serverTimeStamp: serverTimeStamp == freezed
-          ? _value.serverTimeStamp
-          : serverTimeStamp // ignore: cast_nullable_to_non_nullable
-              as firestore.FieldValue,
+      localTimeStamp: localTimeStamp == freezed
+          ? _value.localTimeStamp
+          : localTimeStamp // ignore: cast_nullable_to_non_nullable
+              as Timestamp,
     ));
   }
 }
@@ -126,11 +122,11 @@ abstract class _$TaskSembastDTOCopyWith<$Res>
       __$TaskSembastDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String? id,
+      {String id,
       String body,
       bool isCompleted,
       bool isSynchronized,
-      @ServerTimestampConverter() firestore.FieldValue serverTimeStamp});
+      @LocalTimestampConverter() Timestamp localTimeStamp});
 }
 
 /// @nodoc
@@ -150,13 +146,13 @@ class __$TaskSembastDTOCopyWithImpl<$Res>
     Object? body = freezed,
     Object? isCompleted = freezed,
     Object? isSynchronized = freezed,
-    Object? serverTimeStamp = freezed,
+    Object? localTimeStamp = freezed,
   }) {
     return _then(_TaskSembastDTO(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -169,10 +165,10 @@ class __$TaskSembastDTOCopyWithImpl<$Res>
           ? _value.isSynchronized
           : isSynchronized // ignore: cast_nullable_to_non_nullable
               as bool,
-      serverTimeStamp: serverTimeStamp == freezed
-          ? _value.serverTimeStamp
-          : serverTimeStamp // ignore: cast_nullable_to_non_nullable
-              as firestore.FieldValue,
+      localTimeStamp: localTimeStamp == freezed
+          ? _value.localTimeStamp
+          : localTimeStamp // ignore: cast_nullable_to_non_nullable
+              as Timestamp,
     ));
   }
 }
@@ -181,18 +177,17 @@ class __$TaskSembastDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_TaskSembastDTO implements _TaskSembastDTO {
   _$_TaskSembastDTO(
-      {@JsonKey(ignore: true) this.id,
+      {required this.id,
       required this.body,
       required this.isCompleted,
       required this.isSynchronized,
-      @ServerTimestampConverter() required this.serverTimeStamp});
+      @LocalTimestampConverter() required this.localTimeStamp});
 
   factory _$_TaskSembastDTO.fromJson(Map<String, dynamic> json) =>
       _$$_TaskSembastDTOFromJson(json);
 
   @override
-  @JsonKey(ignore: true)
-  final String? id;
+  final String id;
   @override
   final String body;
   @override
@@ -200,12 +195,12 @@ class _$_TaskSembastDTO implements _TaskSembastDTO {
   @override
   final bool isSynchronized;
   @override
-  @ServerTimestampConverter()
-  final firestore.FieldValue serverTimeStamp;
+  @LocalTimestampConverter()
+  final Timestamp localTimeStamp;
 
   @override
   String toString() {
-    return 'TaskSembastDTO(id: $id, body: $body, isCompleted: $isCompleted, isSynchronized: $isSynchronized, serverTimeStamp: $serverTimeStamp)';
+    return 'TaskSembastDTO(id: $id, body: $body, isCompleted: $isCompleted, isSynchronized: $isSynchronized, localTimeStamp: $localTimeStamp)';
   }
 
   @override
@@ -219,13 +214,13 @@ class _$_TaskSembastDTO implements _TaskSembastDTO {
                 other.isCompleted == isCompleted) &&
             (identical(other.isSynchronized, isSynchronized) ||
                 other.isSynchronized == isSynchronized) &&
-            (identical(other.serverTimeStamp, serverTimeStamp) ||
-                other.serverTimeStamp == serverTimeStamp));
+            (identical(other.localTimeStamp, localTimeStamp) ||
+                other.localTimeStamp == localTimeStamp));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, body, isCompleted, isSynchronized, serverTimeStamp);
+      runtimeType, id, body, isCompleted, isSynchronized, localTimeStamp);
 
   @JsonKey(ignore: true)
   @override
@@ -240,20 +235,18 @@ class _$_TaskSembastDTO implements _TaskSembastDTO {
 
 abstract class _TaskSembastDTO implements TaskSembastDTO {
   factory _TaskSembastDTO(
-      {@JsonKey(ignore: true)
-          String? id,
-      required String body,
-      required bool isCompleted,
-      required bool isSynchronized,
-      @ServerTimestampConverter()
-          required firestore.FieldValue serverTimeStamp}) = _$_TaskSembastDTO;
+          {required String id,
+          required String body,
+          required bool isCompleted,
+          required bool isSynchronized,
+          @LocalTimestampConverter() required Timestamp localTimeStamp}) =
+      _$_TaskSembastDTO;
 
   factory _TaskSembastDTO.fromJson(Map<String, dynamic> json) =
       _$_TaskSembastDTO.fromJson;
 
   @override
-  @JsonKey(ignore: true)
-  String? get id;
+  String get id;
   @override
   String get body;
   @override
@@ -261,8 +254,8 @@ abstract class _TaskSembastDTO implements TaskSembastDTO {
   @override
   bool get isSynchronized;
   @override
-  @ServerTimestampConverter()
-  firestore.FieldValue get serverTimeStamp;
+  @LocalTimestampConverter()
+  Timestamp get localTimeStamp;
   @override
   @JsonKey(ignore: true)
   _$TaskSembastDTOCopyWith<_TaskSembastDTO> get copyWith =>
