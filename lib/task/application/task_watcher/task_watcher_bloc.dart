@@ -28,6 +28,10 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
         failureOrTasks.fold((l) {
           emit(state.copyWith(failure: l, isInProgress: false));
         }, (r) {
+          if (r.entities.isNotEmpty) {
+            _addTaskItemBlocs(r.entities);
+          }
+
           emit(state.copyWith(
               isInProgress: false,
               allTasks: List.from(r.entities, growable: false)));
@@ -38,7 +42,7 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
     add(const TaskWatcherEvent.allTasksRequested());
   }
 
-  final Map<Task, TaskItemBloc> taskItemBlocs = {};
+  final Map<String, TaskItemBloc> taskItemBlocs = {};
   final TaskRepository _taskRepository;
 
   @override
@@ -55,15 +59,25 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   }
 
   void _addEmptyTask(Emitter<TaskWatcherState> emit) {
+    final emptyTask = Task.empty();
+    _addTaskItemBloc(emptyTask);
     emit(state.copyWith(
-        allTasks: List.from(<Task>[...state.allTasks, Task.empty()],
-            growable: false)));
+        allTasks:
+            List.from(<Task>[...state.allTasks, emptyTask], growable: false)));
   }
 
   void _removeEmptyTasks(Emitter<TaskWatcherState> emit) {
+    final List<Task> emptyTasks = List<Task>.from(state.allTasks)
+        .where((element) => element.isEmpty)
+        .toList();
     final resultTaskList = List<Task>.from(state.allTasks)
       ..removeWhere((element) => element.isEmpty == true);
+
     emit(state.copyWith(allTasks: List.from(resultTaskList, growable: false)));
+    //Remove bloc with empty task
+    for (final Task task in emptyTasks) {
+      _removeTaskItemBloc(task);
+    }
   }
 
   void _onTaskUpdated(
@@ -77,5 +91,51 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
       return e;
     }).toList());
     emit(state.copyWith(allTasks: List.from(resultTaskList, growable: false)));
+  }
+}
+
+extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
+  void _addTaskItemBloc(Task task) {
+    taskItemBlocs[task.id] = TaskItemBloc(
+      _taskRepository,
+      task: task,
+      onAction: (Task? task) {
+        if (task == null) {
+          return;
+        }
+        add(TaskWatcherEvent.tasksUpdated(tasks: [task]));
+      },
+    );
+  }
+
+  void _addTaskItemBlocs(List<Task> tasks) {
+    for (final Task task in tasks) {
+      taskItemBlocs[task.id] = TaskItemBloc(
+        _taskRepository,
+        task: task,
+        onAction: (Task? task) {
+          if (task == null) {
+            return;
+          }
+          add(TaskWatcherEvent.tasksUpdated(tasks: [task]));
+        },
+      );
+    }
+  }
+
+  void _removeTaskItemBlocs(List<Task> tasks) {
+    for (final Task task in tasks) {
+      final TaskItemBloc? removeBloc =
+          taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
+      taskItemBlocs.removeWhere((key, value) => key == task.id);
+      removeBloc?.close();
+    }
+  }
+
+  void _removeTaskItemBloc(Task task) {
+    final TaskItemBloc? removeBloc =
+        taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
+    taskItemBlocs.removeWhere((key, value) => key == task.id);
+    removeBloc?.close();
   }
 }

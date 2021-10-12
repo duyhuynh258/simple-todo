@@ -49,7 +49,7 @@ class LocalTimestampConverter implements JsonConverter<Timestamp, Object> {
   }
 
   @override
-  Object toJson(Timestamp timestamp) => timestamp.toString();
+  Object toJson(Timestamp timestamp) => timestamp.toIso8601String();
 }
 
 extension TaskSembastDTOX on TaskSembastDTO {

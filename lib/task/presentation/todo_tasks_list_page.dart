@@ -32,7 +32,7 @@ class _TodoTasksListPageState extends State<TodoTasksListPage> {
 
               return ListView.separated(
                   itemBuilder: (context, index) {
-                    return TaskItemWidget(task: tasks[index]);
+                    return TaskItemWidgetWithProvider(task: tasks[index]);
                   },
                   separatorBuilder: (context, index) => const Divider(),
                   itemCount: tasks.length);
