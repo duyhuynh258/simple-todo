@@ -70,6 +70,8 @@ class TaskRepository {
 
   Future<Either<TaskFailure, Unit>> saveTasks(List<domain.Task> task) async {}
 
+  Future<Either<TaskFailure, Unit>> deleteTasks(List<domain.Task> task) async {}
+
   Future<Either<TaskFailure, Unit>> syncToRemote(
       List<domain.Task> task) async {}
 
