@@ -28,6 +28,12 @@ class _$TaskItemEventTearOff {
   _TaskUnCompleted unCompleted() {
     return const _TaskUnCompleted();
   }
+
+  _TaskBodyChanged bodyChanged({required String body}) {
+    return _TaskBodyChanged(
+      body: body,
+    );
+  }
 }
 
 /// @nodoc
@@ -40,6 +46,7 @@ mixin _$TaskItemEvent {
     required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function(String body) bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +54,7 @@ mixin _$TaskItemEvent {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +62,7 @@ mixin _$TaskItemEvent {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +71,7 @@ mixin _$TaskItemEvent {
     required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +79,7 @@ mixin _$TaskItemEvent {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -76,6 +87,7 @@ mixin _$TaskItemEvent {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +152,7 @@ class _$_TaskSaved extends _TaskSaved {
     required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function(String body) bodyChanged,
   }) {
     return saved();
   }
@@ -150,6 +163,7 @@ class _$_TaskSaved extends _TaskSaved {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
   }) {
     return saved?.call();
   }
@@ -160,6 +174,7 @@ class _$_TaskSaved extends _TaskSaved {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
     if (saved != null) {
@@ -174,6 +189,7 @@ class _$_TaskSaved extends _TaskSaved {
     required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return saved(this);
   }
@@ -184,6 +200,7 @@ class _$_TaskSaved extends _TaskSaved {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return saved?.call(this);
   }
@@ -194,6 +211,7 @@ class _$_TaskSaved extends _TaskSaved {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
     if (saved != null) {
@@ -252,6 +270,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function(String body) bodyChanged,
   }) {
     return completed();
   }
@@ -262,6 +281,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
   }) {
     return completed?.call();
   }
@@ -272,6 +292,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -286,6 +307,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return completed(this);
   }
@@ -296,6 +318,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return completed?.call(this);
   }
@@ -306,6 +329,7 @@ class _$_TaskCompleted extends _TaskCompleted {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -364,6 +388,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function(String body) bodyChanged,
   }) {
     return unCompleted();
   }
@@ -374,6 +399,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
   }) {
     return unCompleted?.call();
   }
@@ -384,6 +410,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
     if (unCompleted != null) {
@@ -398,6 +425,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return unCompleted(this);
   }
@@ -408,6 +436,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return unCompleted?.call(this);
   }
@@ -418,6 +447,7 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
     TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
     if (unCompleted != null) {
@@ -430,6 +460,152 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
 abstract class _TaskUnCompleted extends TaskItemEvent {
   const factory _TaskUnCompleted() = _$_TaskUnCompleted;
   const _TaskUnCompleted._() : super._();
+}
+
+/// @nodoc
+abstract class _$TaskBodyChangedCopyWith<$Res> {
+  factory _$TaskBodyChangedCopyWith(
+          _TaskBodyChanged value, $Res Function(_TaskBodyChanged) then) =
+      __$TaskBodyChangedCopyWithImpl<$Res>;
+  $Res call({String body});
+}
+
+/// @nodoc
+class __$TaskBodyChangedCopyWithImpl<$Res>
+    extends _$TaskItemEventCopyWithImpl<$Res>
+    implements _$TaskBodyChangedCopyWith<$Res> {
+  __$TaskBodyChangedCopyWithImpl(
+      _TaskBodyChanged _value, $Res Function(_TaskBodyChanged) _then)
+      : super(_value, (v) => _then(v as _TaskBodyChanged));
+
+  @override
+  _TaskBodyChanged get _value => super._value as _TaskBodyChanged;
+
+  @override
+  $Res call({
+    Object? body = freezed,
+  }) {
+    return _then(_TaskBodyChanged(
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_TaskBodyChanged extends _TaskBodyChanged {
+  const _$_TaskBodyChanged({required this.body}) : super._();
+
+  @override
+  final String body;
+
+  @override
+  String toString() {
+    return 'TaskItemEvent.bodyChanged(body: $body)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _TaskBodyChanged &&
+            (identical(other.body, body) || other.body == body));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, body);
+
+  @JsonKey(ignore: true)
+  @override
+  _$TaskBodyChangedCopyWith<_TaskBodyChanged> get copyWith =>
+      __$TaskBodyChangedCopyWithImpl<_TaskBodyChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() saved,
+    required TResult Function() completed,
+    required TResult Function() unCompleted,
+    required TResult Function(String body) bodyChanged,
+  }) {
+    return bodyChanged(body);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? saved,
+    TResult Function()? completed,
+    TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
+  }) {
+    return bodyChanged?.call(body);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? saved,
+    TResult Function()? completed,
+    TResult Function()? unCompleted,
+    TResult Function(String body)? bodyChanged,
+    required TResult orElse(),
+  }) {
+    if (bodyChanged != null) {
+      return bodyChanged(body);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TaskSaved value) saved,
+    required TResult Function(_TaskCompleted value) completed,
+    required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
+  }) {
+    return bodyChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TaskSaved value)? saved,
+    TResult Function(_TaskCompleted value)? completed,
+    TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
+  }) {
+    return bodyChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TaskSaved value)? saved,
+    TResult Function(_TaskCompleted value)? completed,
+    TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
+    required TResult orElse(),
+  }) {
+    if (bodyChanged != null) {
+      return bodyChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _TaskBodyChanged extends TaskItemEvent {
+  const factory _TaskBodyChanged({required String body}) = _$_TaskBodyChanged;
+  const _TaskBodyChanged._() : super._();
+
+  String get body;
+  @JsonKey(ignore: true)
+  _$TaskBodyChangedCopyWith<_TaskBodyChanged> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

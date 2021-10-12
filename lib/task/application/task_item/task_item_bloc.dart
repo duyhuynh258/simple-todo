@@ -18,6 +18,9 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
           },
           unCompleted: () {
             _taskRepository.saveTasks([state.task.copyWith(isComplete: false)]);
+          },
+          bodyChanged: (body) {
+            emit(state.copyWith(task: state.task.copyWith(body: body)));
           });
     });
   }

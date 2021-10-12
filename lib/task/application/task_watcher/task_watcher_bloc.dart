@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/task/application/task_item/task_item_bloc.dart';
@@ -14,6 +15,9 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
           tasksUpdated: (tasks) {},
           createdDraftTask: () {
             _addEmptyTask(emit);
+          },
+          taskEndEdited: (Task task) {
+            _removeEmptyTasks(emit);
           });
     });
   }
@@ -29,6 +33,14 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   }
 
   void _addEmptyTask(Emitter<TaskWatcherState> emit) {
-    emit(state.copyWith(allTasks: [...state.allTasks, Task.empty()]));
+    emit(state.copyWith(
+        allTasks: List.from(<Task>[...state.allTasks, Task.empty()],
+            growable: false)));
+  }
+
+  void _removeEmptyTasks(Emitter<TaskWatcherState> emit) {
+    final resultTaskList = List<Task>.from(state.allTasks)
+      ..removeWhere((element) => element.isEmpty == true);
+    emit(state.copyWith(allTasks: List.from(resultTaskList, growable: false)));
   }
 }

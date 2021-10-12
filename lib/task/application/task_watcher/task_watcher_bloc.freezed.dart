@@ -26,6 +26,12 @@ class _$TaskWatcherEventTearOff {
   _CreatedDraftTask createdDraftTask() {
     return const _CreatedDraftTask();
   }
+
+  _TaskEndEdited taskEndEdited({required Task task}) {
+    return _TaskEndEdited(
+      task: task,
+    );
+  }
 }
 
 /// @nodoc
@@ -37,18 +43,21 @@ mixin _$TaskWatcherEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
+    required TResult Function(Task task) taskEndEdited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -56,18 +65,21 @@ mixin _$TaskWatcherEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
+    required TResult Function(_TaskEndEdited value) taskEndEdited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -157,6 +169,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
+    required TResult Function(Task task) taskEndEdited,
   }) {
     return tasksUpdated(tasks);
   }
@@ -166,6 +179,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
   }) {
     return tasksUpdated?.call(tasks);
   }
@@ -175,6 +189,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -188,6 +203,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
+    required TResult Function(_TaskEndEdited value) taskEndEdited,
   }) {
     return tasksUpdated(this);
   }
@@ -197,6 +213,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
   }) {
     return tasksUpdated?.call(this);
   }
@@ -206,6 +223,7 @@ class _$_TasksUpdated extends _TasksUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
     required TResult orElse(),
   }) {
     if (tasksUpdated != null) {
@@ -268,6 +286,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult when<TResult extends Object?>({
     required TResult Function(List<Task> tasks) tasksUpdated,
     required TResult Function() createdDraftTask,
+    required TResult Function(Task task) taskEndEdited,
   }) {
     return createdDraftTask();
   }
@@ -277,6 +296,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
   }) {
     return createdDraftTask?.call();
   }
@@ -286,6 +306,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Task> tasks)? tasksUpdated,
     TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
     required TResult orElse(),
   }) {
     if (createdDraftTask != null) {
@@ -299,6 +320,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult map<TResult extends Object?>({
     required TResult Function(_TasksUpdated value) tasksUpdated,
     required TResult Function(_CreatedDraftTask value) createdDraftTask,
+    required TResult Function(_TaskEndEdited value) taskEndEdited,
   }) {
     return createdDraftTask(this);
   }
@@ -308,6 +330,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
   }) {
     return createdDraftTask?.call(this);
   }
@@ -317,6 +340,7 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_TasksUpdated value)? tasksUpdated,
     TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
     required TResult orElse(),
   }) {
     if (createdDraftTask != null) {
@@ -329,6 +353,155 @@ class _$_CreatedDraftTask extends _CreatedDraftTask {
 abstract class _CreatedDraftTask extends TaskWatcherEvent {
   const factory _CreatedDraftTask() = _$_CreatedDraftTask;
   const _CreatedDraftTask._() : super._();
+}
+
+/// @nodoc
+abstract class _$TaskEndEditedCopyWith<$Res> {
+  factory _$TaskEndEditedCopyWith(
+          _TaskEndEdited value, $Res Function(_TaskEndEdited) then) =
+      __$TaskEndEditedCopyWithImpl<$Res>;
+  $Res call({Task task});
+
+  $TaskCopyWith<$Res> get task;
+}
+
+/// @nodoc
+class __$TaskEndEditedCopyWithImpl<$Res>
+    extends _$TaskWatcherEventCopyWithImpl<$Res>
+    implements _$TaskEndEditedCopyWith<$Res> {
+  __$TaskEndEditedCopyWithImpl(
+      _TaskEndEdited _value, $Res Function(_TaskEndEdited) _then)
+      : super(_value, (v) => _then(v as _TaskEndEdited));
+
+  @override
+  _TaskEndEdited get _value => super._value as _TaskEndEdited;
+
+  @override
+  $Res call({
+    Object? task = freezed,
+  }) {
+    return _then(_TaskEndEdited(
+      task: task == freezed
+          ? _value.task
+          : task // ignore: cast_nullable_to_non_nullable
+              as Task,
+    ));
+  }
+
+  @override
+  $TaskCopyWith<$Res> get task {
+    return $TaskCopyWith<$Res>(_value.task, (value) {
+      return _then(_value.copyWith(task: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_TaskEndEdited extends _TaskEndEdited {
+  const _$_TaskEndEdited({required this.task}) : super._();
+
+  @override
+  final Task task;
+
+  @override
+  String toString() {
+    return 'TaskWatcherEvent.taskEndEdited(task: $task)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _TaskEndEdited &&
+            (identical(other.task, task) || other.task == task));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, task);
+
+  @JsonKey(ignore: true)
+  @override
+  _$TaskEndEditedCopyWith<_TaskEndEdited> get copyWith =>
+      __$TaskEndEditedCopyWithImpl<_TaskEndEdited>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Task> tasks) tasksUpdated,
+    required TResult Function() createdDraftTask,
+    required TResult Function(Task task) taskEndEdited,
+  }) {
+    return taskEndEdited(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
+  }) {
+    return taskEndEdited?.call(task);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Task> tasks)? tasksUpdated,
+    TResult Function()? createdDraftTask,
+    TResult Function(Task task)? taskEndEdited,
+    required TResult orElse(),
+  }) {
+    if (taskEndEdited != null) {
+      return taskEndEdited(task);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TasksUpdated value) tasksUpdated,
+    required TResult Function(_CreatedDraftTask value) createdDraftTask,
+    required TResult Function(_TaskEndEdited value) taskEndEdited,
+  }) {
+    return taskEndEdited(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
+  }) {
+    return taskEndEdited?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TasksUpdated value)? tasksUpdated,
+    TResult Function(_CreatedDraftTask value)? createdDraftTask,
+    TResult Function(_TaskEndEdited value)? taskEndEdited,
+    required TResult orElse(),
+  }) {
+    if (taskEndEdited != null) {
+      return taskEndEdited(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _TaskEndEdited extends TaskWatcherEvent {
+  const factory _TaskEndEdited({required Task task}) = _$_TaskEndEdited;
+  const _TaskEndEdited._() : super._();
+
+  Task get task;
+  @JsonKey(ignore: true)
+  _$TaskEndEditedCopyWith<_TaskEndEdited> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -6,4 +6,6 @@ class TaskItemEvent with _$TaskItemEvent {
   const factory TaskItemEvent.saved() = _TaskSaved;
   const factory TaskItemEvent.completed() = _TaskCompleted;
   const factory TaskItemEvent.unCompleted() = _TaskUnCompleted;
+  const factory TaskItemEvent.bodyChanged({required String body}) =
+      _TaskBodyChanged;
 }

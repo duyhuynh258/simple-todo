@@ -14,6 +14,7 @@ class RoundCheckBox extends StatefulWidget {
     this.size,
     this.animationDuration,
     required this.onTap,
+    required this.shouldCheckTheBox,
   }) : super(key: key);
 
   ///Define whether the checkbox is marked or not
@@ -41,7 +42,10 @@ class RoundCheckBox extends StatefulWidget {
   final double? size;
 
   ///Define Function that os executed when user tap on checkbox
-  final Function(bool?) onTap;
+  final Function() onTap;
+
+  ///Customize condition for check action
+  final bool Function() shouldCheckTheBox;
 
   ///Define the duration of the animation. If any
   final Duration? animationDuration;
@@ -108,8 +112,11 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        setState(() => isChecked = !isChecked!);
-        widget.onTap(isChecked);
+        if (widget.shouldCheckTheBox()) {
+          setState(() => isChecked = !isChecked!);
+        }
+
+        widget.onTap();
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(size! / 2),
