@@ -23,12 +23,15 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
           _removeEmptyTasks(emit);
         }
       }, allTasksRequested: () async {
+        emit(state.copyWith(failure: null, isInProgress: true));
         final failureOrTasks = await _taskRepository.getAllTasks();
         failureOrTasks.fold((l) {
-          emit(state.copyWith(failure: l));
-        },
-            (r) => emit(state.copyWith(
-                allTasks: List.from(r.entities, growable: false))));
+          emit(state.copyWith(failure: l, isInProgress: false));
+        }, (r) {
+          emit(state.copyWith(
+              isInProgress: false,
+              allTasks: List.from(r.entities, growable: false)));
+        });
       });
     });
 
@@ -37,6 +40,11 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
 
   final Map<Task, TaskItemBloc> taskItemBlocs = {};
   final TaskRepository _taskRepository;
+
+  @override
+  void onChange(Change<TaskWatcherState> change) {
+    super.onChange(change);
+  }
 
   @override
   Future<void> close() {

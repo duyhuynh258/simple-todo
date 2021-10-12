@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_todo_app/core/presentation/colors.dart';
+import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
+import 'package:simple_todo_app/task/domain/task.dart';
+import 'package:simple_todo_app/task/presentation/task_item_widget.dart';
 
 class CompletedTasksListPage extends StatefulWidget {
   const CompletedTasksListPage({Key? key}) : super(key: key);
@@ -13,6 +17,23 @@ class _CompletedTasksListPageState extends State<CompletedTasksListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: completedBackgroundColor,
+      body: SafeArea(
+        child: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
+          builder: (context, state) {
+            final List<Task> tasks = state.completedTasks;
+            if (tasks.isEmpty) {
+              return const Center(child: Text('No todo task'));
+            }
+
+            return ListView.separated(
+                itemBuilder: (context, index) {
+                  return TaskItemWidget(task: tasks[index]);
+                },
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: tasks.length);
+          },
+        ),
+      ),
     );
   }
 }

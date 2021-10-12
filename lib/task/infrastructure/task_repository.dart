@@ -33,7 +33,7 @@ class TaskRepository {
               syncFailure: SyncFailure.unexpected()));
         },
       );
-    } on TaskLocalDataSourceException catch (e) {
+    } on TaskLocalDataSourceException catch (_) {
       return left(const TaskFailure.localFailed());
     } catch (e) {
       return left(const TaskFailure.unexpected());
@@ -59,7 +59,7 @@ class TaskRepository {
               syncFailure: SyncFailure.unexpected()));
         },
       );
-    } on TaskLocalDataSourceException catch (e) {
+    } on TaskLocalDataSourceException catch (_) {
       return left(const TaskFailure.localFailed());
     } catch (e) {
       return left(const TaskFailure.unexpected());
@@ -83,7 +83,7 @@ class TaskRepository {
               syncFailure: SyncFailure.unexpected()));
         },
       );
-    } on TaskLocalDataSourceException catch (e) {
+    } on TaskLocalDataSourceException catch (_) {
       return left(const TaskFailure.localFailed());
     } catch (e) {
       return left(const TaskFailure.unexpected());

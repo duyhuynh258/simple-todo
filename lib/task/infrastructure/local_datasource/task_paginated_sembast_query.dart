@@ -14,8 +14,11 @@ abstract class TaskPaginatedSembastFinder with _$TaskPaginatedSembastFinder {
   }) = _TaskPaginatedSembastFinder;
 
   Finder get paginatedFinder {
-    return finder
-      ..limit = numberOfItemToFetch
-      ..start = Boundary(record: lastRecord);
+    final resultFinder = finder..limit = numberOfItemToFetch;
+    if (lastRecord != null) {
+      return resultFinder..start = Boundary(record: lastRecord);
+    }
+
+    return resultFinder;
   }
 }

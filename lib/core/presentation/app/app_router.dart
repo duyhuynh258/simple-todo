@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_todo_app/auth/presentation/sign_in_page.dart';
 import 'package:simple_todo_app/auth/presentation/sign_up_page.dart';
-import 'package:simple_todo_app/core/presentation/home_page.dart';
 import 'package:simple_todo_app/splash/presentation/splash_page.dart';
+import 'package:simple_todo_app/task/presentation/task_home_page.dart';
 
 class Routes {
   static const home = 'home';
@@ -17,7 +17,8 @@ class Routes {
         return CupertinoPageRoute<void>(
             builder: (context) => const SplashPage());
       case home:
-        return CupertinoPageRoute<void>(builder: (context) => const HomePage());
+        return CupertinoPageRoute<void>(
+            builder: (context) => const TaskHomePage());
 
       case signIn:
         return CupertinoPageRoute<void>(

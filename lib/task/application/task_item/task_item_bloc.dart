@@ -29,7 +29,7 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
           bodyChanged: (body) {
             final Task resultTask = state.task.copyWith(body: body);
             emit(state.copyWith(task: state.task.copyWith(body: body)));
-            // onAction?.call(resultTask);
+            onAction?.call(resultTask);
           });
     });
   }

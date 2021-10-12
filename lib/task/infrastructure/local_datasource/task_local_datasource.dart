@@ -13,13 +13,13 @@ class TaskLocalDatasource {
     _getAllPaginatedFinder = TaskPaginatedSembastFinder(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
-        finder: Finder(sortOrders: [SortOrder('serverTimeStamp', false)]));
+        finder: Finder(sortOrders: [SortOrder('localTimeStamp', false)]));
 
     _getUncompletedPaginatedFinder = TaskPaginatedSembastFinder(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
         finder: Finder(
-            sortOrders: [SortOrder('serverTimeStamp', false)],
+            sortOrders: [SortOrder('localTimeStamp', false)],
             filter: Filter.equals('isCompleted', false)));
   }
 
@@ -40,14 +40,20 @@ class TaskLocalDatasource {
     }
     try {
       final List<RecordSnapshot<String, Map<String, dynamic>>> records =
-          await _store
-              .query(finder: _getAllPaginatedFinder.paginatedFinder)
-              .getSnapshots(_sembastDatabase.instance);
+          await _store.find(_sembastDatabase.instance,
+              finder: _getAllPaginatedFinder.paginatedFinder);
+
+      if (records.isEmpty) {
+        return const PaginatedList(
+          entities: [],
+          isNextPageAvailable: false,
+        );
+      }
 
       final isNextPageAvailable =
           records.length > PaginationConfig.itemsPerPage;
       final List<RecordSnapshot<String, Map<String, dynamic>>> pageRecords =
-          records..removeRecordsOutOfPage();
+          List.from(records)..removeRecordsOutOfPage();
       // Update last doc
       _getAllPaginatedFinder =
           _getAllPaginatedFinder.copyWith(lastRecord: pageRecords.last);

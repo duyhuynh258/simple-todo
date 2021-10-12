@@ -4,16 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
 import 'package:simple_todo_app/core/presentation/colors.dart';
 
-class NavigationBarWidget extends StatefulWidget {
-  const NavigationBarWidget({
+class TabBarWidget extends StatefulWidget {
+  const TabBarWidget({
     Key? key,
   }) : super(key: key);
+  static const Duration switchTabAnimationDuration =
+      Duration(milliseconds: 150);
 
   @override
-  _NavigationBarWidgetState createState() => _NavigationBarWidgetState();
+  _TabBarWidgetState createState() => _TabBarWidgetState();
 }
 
-class _NavigationBarWidgetState extends State<NavigationBarWidget> {
+class _TabBarWidgetState extends State<TabBarWidget> {
   late int currentIndex;
 
   @override
@@ -26,6 +28,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
             context.read<HomeBloc>().changeTab(index);
           },
           itemCornerRadius: 16,
+          animationDuration: TabBarWidget.switchTabAnimationDuration,
           curve: Curves.easeIn,
           items: <BottomNavyBarItem>[
             BottomNavyBarItem(
