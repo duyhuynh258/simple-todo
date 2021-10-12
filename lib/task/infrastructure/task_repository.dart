@@ -15,26 +15,28 @@ class TaskRepository {
   final TaskLocalDatasource _taskLocalDatasource;
   final User user;
 
-  Future<Either<TaskFailure, PaginatedList<domain.Task>>> getAllTasks(
-      {bool nextPage = false, int loadedItemsCount = 0}) async {
+  Future<Either<TaskFailure, PaginatedList<domain.Task>>> getAllTasks({
+    bool nextPage = false,
+  }) async {
     try {
-      final page = await _taskRemoteDataSource.getAllTasks(
-          nextPage: nextPage, loadedItemsCount: loadedItemsCount);
-      return right(page);
+      final tasksPage =
+          await _taskLocalDatasource.getAllTasks(nextPage: nextPage);
+      return right(tasksPage);
     } on TaskRemoteDataSourceException catch (e) {
       return e.maybeWhen(
-        noInternet: () => left(const TaskFailure.noInternet()),
+        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet())),
         insufficientPermissions: () => left(
-          const TaskFailure.insufficientPermissions(),
+          const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.insufficientPermissions()),
         ),
         orElse: () async {
-          final tasksPage = await _taskLocalDatasource.getAllTasks(
-              nextPage: nextPage, loadedItemsCount: loadedItemsCount);
-          return right(tasksPage);
+          return left(const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected()));
         },
       );
     } on TaskLocalDataSourceException catch (e) {
-      return left(const TaskFailure.localStorage());
+      return left(const TaskFailure.localFailed());
     } catch (e) {
       return left(const TaskFailure.unexpected());
     }
@@ -43,27 +45,34 @@ class TaskRepository {
   Future<Either<TaskFailure, PaginatedList<domain.Task>>> getUncompletedTasks(
       {bool nextPage = false, int loadedItemsCount = 0}) async {
     try {
-      final page = await _taskRemoteDataSource.getUncompletedTasks(
-          nextPage: nextPage, loadedItemsCount: loadedItemsCount);
-      return right(page);
+      final tasksPage =
+          await _taskLocalDatasource.getUncompletedTasks(nextPage: nextPage);
+      return right(tasksPage);
     } on TaskRemoteDataSourceException catch (e) {
       return e.maybeWhen(
-        noInternet: () => left(const TaskFailure.noInternet()),
+        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet())),
         insufficientPermissions: () => left(
-          const TaskFailure.insufficientPermissions(),
+          const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.insufficientPermissions()),
         ),
         orElse: () async {
-          final tasksPage = await _taskLocalDatasource.getUncompletedTasks(
-              nextPage: nextPage, loadedItemsCount: loadedItemsCount);
-          return right(tasksPage);
+          return left(const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected()));
         },
       );
     } on TaskLocalDataSourceException catch (e) {
-      return left(const TaskFailure.localStorage());
+      return left(const TaskFailure.localFailed());
     } catch (e) {
       return left(const TaskFailure.unexpected());
     }
   }
 
-  Future<Either<TaskFailure, Unit>> sync(List<domain.Task> task) async {}
+  Future<Either<TaskFailure, Unit>> saveTasks(List<domain.Task> task) async {}
+
+  Future<Either<TaskFailure, Unit>> syncToRemote(
+      List<domain.Task> task) async {}
+
+  Future<Either<TaskFailure, Unit>> syncFromRemote(
+      List<domain.Task> task) async {}
 }

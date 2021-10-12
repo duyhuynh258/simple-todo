@@ -9,3 +9,5 @@ const String settingsThemeKey = 'theme';
 const String fontSizeKey = 'fontSize';
 const String lightThemeValue = 'lightTheme';
 const String darkThemeValue = 'darkTheme';
+
+const String isTasksSyncedKey = 'isTasksSynced';

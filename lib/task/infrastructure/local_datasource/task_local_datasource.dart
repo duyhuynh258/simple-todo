@@ -10,12 +10,12 @@ import 'package:simple_todo_app/task/infrastructure/pagination_config.dart';
 
 class TaskLocalDatasource {
   TaskLocalDatasource(this._sembastDatabase) {
-    _watchAllPaginatedFinder = TaskPaginatedSembastFinder(
+    _getAllPaginatedFinder = TaskPaginatedSembastFinder(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
         finder: Finder(sortOrders: [SortOrder('serverTimeStamp', false)]));
 
-    _watchUncompletedPaginatedFinder = TaskPaginatedSembastFinder(
+    _getUncompletedPaginatedFinder = TaskPaginatedSembastFinder(
         numberOfItemToFetch:
             PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
         finder: Finder(
@@ -26,19 +26,22 @@ class TaskLocalDatasource {
   final SembastDatabase _sembastDatabase;
   final _store = stringMapStoreFactory.store(tasksStore);
 
-  late TaskPaginatedSembastFinder _watchAllPaginatedFinder;
-  late TaskPaginatedSembastFinder _watchUncompletedPaginatedFinder;
+  late TaskPaginatedSembastFinder _getAllPaginatedFinder;
+  late TaskPaginatedSembastFinder _getUncompletedPaginatedFinder;
 
-  Future<PaginatedList<Task>> getAllTasks(
-      {bool nextPage = false, int loadedItemsCount = 0}) async {
+  Stream<bool?> get isTasksSynced => _store.record(isTasksSyncedKey).onSnapshot(
+        _sembastDatabase.instance,
+      ) as Stream<bool?>;
+
+  Future<PaginatedList<Task>> getAllTasks({bool nextPage = false}) async {
     if (nextPage == false) {
-      _watchAllPaginatedFinder =
-          _watchAllPaginatedFinder.copyWith(lastRecord: null);
+      _getAllPaginatedFinder =
+          _getAllPaginatedFinder.copyWith(lastRecord: null);
     }
     try {
       final List<RecordSnapshot<String, Map<String, dynamic>>> records =
           await _store
-              .query(finder: _watchAllPaginatedFinder.paginatedFinder)
+              .query(finder: _getAllPaginatedFinder.paginatedFinder)
               .getSnapshots(_sembastDatabase.instance);
 
       final isNextPageAvailable =
@@ -46,8 +49,8 @@ class TaskLocalDatasource {
       final List<RecordSnapshot<String, Map<String, dynamic>>> pageRecords =
           records..removeRecordsOutOfPage();
       // Update last doc
-      _watchAllPaginatedFinder =
-          _watchAllPaginatedFinder.copyWith(lastRecord: pageRecords.last);
+      _getAllPaginatedFinder =
+          _getAllPaginatedFinder.copyWith(lastRecord: pageRecords.last);
       return PaginatedList(
         entities: pageRecords
             .map((record) => TaskSembastDTO.fromSembast(record).toDomain())
@@ -61,15 +64,15 @@ class TaskLocalDatasource {
   }
 
   Future<PaginatedList<Task>> getUncompletedTasks(
-      {bool nextPage = false, int loadedItemsCount = 0}) async {
+      {bool nextPage = false}) async {
     if (nextPage == false) {
-      _watchUncompletedPaginatedFinder =
-          _watchUncompletedPaginatedFinder.copyWith(lastRecord: null);
+      _getUncompletedPaginatedFinder =
+          _getUncompletedPaginatedFinder.copyWith(lastRecord: null);
     }
     try {
       final List<RecordSnapshot<String, Map<String, dynamic>>> records =
           await _store
-              .query(finder: _watchUncompletedPaginatedFinder.paginatedFinder)
+              .query(finder: _getUncompletedPaginatedFinder.paginatedFinder)
               .getSnapshots(_sembastDatabase.instance);
 
       final isNextPageAvailable =
@@ -77,8 +80,8 @@ class TaskLocalDatasource {
       final List<RecordSnapshot<String, Map<String, dynamic>>> pageRecords =
           records..removeRecordsOutOfPage();
       // Update last doc
-      _watchUncompletedPaginatedFinder = _watchUncompletedPaginatedFinder
-          .copyWith(lastRecord: pageRecords.last);
+      _getUncompletedPaginatedFinder =
+          _getUncompletedPaginatedFinder.copyWith(lastRecord: pageRecords.last);
       return PaginatedList(
         entities: pageRecords
             .map((record) => TaskSembastDTO.fromSembast(record).toDomain())

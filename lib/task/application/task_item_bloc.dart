@@ -13,7 +13,7 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
     on<TaskItemEvent>((event, emit) {
       event.when(
           saved: (task) {
-            _taskRepository.sync([task]);
+            _taskRepository.saveTasks([task]);
           },
           completed: (task) {},
           unCompleted: (task) {});
