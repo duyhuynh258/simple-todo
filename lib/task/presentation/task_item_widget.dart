@@ -22,6 +22,7 @@ class TaskItemWidgetWithProvider extends StatelessWidget {
       return ErrorWidget('TaskItemBloc with taskId = ${task.id},is null');
     }
     return BlocProvider<TaskItemBloc>.value(
+      key: key,
       value: taskItemBloc,
       child: _TaskItemWidget(
         task: task,

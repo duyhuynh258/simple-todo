@@ -26,7 +26,10 @@ class _AllTasksListPageState extends State<AllTasksListPage> {
 
             return ListView.separated(
                 itemBuilder: (context, index) {
-                  return TaskItemWidgetWithProvider(task: tasks[index]);
+                  return TaskItemWidgetWithProvider(
+                    key: Key(tasks[index].id),
+                    task: tasks[index],
+                  );
                 },
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: tasks.length);
