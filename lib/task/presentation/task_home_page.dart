@@ -45,29 +45,10 @@ class _TaskHomePageState extends State<TaskHomePage> {
         child: KeyboardDismissOnTap(
           child: KeyboardVisibilityBuilder(
             builder: (context, isKeyboardVisible) {
+              final bool shouldNotShowFAB = isKeyboardVisible &&
+                  context.read<HomeBloc>().state.selectedTabIndex != 0;
               return Scaffold(
-                floatingActionButton: isKeyboardVisible
-                    ? null
-                    : FloatingActionButton(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        splashColor: Theme.of(context).scaffoldBackgroundColor,
-                        highlightElevation: 3.0,
-                        onPressed: () {
-                          if (context
-                              .read<TaskWatcherBloc>()
-                              .state
-                              .hasEmptyTask) {
-                            // Only allow one new
-                            return;
-                          }
-                          context.read<HomeBloc>().changeToUnCompletedTab(
-                              forAction: TaskAction.create);
-                          context
-                              .read<TaskWatcherBloc>()
-                              .add(const TaskWatcherEvent.createdDraftTask());
-                        },
-                        child: const Icon(Icons.add),
-                      ),
+                floatingActionButton: const _AddTaskButton(),
                 bottomNavigationBar: const TabBarWidget(),
                 body: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
                   builder: (context, state) {
@@ -113,6 +94,43 @@ class _TaskHomePageBody extends StatelessWidget {
         //allTasksPage
         AllTasksListPage(),
       ],
+    );
+  }
+}
+
+class _AddTaskButton extends StatelessWidget {
+  const _AddTaskButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isNotTodoPage = context
+            .select((HomeBloc homeBloc) => homeBloc.state.selectedTabIndex) !=
+        0;
+    return KeyboardVisibilityBuilder(
+      builder: (context, isKeyboardVisible) {
+        final bool shouldNotShowFAB = isKeyboardVisible || isNotTodoPage;
+        if (shouldNotShowFAB) {
+          return const SizedBox();
+        }
+        return FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          splashColor: Theme.of(context).scaffoldBackgroundColor,
+          highlightElevation: 3.0,
+          onPressed: () {
+            if (context.read<TaskWatcherBloc>().state.hasEmptyTask) {
+              // Only allow one new
+              return;
+            }
+            context
+                .read<HomeBloc>()
+                .changeToUnCompletedTab(forAction: TaskAction.create);
+            context
+                .read<TaskWatcherBloc>()
+                .add(const TaskWatcherEvent.createdDraftTask());
+          },
+          child: const Icon(Icons.add),
+        );
+      },
     );
   }
 }
