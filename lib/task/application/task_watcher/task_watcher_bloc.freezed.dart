@@ -239,13 +239,17 @@ class _$TaskWatcherStateTearOff {
   _TaskWatcherState call(
       {required bool isInProgress,
       required List<Task> allTasks,
-      required PaginatedList<Task> unCompletedTasks,
-      required PaginatedList<Task> completedTasks}) {
+      required List<Task> unCompletedTasks,
+      required bool isNextUnCompletedTasksAvailable,
+      required List<Task> completedTasks,
+      required bool isNextCompletedTasksAvailable}) {
     return _TaskWatcherState(
       isInProgress: isInProgress,
       allTasks: allTasks,
       unCompletedTasks: unCompletedTasks,
+      isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable,
       completedTasks: completedTasks,
+      isNextCompletedTasksAvailable: isNextCompletedTasksAvailable,
     );
   }
 }
@@ -257,9 +261,11 @@ const $TaskWatcherState = _$TaskWatcherStateTearOff();
 mixin _$TaskWatcherState {
   bool get isInProgress => throw _privateConstructorUsedError;
   List<Task> get allTasks => throw _privateConstructorUsedError;
-  PaginatedList<Task> get unCompletedTasks =>
+  List<Task> get unCompletedTasks => throw _privateConstructorUsedError;
+  bool get isNextUnCompletedTasksAvailable =>
       throw _privateConstructorUsedError;
-  PaginatedList<Task> get completedTasks => throw _privateConstructorUsedError;
+  List<Task> get completedTasks => throw _privateConstructorUsedError;
+  bool get isNextCompletedTasksAvailable => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TaskWatcherStateCopyWith<TaskWatcherState> get copyWith =>
@@ -274,11 +280,10 @@ abstract class $TaskWatcherStateCopyWith<$Res> {
   $Res call(
       {bool isInProgress,
       List<Task> allTasks,
-      PaginatedList<Task> unCompletedTasks,
-      PaginatedList<Task> completedTasks});
-
-  $PaginatedListCopyWith<Task, $Res> get unCompletedTasks;
-  $PaginatedListCopyWith<Task, $Res> get completedTasks;
+      List<Task> unCompletedTasks,
+      bool isNextUnCompletedTasksAvailable,
+      List<Task> completedTasks,
+      bool isNextCompletedTasksAvailable});
 }
 
 /// @nodoc
@@ -295,7 +300,9 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
     Object? isInProgress = freezed,
     Object? allTasks = freezed,
     Object? unCompletedTasks = freezed,
+    Object? isNextUnCompletedTasksAvailable = freezed,
     Object? completedTasks = freezed,
+    Object? isNextCompletedTasksAvailable = freezed,
   }) {
     return _then(_value.copyWith(
       isInProgress: isInProgress == freezed
@@ -309,26 +316,21 @@ class _$TaskWatcherStateCopyWithImpl<$Res>
       unCompletedTasks: unCompletedTasks == freezed
           ? _value.unCompletedTasks
           : unCompletedTasks // ignore: cast_nullable_to_non_nullable
-              as PaginatedList<Task>,
+              as List<Task>,
+      isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable ==
+              freezed
+          ? _value.isNextUnCompletedTasksAvailable
+          : isNextUnCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       completedTasks: completedTasks == freezed
           ? _value.completedTasks
           : completedTasks // ignore: cast_nullable_to_non_nullable
-              as PaginatedList<Task>,
+              as List<Task>,
+      isNextCompletedTasksAvailable: isNextCompletedTasksAvailable == freezed
+          ? _value.isNextCompletedTasksAvailable
+          : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
-  }
-
-  @override
-  $PaginatedListCopyWith<Task, $Res> get unCompletedTasks {
-    return $PaginatedListCopyWith<Task, $Res>(_value.unCompletedTasks, (value) {
-      return _then(_value.copyWith(unCompletedTasks: value));
-    });
-  }
-
-  @override
-  $PaginatedListCopyWith<Task, $Res> get completedTasks {
-    return $PaginatedListCopyWith<Task, $Res>(_value.completedTasks, (value) {
-      return _then(_value.copyWith(completedTasks: value));
-    });
   }
 }
 
@@ -342,13 +344,10 @@ abstract class _$TaskWatcherStateCopyWith<$Res>
   $Res call(
       {bool isInProgress,
       List<Task> allTasks,
-      PaginatedList<Task> unCompletedTasks,
-      PaginatedList<Task> completedTasks});
-
-  @override
-  $PaginatedListCopyWith<Task, $Res> get unCompletedTasks;
-  @override
-  $PaginatedListCopyWith<Task, $Res> get completedTasks;
+      List<Task> unCompletedTasks,
+      bool isNextUnCompletedTasksAvailable,
+      List<Task> completedTasks,
+      bool isNextCompletedTasksAvailable});
 }
 
 /// @nodoc
@@ -367,7 +366,9 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
     Object? isInProgress = freezed,
     Object? allTasks = freezed,
     Object? unCompletedTasks = freezed,
+    Object? isNextUnCompletedTasksAvailable = freezed,
     Object? completedTasks = freezed,
+    Object? isNextCompletedTasksAvailable = freezed,
   }) {
     return _then(_TaskWatcherState(
       isInProgress: isInProgress == freezed
@@ -381,11 +382,20 @@ class __$TaskWatcherStateCopyWithImpl<$Res>
       unCompletedTasks: unCompletedTasks == freezed
           ? _value.unCompletedTasks
           : unCompletedTasks // ignore: cast_nullable_to_non_nullable
-              as PaginatedList<Task>,
+              as List<Task>,
+      isNextUnCompletedTasksAvailable: isNextUnCompletedTasksAvailable ==
+              freezed
+          ? _value.isNextUnCompletedTasksAvailable
+          : isNextUnCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       completedTasks: completedTasks == freezed
           ? _value.completedTasks
           : completedTasks // ignore: cast_nullable_to_non_nullable
-              as PaginatedList<Task>,
+              as List<Task>,
+      isNextCompletedTasksAvailable: isNextCompletedTasksAvailable == freezed
+          ? _value.isNextCompletedTasksAvailable
+          : isNextCompletedTasksAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -397,7 +407,9 @@ class _$_TaskWatcherState extends _TaskWatcherState {
       {required this.isInProgress,
       required this.allTasks,
       required this.unCompletedTasks,
-      required this.completedTasks})
+      required this.isNextUnCompletedTasksAvailable,
+      required this.completedTasks,
+      required this.isNextCompletedTasksAvailable})
       : super._();
 
   @override
@@ -405,13 +417,17 @@ class _$_TaskWatcherState extends _TaskWatcherState {
   @override
   final List<Task> allTasks;
   @override
-  final PaginatedList<Task> unCompletedTasks;
+  final List<Task> unCompletedTasks;
   @override
-  final PaginatedList<Task> completedTasks;
+  final bool isNextUnCompletedTasksAvailable;
+  @override
+  final List<Task> completedTasks;
+  @override
+  final bool isNextCompletedTasksAvailable;
 
   @override
   String toString() {
-    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, unCompletedTasks: $unCompletedTasks, completedTasks: $completedTasks)';
+    return 'TaskWatcherState(isInProgress: $isInProgress, allTasks: $allTasks, unCompletedTasks: $unCompletedTasks, isNextUnCompletedTasksAvailable: $isNextUnCompletedTasksAvailable, completedTasks: $completedTasks, isNextCompletedTasksAvailable: $isNextCompletedTasksAvailable)';
   }
 
   @override
@@ -422,10 +438,18 @@ class _$_TaskWatcherState extends _TaskWatcherState {
             (identical(other.isInProgress, isInProgress) ||
                 other.isInProgress == isInProgress) &&
             const DeepCollectionEquality().equals(other.allTasks, allTasks) &&
-            (identical(other.unCompletedTasks, unCompletedTasks) ||
-                other.unCompletedTasks == unCompletedTasks) &&
-            (identical(other.completedTasks, completedTasks) ||
-                other.completedTasks == completedTasks));
+            const DeepCollectionEquality()
+                .equals(other.unCompletedTasks, unCompletedTasks) &&
+            (identical(other.isNextUnCompletedTasksAvailable,
+                    isNextUnCompletedTasksAvailable) ||
+                other.isNextUnCompletedTasksAvailable ==
+                    isNextUnCompletedTasksAvailable) &&
+            const DeepCollectionEquality()
+                .equals(other.completedTasks, completedTasks) &&
+            (identical(other.isNextCompletedTasksAvailable,
+                    isNextCompletedTasksAvailable) ||
+                other.isNextCompletedTasksAvailable ==
+                    isNextCompletedTasksAvailable));
   }
 
   @override
@@ -433,8 +457,10 @@ class _$_TaskWatcherState extends _TaskWatcherState {
       runtimeType,
       isInProgress,
       const DeepCollectionEquality().hash(allTasks),
-      unCompletedTasks,
-      completedTasks);
+      const DeepCollectionEquality().hash(unCompletedTasks),
+      isNextUnCompletedTasksAvailable,
+      const DeepCollectionEquality().hash(completedTasks),
+      isNextCompletedTasksAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -446,8 +472,10 @@ abstract class _TaskWatcherState extends TaskWatcherState {
   const factory _TaskWatcherState(
       {required bool isInProgress,
       required List<Task> allTasks,
-      required PaginatedList<Task> unCompletedTasks,
-      required PaginatedList<Task> completedTasks}) = _$_TaskWatcherState;
+      required List<Task> unCompletedTasks,
+      required bool isNextUnCompletedTasksAvailable,
+      required List<Task> completedTasks,
+      required bool isNextCompletedTasksAvailable}) = _$_TaskWatcherState;
   const _TaskWatcherState._() : super._();
 
   @override
@@ -455,9 +483,13 @@ abstract class _TaskWatcherState extends TaskWatcherState {
   @override
   List<Task> get allTasks;
   @override
-  PaginatedList<Task> get unCompletedTasks;
+  List<Task> get unCompletedTasks;
   @override
-  PaginatedList<Task> get completedTasks;
+  bool get isNextUnCompletedTasksAvailable;
+  @override
+  List<Task> get completedTasks;
+  @override
+  bool get isNextCompletedTasksAvailable;
   @override
   @JsonKey(ignore: true)
   _$TaskWatcherStateCopyWith<_TaskWatcherState> get copyWith =>

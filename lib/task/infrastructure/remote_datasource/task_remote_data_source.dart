@@ -10,5 +10,8 @@ class TaskRemoteDataSource {
   final User user;
   final FirebaseFirestore _firestore;
 
-  Future<PaginatedList<Task>> syncToRemote(List<Task> tasks) async {}
+  Future<PaginatedList<Task>> syncToRemote(List<Task> tasks) async {
+    // TODO: implement
+    return PaginatedList.empty();
+  }
 }

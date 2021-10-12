@@ -17,9 +17,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TabBarStateTearOff {
   const _$TabBarStateTearOff();
 
-  _TabBarState call({required int selectedIndex}) {
+  _TabBarState call(
+      {required int selectedIndex, TaskAction? pageChangesForAction}) {
     return _TabBarState(
       selectedIndex: selectedIndex,
+      pageChangesForAction: pageChangesForAction,
     );
   }
 }
@@ -30,6 +32,7 @@ const $TabBarState = _$TabBarStateTearOff();
 /// @nodoc
 mixin _$TabBarState {
   int get selectedIndex => throw _privateConstructorUsedError;
+  TaskAction? get pageChangesForAction => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TabBarStateCopyWith<TabBarState> get copyWith =>
@@ -41,7 +44,7 @@ abstract class $TabBarStateCopyWith<$Res> {
   factory $TabBarStateCopyWith(
           TabBarState value, $Res Function(TabBarState) then) =
       _$TabBarStateCopyWithImpl<$Res>;
-  $Res call({int selectedIndex});
+  $Res call({int selectedIndex, TaskAction? pageChangesForAction});
 }
 
 /// @nodoc
@@ -55,12 +58,17 @@ class _$TabBarStateCopyWithImpl<$Res> implements $TabBarStateCopyWith<$Res> {
   @override
   $Res call({
     Object? selectedIndex = freezed,
+    Object? pageChangesForAction = freezed,
   }) {
     return _then(_value.copyWith(
       selectedIndex: selectedIndex == freezed
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      pageChangesForAction: pageChangesForAction == freezed
+          ? _value.pageChangesForAction
+          : pageChangesForAction // ignore: cast_nullable_to_non_nullable
+              as TaskAction?,
     ));
   }
 }
@@ -72,7 +80,7 @@ abstract class _$TabBarStateCopyWith<$Res>
           _TabBarState value, $Res Function(_TabBarState) then) =
       __$TabBarStateCopyWithImpl<$Res>;
   @override
-  $Res call({int selectedIndex});
+  $Res call({int selectedIndex, TaskAction? pageChangesForAction});
 }
 
 /// @nodoc
@@ -88,12 +96,17 @@ class __$TabBarStateCopyWithImpl<$Res> extends _$TabBarStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedIndex = freezed,
+    Object? pageChangesForAction = freezed,
   }) {
     return _then(_TabBarState(
       selectedIndex: selectedIndex == freezed
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      pageChangesForAction: pageChangesForAction == freezed
+          ? _value.pageChangesForAction
+          : pageChangesForAction // ignore: cast_nullable_to_non_nullable
+              as TaskAction?,
     ));
   }
 }
@@ -101,14 +114,17 @@ class __$TabBarStateCopyWithImpl<$Res> extends _$TabBarStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TabBarState extends _TabBarState {
-  const _$_TabBarState({required this.selectedIndex}) : super._();
+  const _$_TabBarState({required this.selectedIndex, this.pageChangesForAction})
+      : super._();
 
   @override
   final int selectedIndex;
+  @override
+  final TaskAction? pageChangesForAction;
 
   @override
   String toString() {
-    return 'TabBarState(selectedIndex: $selectedIndex)';
+    return 'TabBarState(selectedIndex: $selectedIndex, pageChangesForAction: $pageChangesForAction)';
   }
 
   @override
@@ -117,11 +133,14 @@ class _$_TabBarState extends _TabBarState {
         (other.runtimeType == runtimeType &&
             other is _TabBarState &&
             (identical(other.selectedIndex, selectedIndex) ||
-                other.selectedIndex == selectedIndex));
+                other.selectedIndex == selectedIndex) &&
+            (identical(other.pageChangesForAction, pageChangesForAction) ||
+                other.pageChangesForAction == pageChangesForAction));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedIndex);
+  int get hashCode =>
+      Object.hash(runtimeType, selectedIndex, pageChangesForAction);
 
   @JsonKey(ignore: true)
   @override
@@ -130,11 +149,15 @@ class _$_TabBarState extends _TabBarState {
 }
 
 abstract class _TabBarState extends TabBarState {
-  const factory _TabBarState({required int selectedIndex}) = _$_TabBarState;
+  const factory _TabBarState(
+      {required int selectedIndex,
+      TaskAction? pageChangesForAction}) = _$_TabBarState;
   const _TabBarState._() : super._();
 
   @override
   int get selectedIndex;
+  @override
+  TaskAction? get pageChangesForAction;
   @override
   @JsonKey(ignore: true)
   _$TabBarStateCopyWith<_TabBarState> get copyWith =>

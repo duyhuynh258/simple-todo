@@ -68,13 +68,24 @@ class TaskRepository {
     }
   }
 
-  Future<Either<TaskFailure, Unit>> saveTasks(List<domain.Task> task) async {}
+  Future<Either<TaskFailure, Unit>> saveTasks(List<domain.Task> task) async {
+    // TODO: implement
+    return right(unit);
+  }
 
-  Future<Either<TaskFailure, Unit>> deleteTasks(List<domain.Task> task) async {}
+  Future<Either<TaskFailure, Unit>> deleteTasks(List<domain.Task> task) async {
+    // TODO: implement
+    return right(unit);
+  }
 
-  Future<Either<TaskFailure, Unit>> syncToRemote(
-      List<domain.Task> task) async {}
+  Future<Either<TaskFailure, Unit>> syncToRemote(List<domain.Task> task) async {
+    // TODO: implement
+    return right(unit);
+  }
 
   Future<Either<TaskFailure, Unit>> syncFromRemote(
-      List<domain.Task> task) async {}
+      List<domain.Task> task) async {
+    // TODO: implement
+    return right(unit);
+  }
 }
