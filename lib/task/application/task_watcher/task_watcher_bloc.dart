@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/core/domain/paginated_list.dart';
-import 'package:simple_todo_app/task/application/task_item_bloc.dart';
+import 'package:simple_todo_app/task/application/task_item/task_item_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 
 part 'task_watcher_bloc.freezed.dart';

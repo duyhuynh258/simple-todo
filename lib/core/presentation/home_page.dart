@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_todo_app/task/application/tab_bar_bloc.dart';
+import 'package:simple_todo_app/task/application/tab_bar/tab_bar_bloc.dart';
 import 'package:simple_todo_app/task/presentation/tab_bar_widget.dart';
 
 class HomePage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_todo_app/core/presentation/colors.dart';
-import 'package:simple_todo_app/task/application/tab_bar_bloc.dart';
+import 'package:simple_todo_app/task/application/tab_bar/tab_bar_bloc.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({Key? key}) : super(key: key);
