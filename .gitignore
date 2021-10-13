@@ -20,7 +20,7 @@
 .classpath
 .project
 .settings/
-.vscode/*
+.idea/
 
 # Flutter repo-specific
 /bin/cache/
@@ -55,6 +55,8 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 .fvm/
+.vscode/
+.github/
 
 # Android related
 **/android/**/gradle-wrapper.jar
