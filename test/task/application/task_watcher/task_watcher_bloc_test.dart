@@ -52,5 +52,22 @@ void main() {
       verify: (bloc) =>
           verifyNever(() => taskRepositoryMock.upsertTasks(any())),
     );
+
+    blocTest<TaskWatcherBloc, TaskWatcherState>(
+      'can only create one empty task at one time',
+      build: () => TaskWatcherBloc(taskRepositoryMock,
+          initialState: TaskWatcherState(
+            isInProgress: false,
+            isNextCompletedTasksAvailable: false,
+            isNextUnCompletedTasksAvailable: false,
+            allTasks: [domain.Task.empty()],
+          )),
+      act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
+      expect: () => <TaskWatcherState>[],
+      verify: (bloc) => allOf([
+        verifyNever(() => taskRepositoryMock.upsertTasks(any())),
+        expectLater(bloc.state.allTasks.length, 1),
+      ]),
+    );
   });
 }
