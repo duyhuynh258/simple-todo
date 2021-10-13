@@ -53,6 +53,8 @@ class _AppWidgetState extends State<AppWidget> {
         RepositoryProvider<SettingsRepository>(
             create: (context) => SettingsRepository(
                 SettingsLocalDataSource(context.read<SembastDatabase>()))),
+        RepositoryProvider<FirebaseFirestore>(
+            create: (context) => FirebaseFirestore.instance),
       ],
       child: Builder(builder: (context) {
         return MultiBlocProvider(

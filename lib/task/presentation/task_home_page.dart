@@ -1,14 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
-import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
-import 'package:simple_todo_app/core/shared/user_info_reader.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
-import 'package:simple_todo_app/task/infrastructure/local_datasource/task_local_datasource.dart';
-import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_remote_data_source.dart';
-import 'package:simple_todo_app/task/infrastructure/task_repository.dart';
 import 'package:simple_todo_app/task/presentation/all_tasks_list_page.dart';
 import 'package:simple_todo_app/task/presentation/completed_tasks_list_page.dart';
 import 'package:simple_todo_app/task/presentation/tab_bar_widget.dart';
@@ -24,56 +18,34 @@ class TaskHomePage extends StatefulWidget {
 class _TaskHomePageState extends State<TaskHomePage> {
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) {
-        final currentUser = context.currentUser;
-        return TaskRepository(
-          TaskRemoteDataSource(FirebaseFirestore.instance, currentUser!),
-          TaskLocalDatasource(context.read<SembastDatabase>()),
-        );
-      },
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => HomeBloc(),
-          ),
-          BlocProvider(
-            create: (context) => TaskWatcherBloc(context.read<TaskRepository>())
-              ..add(const TaskWatcherEvent.allTasksRequested()),
-          ),
-        ],
-        child: KeyboardDismissOnTap(
-          child: KeyboardVisibilityBuilder(
-            builder: (context, isKeyboardVisible) {
-              final bool shouldNotShowFAB = isKeyboardVisible &&
-                  context.read<HomeBloc>().state.selectedTabIndex != 0;
-              return Scaffold(
-                floatingActionButton: const _AddTaskButton(),
-                bottomNavigationBar: const TabBarWidget(),
-                body: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
-                  builder: (context, state) {
-                    if (state.isInProgress) {
-                      return CircularProgressIndicator(
-                        color: Theme.of(context).primaryColor,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                      );
-                    }
-                    if (state.failure != null) {
-                      return state.failure!.maybeMap(orElse: () {
-                        return ErrorWidget(state.failure!.toString());
-                      }, localSuccessButSyncFailed:
-                          (localSuccessButSyncFailed) {
-                        return const _TaskHomePageBody();
-                      });
-                    }
+    return KeyboardDismissOnTap(
+      child: KeyboardVisibilityBuilder(
+        builder: (context, isKeyboardVisible) {
+          final bool shouldNotShowFAB = isKeyboardVisible &&
+              context.read<HomeBloc>().state.selectedTabIndex != 0;
+          return Scaffold(
+            floatingActionButton: const _AddTaskButton(),
+            bottomNavigationBar: const TabBarWidget(),
+            body: BlocBuilder<TaskWatcherBloc, TaskWatcherState>(
+              builder: (context, state) {
+                if (state.isInProgress) {
+                  return CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                  );
+                }
+                if (state.failure != null) {
+                  return state.failure!.maybeMap(orElse: () {
+                    return ErrorWidget(state.failure!.toString());
+                  }, localSuccessButSyncFailed: (localSuccessButSyncFailed) {
                     return const _TaskHomePageBody();
-                  },
-                ),
-              );
-            },
-          ),
-        ),
+                  });
+                }
+                return const _TaskHomePageBody();
+              },
+            ),
+          );
+        },
       ),
     );
   }
