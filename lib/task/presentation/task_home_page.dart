@@ -38,8 +38,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
             create: (context) => HomeBloc(),
           ),
           BlocProvider(
-            create: (context) =>
-                TaskWatcherBloc(context.read<TaskRepository>()),
+            create: (context) => TaskWatcherBloc(context.read<TaskRepository>())
+              ..add(const TaskWatcherEvent.allTasksRequested()),
           ),
         ],
         child: KeyboardDismissOnTap(

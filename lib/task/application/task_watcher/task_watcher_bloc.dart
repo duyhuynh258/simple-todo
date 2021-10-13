@@ -10,7 +10,8 @@ part 'task_watcher_event.dart';
 part 'task_watcher_state.dart';
 
 class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
-  TaskWatcherBloc(this._taskRepository) : super(TaskWatcherState.initial()) {
+  TaskWatcherBloc(this._taskRepository, {TaskWatcherState? initialState})
+      : super(initialState ?? TaskWatcherState.initial()) {
     on<TaskWatcherEvent>((event, emit) async {
       await event.when(tasksUpdated: (tasks) async {
         _onTaskUpdated(updatedTasks: tasks, emit: emit);
@@ -38,8 +39,6 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
         });
       });
     });
-
-    add(const TaskWatcherEvent.allTasksRequested());
   }
 
   final Map<String, TaskItemBloc> taskItemBlocs = {};
@@ -124,6 +123,9 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
   }
 
   void _removeTaskItemBlocs(List<Task> tasks) {
+    if (taskItemBlocs.isEmpty) {
+      return;
+    }
     for (final Task task in tasks) {
       final TaskItemBloc? removeBloc =
           taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
@@ -133,6 +135,9 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
   }
 
   void _removeTaskItemBloc(Task task) {
+    if (taskItemBlocs.isEmpty) {
+      return;
+    }
     final TaskItemBloc? removeBloc =
         taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
     taskItemBlocs.removeWhere((key, value) => key == task.id);
