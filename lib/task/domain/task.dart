@@ -9,7 +9,7 @@ abstract class Task with _$Task {
     required String id,
     required String body,
     required bool isSynchronized,
-    required bool isComplete,
+    required bool isCompleted,
   }) = _Task;
 
   const Task._();
@@ -18,7 +18,7 @@ abstract class Task with _$Task {
         id: UniqueId().value,
         body: '',
         isSynchronized: false,
-        isComplete: false,
+        isCompleted: false,
       );
 
   bool get isEmpty => body.isEmpty;

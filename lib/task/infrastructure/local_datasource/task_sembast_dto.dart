@@ -21,7 +21,7 @@ class TaskSembastDTO with _$TaskSembastDTO {
       id: task.id,
       body: task.body,
       localTimeStamp: Timestamp.now(),
-      isCompleted: task.isComplete,
+      isCompleted: task.isCompleted,
       isSynchronized: task.isSynchronized,
     );
   }
@@ -57,7 +57,7 @@ extension TaskSembastDTOX on TaskSembastDTO {
     return Task(
       id: id,
       body: body,
-      isComplete: isCompleted,
+      isCompleted: isCompleted,
       isSynchronized: isSynchronized,
     );
   }

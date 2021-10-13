@@ -19,7 +19,7 @@ class TaskFirestoreDTO with _$TaskFirestoreDTO {
       id: task.id,
       body: task.body,
       serverTimeStamp: FieldValue.serverTimestamp(),
-      isCompleted: task.isComplete,
+      isCompleted: task.isCompleted,
     );
   }
 
@@ -48,7 +48,7 @@ extension TaskFirestoreDTOX on TaskFirestoreDTO {
   Task toDomain() {
     return Task(
       body: body,
-      isComplete: isCompleted,
+      isCompleted: isCompleted,
       id: id!,
       isSynchronized: true,
     );

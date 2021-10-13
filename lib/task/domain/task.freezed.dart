@@ -21,12 +21,12 @@ class _$TaskTearOff {
       {required String id,
       required String body,
       required bool isSynchronized,
-      required bool isComplete}) {
+      required bool isCompleted}) {
     return _Task(
       id: id,
       body: body,
       isSynchronized: isSynchronized,
-      isComplete: isComplete,
+      isCompleted: isCompleted,
     );
   }
 }
@@ -39,7 +39,7 @@ mixin _$Task {
   String get id => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
   bool get isSynchronized => throw _privateConstructorUsedError;
-  bool get isComplete => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TaskCopyWith<Task> get copyWith => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ mixin _$Task {
 abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res>;
-  $Res call({String id, String body, bool isSynchronized, bool isComplete});
+  $Res call({String id, String body, bool isSynchronized, bool isCompleted});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$TaskCopyWithImpl<$Res> implements $TaskCopyWith<$Res> {
     Object? id = freezed,
     Object? body = freezed,
     Object? isSynchronized = freezed,
-    Object? isComplete = freezed,
+    Object? isCompleted = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -80,9 +80,9 @@ class _$TaskCopyWithImpl<$Res> implements $TaskCopyWith<$Res> {
           ? _value.isSynchronized
           : isSynchronized // ignore: cast_nullable_to_non_nullable
               as bool,
-      isComplete: isComplete == freezed
-          ? _value.isComplete
-          : isComplete // ignore: cast_nullable_to_non_nullable
+      isCompleted: isCompleted == freezed
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -93,7 +93,7 @@ abstract class _$TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
   factory _$TaskCopyWith(_Task value, $Res Function(_Task) then) =
       __$TaskCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String body, bool isSynchronized, bool isComplete});
+  $Res call({String id, String body, bool isSynchronized, bool isCompleted});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
     Object? id = freezed,
     Object? body = freezed,
     Object? isSynchronized = freezed,
-    Object? isComplete = freezed,
+    Object? isCompleted = freezed,
   }) {
     return _then(_Task(
       id: id == freezed
@@ -125,9 +125,9 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
           ? _value.isSynchronized
           : isSynchronized // ignore: cast_nullable_to_non_nullable
               as bool,
-      isComplete: isComplete == freezed
-          ? _value.isComplete
-          : isComplete // ignore: cast_nullable_to_non_nullable
+      isCompleted: isCompleted == freezed
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -140,7 +140,7 @@ class _$_Task extends _Task {
       {required this.id,
       required this.body,
       required this.isSynchronized,
-      required this.isComplete})
+      required this.isCompleted})
       : super._();
 
   @override
@@ -150,11 +150,11 @@ class _$_Task extends _Task {
   @override
   final bool isSynchronized;
   @override
-  final bool isComplete;
+  final bool isCompleted;
 
   @override
   String toString() {
-    return 'Task(id: $id, body: $body, isSynchronized: $isSynchronized, isComplete: $isComplete)';
+    return 'Task(id: $id, body: $body, isSynchronized: $isSynchronized, isCompleted: $isCompleted)';
   }
 
   @override
@@ -166,13 +166,13 @@ class _$_Task extends _Task {
             (identical(other.body, body) || other.body == body) &&
             (identical(other.isSynchronized, isSynchronized) ||
                 other.isSynchronized == isSynchronized) &&
-            (identical(other.isComplete, isComplete) ||
-                other.isComplete == isComplete));
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, body, isSynchronized, isComplete);
+      Object.hash(runtimeType, id, body, isSynchronized, isCompleted);
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +185,7 @@ abstract class _Task extends Task {
       {required String id,
       required String body,
       required bool isSynchronized,
-      required bool isComplete}) = _$_Task;
+      required bool isCompleted}) = _$_Task;
   const _Task._() : super._();
 
   @override
@@ -195,7 +195,7 @@ abstract class _Task extends Task {
   @override
   bool get isSynchronized;
   @override
-  bool get isComplete;
+  bool get isCompleted;
   @override
   @JsonKey(ignore: true)
   _$TaskCopyWith<_Task> get copyWith => throw _privateConstructorUsedError;

@@ -20,10 +20,10 @@ class TaskWatcherState with _$TaskWatcherState {
       );
 
   List<Task> get unCompletedTasks =>
-      allTasks.where((element) => element.isComplete == false).toList();
+      allTasks.where((element) => element.isCompleted == false).toList();
 
   List<Task> get completedTasks =>
-      allTasks.where((element) => element.isComplete == true).toList();
+      allTasks.where((element) => element.isCompleted == true).toList();
 
   bool get hasEmptyTask => allTasks.any((element) => element.body.isEmpty);
 }

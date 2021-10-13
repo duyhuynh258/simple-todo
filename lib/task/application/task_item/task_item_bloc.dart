@@ -17,13 +17,13 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
       event.when(
           saved: () {},
           completed: () {
-            final Task resultTask = state.task.copyWith(isComplete: true);
+            final Task resultTask = state.task.copyWith(isCompleted: true);
             _taskRepository.upsertTasks([resultTask]);
             emit(state.copyWith(task: resultTask));
             onAction?.call(resultTask);
           },
           unCompleted: () {
-            final Task resultTask = state.task.copyWith(isComplete: false);
+            final Task resultTask = state.task.copyWith(isCompleted: false);
             _taskRepository.upsertTasks([resultTask]);
             emit(state.copyWith(task: resultTask));
             onAction?.call(resultTask);

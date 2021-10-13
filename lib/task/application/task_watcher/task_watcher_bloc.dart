@@ -22,6 +22,7 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
       }, taskEndEdited: (Task task) async {
         if (task.body.isNotEmpty) {
           await _taskRepository.upsertTasks([task]);
+          _onTaskUpdated(updatedTasks: [task], emit: emit);
         } else {
           _removeEmptyTasks(emit);
         }

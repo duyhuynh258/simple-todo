@@ -72,7 +72,7 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
     return BlocBuilder<TaskItemBloc, TaskItemState>(
       builder: (context, state) {
         final bool isAutoFocus = state.task.isEmpty;
-        final bool isTaskCompleted = state.task.isComplete;
+        final bool isTaskCompleted = state.task.isCompleted;
         return ListTile(
           leading: RoundCheckBox(
             borderColor:
