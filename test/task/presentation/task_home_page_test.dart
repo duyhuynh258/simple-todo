@@ -1,4 +1,3 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 
@@ -8,10 +7,10 @@ import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
-  late MockAuthRepository mockAuthRepository;
-  setUp(() {
-    mockAuthRepository = MockAuthRepository();
-  });
+  // late MockAuthRepository mockAuthRepository;
+  // setUp(() {
+  //   mockAuthRepository = MockAuthRepository();
+  // });
   // group('TaskHomePage', () {
   //   testWidgets('renders TodoTasksListPage', (tester) async {
   //     await tester.pumpApp(const TaskHomePage(),
