@@ -39,10 +39,6 @@ void main() {
       build: () => TaskWatcherBloc(taskRepositoryMock),
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
       expect: () => [
-        isA<TaskWatcherState>()
-            .having((state) => state.isInProgress, 'Tasks is fetching', true),
-        isA<TaskWatcherState>()
-            .having((state) => state.isInProgress, 'Tasks is loaded', false),
         isA<TaskWatcherState>().having((state) => state.allTasks.first.isEmpty,
             'Created task have empty body', true)
       ],

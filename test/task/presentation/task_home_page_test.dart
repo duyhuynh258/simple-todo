@@ -1,9 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
-import 'package:simple_todo_app/task/presentation/task_home_page.dart';
-
-import '../../helpers/helpers.dart';
 
 // class MockAuthBloc extends MockBloc<AuthBloc, AuthState> implements AuthBloc {
 // }
@@ -15,13 +12,13 @@ void main() {
   setUp(() {
     mockAuthRepository = MockAuthRepository();
   });
-  group('TaskHomePage', () {
-    testWidgets('renders TodoTasksListPage', (tester) async {
-      await tester.pumpApp(const TaskHomePage(),
-          authRepositoryMock: mockAuthRepository);
-      await tester.pump(const Duration(seconds: 3));
-      final findWidget = find.byType(TaskHomePage);
-      expect(findWidget, findsOneWidget);
-    });
-  });
+  // group('TaskHomePage', () {
+  //   testWidgets('renders TodoTasksListPage', (tester) async {
+  //     await tester.pumpApp(const TaskHomePage(),
+  //         authRepositoryMock: mockAuthRepository);
+  //     await tester.pump(const Duration(seconds: 3));
+  //     final findWidget = find.byType(TaskHomePage);
+  //     expect(findWidget, findsOneWidget);
+  //   });
+  // });
 }
