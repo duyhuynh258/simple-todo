@@ -9,11 +9,11 @@ import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/auth/application/sign_in_bloc.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 import 'package:simple_todo_app/core/presentation/app/app_router.dart';
-import 'package:simple_todo_app/core/presentation/circular_progress_container.dart';
-import 'package:simple_todo_app/core/presentation/colors.dart';
-import 'package:simple_todo_app/core/presentation/page_background_gradient_container.dart';
-import 'package:simple_todo_app/core/presentation/ui_utils.dart';
+import 'package:simple_todo_app/core/presentation/widgets/circular_progress_container.dart';
 import 'package:simple_todo_app/core/presentation/widgets/custom_rounded_button.dart';
+import 'package:simple_todo_app/core/presentation/widgets/page_background_gradient_container.dart';
+import 'package:simple_todo_app/core/shared/colors.dart';
+import 'package:simple_todo_app/core/shared/ui_utils.dart';
 import 'package:simple_todo_app/core/shared/validators.dart';
 
 class SignInPage extends StatefulWidget {
@@ -34,7 +34,7 @@ class SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignInBloc>(
-      create: (_) =>
+      create: (context) =>
           SignInBloc(context.read<AuthRepository>(), context.read<AuthBloc>()),
       child: Builder(
         builder: (context) => Scaffold(
@@ -72,17 +72,17 @@ class SignInPageState extends State<SignInPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * .03,
             ),
-            loginWith(),
+            loginWith(context),
             showSocialMedia(context),
             orLabel(),
-            showEmail(),
+            showEmail(context),
             SizedBox(
               height: MediaQuery.of(context).size.height * .02,
             ),
-            showPwd(),
-            forgetPwd(),
+            showPwd(context),
+            forgetPwd(context),
             showSignIn(context),
-            showGoSignup(),
+            showGoSignup(context),
           ],
         ),
       ),
@@ -109,7 +109,7 @@ class SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget showEmail() {
+  Widget showEmail(BuildContext context) {
     return TextFormField(
       controller: edtEmail,
       keyboardType: TextInputType.emailAddress,
@@ -138,7 +138,7 @@ class SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget showPwd() {
+  Widget showPwd(BuildContext context) {
     return TextFormField(
       controller: edtPwd,
       style: TextStyle(color: Theme.of(context).colorScheme.secondary),
@@ -242,7 +242,7 @@ class SignInPageState extends State<SignInPage> {
         ));
   }
 
-  Padding forgetPwd() {
+  Padding forgetPwd(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Align(
@@ -258,7 +258,7 @@ class SignInPageState extends State<SignInPage> {
                         topRight: Radius.circular(20.0)),
                   ),
                   context: context,
-                  builder: (context) => Padding(
+                  builder: (modalContext) => Padding(
                       padding: MediaQuery.of(context).viewInsets,
                       child: Container(
                         decoration: BoxDecoration(
@@ -368,7 +368,7 @@ class SignInPageState extends State<SignInPage> {
     ]);
   }
 
-  Widget loginWith() {
+  Widget loginWith(BuildContext context) {
     return Text(
       'Connect with one of the following Option',
       textAlign: TextAlign.center,
@@ -434,7 +434,7 @@ class SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget showGoSignup() {
+  Widget showGoSignup(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[

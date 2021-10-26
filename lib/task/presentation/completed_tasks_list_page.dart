@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_todo_app/core/presentation/colors.dart';
+import 'package:simple_todo_app/core/shared/colors.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 import 'package:simple_todo_app/task/presentation/task_item_widget.dart';

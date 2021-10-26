@@ -4,13 +4,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_todo_app/auth/application/sign_up_bloc.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 import 'package:simple_todo_app/core/presentation/app/app_router.dart';
-import 'package:simple_todo_app/core/presentation/circular_progress_container.dart';
-import 'package:simple_todo_app/core/presentation/page_background_gradient_container.dart';
-import 'package:simple_todo_app/core/presentation/ui_utils.dart';
+import 'package:simple_todo_app/core/presentation/widgets/circular_progress_container.dart';
+import 'package:simple_todo_app/core/presentation/widgets/page_background_gradient_container.dart';
+import 'package:simple_todo_app/core/shared/ui_utils.dart';
 import 'package:simple_todo_app/core/shared/validators.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -100,9 +100,10 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget showTopImage() {
     return Container(
       transformAlignment: Alignment.topCenter,
-      child: Lottie.asset('assets/animations/login.json',
-          height: MediaQuery.of(context).size.height * .25,
-          width: MediaQuery.of(context).size.width * 3),
+      child: SvgPicture.asset(
+        'assets/images/icon_trello.svg',
+        color: Theme.of(context).primaryColor,
+      ),
     );
   }
 

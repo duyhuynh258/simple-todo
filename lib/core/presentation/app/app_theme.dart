@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_todo_app/core/presentation/colors.dart';
+import 'package:simple_todo_app/core/shared/colors.dart';
 
 enum AppTheme { light, dark }
 

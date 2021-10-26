@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_todo_app/core/presentation/colors.dart';
-import 'package:simple_todo_app/core/presentation/ui_utils.dart';
 import 'package:simple_todo_app/core/presentation/widgets/rounded_check_box.dart';
+import 'package:simple_todo_app/core/shared/colors.dart';
+import 'package:simple_todo_app/core/shared/ui_utils.dart';
 import 'package:simple_todo_app/task/application/task_item/task_item_bloc.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart';

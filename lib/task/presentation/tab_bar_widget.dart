@@ -2,7 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
-import 'package:simple_todo_app/core/presentation/colors.dart';
+import 'package:simple_todo_app/core/shared/colors.dart';
 
 class TabBarWidget extends StatefulWidget {
   const TabBarWidget({
@@ -16,8 +16,6 @@ class TabBarWidget extends StatefulWidget {
 }
 
 class _TabBarWidgetState extends State<TabBarWidget> {
-  late int currentIndex;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -46,15 +44,14 @@ class _TabBarWidgetState extends State<TabBarWidget> {
                 inactiveColor: Theme.of(context).colorScheme.secondary,
                 icon: const Icon(Icons.filter_list),
                 title: const Text('All')),
+            BottomNavyBarItem(
+                activeColor: Theme.of(context).primaryColor,
+                inactiveColor: Theme.of(context).colorScheme.secondary,
+                icon: const Icon(Icons.settings),
+                title: const Text('Settings')),
           ],
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    currentIndex = 0;
   }
 }

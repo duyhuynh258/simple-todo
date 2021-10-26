@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
+import 'package:simple_todo_app/core/presentation/pages/settings_page.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
 import 'package:simple_todo_app/task/presentation/all_tasks_list_page.dart';
 import 'package:simple_todo_app/task/presentation/completed_tasks_list_page.dart';
@@ -58,13 +59,15 @@ class _TaskHomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndexedStack(
       index: context.watch<HomeBloc>().state.selectedTabIndex,
-      children: const [
+      children: [
         //uncompletedTasksPage
-        TodoTasksListPage(),
+        const TodoTasksListPage(),
         //completedTasksPage
-        CompletedTasksListPage(),
+        const CompletedTasksListPage(),
         //allTasksPage
-        AllTasksListPage(),
+        const AllTasksListPage(),
+        //settingsPage
+        SettingsPage(),
       ],
     );
   }

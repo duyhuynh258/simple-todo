@@ -11,7 +11,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 import 'package:simple_todo_app/auth/infrastructure/firebase_user_mapper.dart';
-import 'package:simple_todo_app/auth/presentation/sign_in_page.dart';
 import 'package:simple_todo_app/core/application/setting_bloc.dart';
 import 'package:simple_todo_app/core/application/theme_bloc.dart';
 import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
@@ -102,7 +101,7 @@ class _AppWidgetState extends State<AppWidget> {
                                       (route) => route.settings.name == '/');
                             });
                           },
-                          child: const SignInPage(),
+                          child: const SplashPage(),
                         );
                       }
                       break;
