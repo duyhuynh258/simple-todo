@@ -26,28 +26,34 @@ void main() {
 
   group('TaskWatcherBloc', () {
     blocTest<TaskWatcherBloc, TaskWatcherState>(
-      'emits empty task when create new',
+      'emits state with draft task',
       build: () => TaskWatcherBloc(taskRepositoryMock),
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
       expect: () => [
-        isA<TaskWatcherState>().having(
-          (state) => state.allTasks.first.isDraft,
-          'Created task have empty body',
-          true,
-        )
+        isA<TaskWatcherState>()
+            .having(
+              (state) => state.allTasks.first.isDraft,
+              'Created task have isDraft field equal "true"',
+              true,
+            )
+            .having(
+              (state) => state.allTasks.length,
+              'List task has one draft task',
+              1,
+            ),
       ],
     );
 
     blocTest<TaskWatcherBloc, TaskWatcherState>(
-      'empty tasks will not be saved and will be remove when end editing',
+      'draft tasks will not be saved and will be remove when end editing',
       build: () => TaskWatcherBloc(
         taskRepositoryMock,
-        initialState: TaskWatcherState(
-          isInProgress: false,
-          isNextCompletedTasksAvailable: false,
-          isNextUnCompletedTasksAvailable: false,
-          allTasks: [domain.Task.draft()],
-        ),
+      ),
+      seed: () => TaskWatcherState(
+        isInProgress: false,
+        isNextCompletedTasksAvailable: false,
+        isNextUnCompletedTasksAvailable: false,
+        allTasks: [domain.Task.draft()],
       ),
       act: (bloc) {
         final domain.Task draftTask = bloc.state.allTasks.first;
@@ -68,12 +74,12 @@ void main() {
       'can only create one empty task at one time',
       build: () => TaskWatcherBloc(
         taskRepositoryMock,
-        initialState: TaskWatcherState(
-          isInProgress: false,
-          isNextCompletedTasksAvailable: false,
-          isNextUnCompletedTasksAvailable: false,
-          allTasks: [domain.Task.draft()],
-        ),
+      ),
+      seed: () => TaskWatcherState(
+        isInProgress: false,
+        isNextCompletedTasksAvailable: false,
+        isNextUnCompletedTasksAvailable: false,
+        allTasks: [domain.Task.draft()],
       ),
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
       expect: () => <TaskWatcherState>[],
@@ -100,12 +106,12 @@ void main() {
       },
       build: () => TaskWatcherBloc(
         taskRepositoryMock,
-        initialState: TaskWatcherState(
-          isInProgress: false,
-          isNextCompletedTasksAvailable: false,
-          isNextUnCompletedTasksAvailable: false,
-          allTasks: [uncompletedTask],
-        ),
+      ),
+      seed: () => TaskWatcherState(
+        isInProgress: false,
+        isNextCompletedTasksAvailable: false,
+        isNextUnCompletedTasksAvailable: false,
+        allTasks: [uncompletedTask],
       ),
       act: (bloc) => bloc.add(
         TaskWatcherEvent.taskEndEdited(

@@ -10,8 +10,7 @@ part 'task_watcher_event.dart';
 part 'task_watcher_state.dart';
 
 class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
-  TaskWatcherBloc(this._taskRepository, {TaskWatcherState? initialState})
-      : super(initialState ?? TaskWatcherState.initial()) {
+  TaskWatcherBloc(this._taskRepository) : super(TaskWatcherState.initial()) {
     on<TaskWatcherEvent>((event, emit) async {
       await event.when(
         tasksUpdated: (tasks) async {
