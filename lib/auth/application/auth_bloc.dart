@@ -11,6 +11,22 @@ enum AuthProvider { gmail, email, apple }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(const AuthState.initial()) {
+    on<AuthEvent>((event, emit) async {
+      await event.when(
+        authCheckRequested: () async {
+          final userOption = await _authRepository.getSignedInUser();
+
+          final state = userOption.fold<AuthState>(
+              () => const AuthState.unauthenticated(),
+              (user) => AuthState.authenticated(user));
+          emit(state);
+        },
+        signedOut: () async {
+          await _authRepository.signOut();
+          emit(const AuthState.unauthenticated());
+        },
+      );
+    });
     _userChangesSubscription =
         _authRepository.onUserChanged.listen((optionUser) {
       final user = optionUser.getOrElse(() => null);
@@ -29,26 +45,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> close() {
     _userChangesSubscription.cancel();
     return super.close();
-  }
-
-  @override
-  Stream<AuthState> mapEventToState(
-    AuthEvent event,
-  ) async* {
-    yield* event.map(
-      authCheckRequested: (e) async* {
-        final userOption = await _authRepository.getSignedInUser();
-
-        yield userOption.fold<AuthState>(
-          () => const AuthState.unauthenticated(),
-          (user) => AuthState.authenticated(user),
-        );
-      },
-      signedOut: (e) async* {
-        await _authRepository.signOut();
-        yield const AuthState.unauthenticated();
-      },
-    );
   }
 }
 
