@@ -40,7 +40,7 @@ class SettingsPage extends StatelessWidget {
                 content: Text(
                   'Are you sure to logout?',
                   style: TextStyle(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 actions: [

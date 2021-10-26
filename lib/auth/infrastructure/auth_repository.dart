@@ -29,7 +29,12 @@ class AuthRepository {
 
   Stream<Option<User>> onUserChanged() async* {
     yield* _firebaseAuth.userChanges().flatMap((firebaseUser) async* {
-      yield optionOf(_firebaseUserMapper.toDomain(firebaseUser));
+      if (firebaseUser?.emailVerified == false) {
+        await _firebaseAuth.signOut();
+        return;
+      } else {
+        yield optionOf(_firebaseUserMapper.toDomain(firebaseUser));
+      }
     });
   }
 
@@ -65,19 +70,35 @@ class AuthRepository {
         email: email,
         password: password,
       );
-      final user = FirebaseUserMapper().toDomain(credentials.user);
-      if (user == null) {
+      final firebaseUser = credentials.user;
+      if (firebaseUser == null) {
         // Should not happen.
         return left(const AuthFailure.userNotFound());
       }
+      if (firebaseUser.emailVerified == false) {
+        return left(const AuthFailure.emailNotVerified());
+      }
+
+      final user = FirebaseUserMapper().toDomain(firebaseUser)!;
+
       onSuccess?.call(user, credentials.additionalUserInfo?.isNewUser ?? false);
       return right(unit);
     } on PlatformException catch (e) {
       if (e.code == 'ERROR_WRONG_PASSWORD' ||
           e.code == 'ERROR_USER_NOT_FOUND') {
-        return left(const AuthFailure.invalidEmailAndPasswordCombination());
+        return left(const AuthFailure.wrongEmailAndPasswordCombination());
       }
       return left(const AuthFailure.serverError());
+    } on firebase.FirebaseException catch (e) {
+      if (e.code == 'user-not-found') {
+        return left(const AuthFailure.userNotFound());
+      } else if (e.code == 'wrong-password') {
+        return left(const AuthFailure.wrongEmailAndPasswordCombination());
+      } else {
+        return left(AuthFailure.serverError(errorMessage: e.code));
+      }
+    } catch (e) {
+      return left(AuthFailure.serverError(errorMessage: e.toString()));
     }
   }
 

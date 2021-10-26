@@ -22,9 +22,9 @@ extension FirebaseExceptionX on String {
       case 'user-not-found':
         return const AuthFailure.userNotFound();
       case 'wrong-password':
-        return const AuthFailure.invalidEmailAndPasswordCombination();
+        return const AuthFailure.wrongEmailAndPasswordCombination();
       case 'invalid-credential':
-        return const AuthFailure.invalidEmailAndPasswordCombination();
+        return const AuthFailure.wrongEmailAndPasswordCombination();
       case 'email-already-in-use':
         return const AuthFailure.emailAlreadyInUse();
       case 'user-disabled':

@@ -33,18 +33,21 @@ class SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignInBloc>(
-      create: (context) =>
-          SignInBloc(context.read<AuthRepository>(), context.read<AuthBloc>()),
-      child: Builder(
-        builder: (context) => Scaffold(
-          body: Stack(
-            children: <Widget>[
-              const PageBackgroundGradientContainer(),
-              SingleChildScrollView(
-                child: showForm(context),
-              ),
-            ],
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: BlocProvider<SignInBloc>(
+        create: (context) => SignInBloc(
+            context.read<AuthRepository>(), context.read<AuthBloc>()),
+        child: Builder(
+          builder: (context) => Scaffold(
+            body: Stack(
+              children: <Widget>[
+                const PageBackgroundGradientContainer(),
+                SingleChildScrollView(
+                  child: showForm(context),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -380,10 +383,7 @@ class SignInPageState extends State<SignInPage> {
   }
 
   Widget showSocialMedia(BuildContext context) {
-    return BlocConsumer<SignInBloc, SignInState>(
-      listener: (context, state) async {
-        await _listenToSignInState(state);
-      },
+    return BlocBuilder<SignInBloc, SignInState>(
       builder: (context, state) {
         if (state is SignInProgress &&
             state.authProvider != AuthProvider.email) {
@@ -441,19 +441,22 @@ class SignInPageState extends State<SignInPage> {
         Text(
           "Don't have an account? ",
           style: TextStyle(
+            fontSize: 12,
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
           ),
         ),
         const SizedBox(width: 4),
         CupertinoButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(Routes.signUp);
+            Navigator.of(context).pushReplacementNamed(Routes.signUp);
           },
           padding: EdgeInsets.zero,
           child: Text(
             'Sign Up',
             style: TextStyle(
-                color: Theme.of(context).primaryColor.withOpacity(0.5)),
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).primaryColor),
           ),
         ),
       ],
@@ -462,28 +465,32 @@ class SignInPageState extends State<SignInPage> {
 
   Future<void> _listenToSignInState(SignInState state) async {
     //Executing only if authProvider is email
-    await state.whenOrNull(success: (user, authProvider, isNewUser) async {
-      if (authProvider == AuthProvider.email) {
-        //to update auth details after successfully sign in
-        // context.read<AuthBloc>().updateAuthDetails(
-        //     authProvider: authProvider,
-        //     firebaseId: user.uid,
-        //     authStatus: true,
-        //     isNewUser: isNewUser);
-        if (isNewUser) {
-          //TODO: Handle flow new user.
-        } else {
-          await Navigator.of(context)
-              .pushReplacementNamed(Routes.home, arguments: false);
+    await state.whenOrNull(
+      success: (user, authProvider, isNewUser) async {
+        if (authProvider == AuthProvider.email) {
+          //to update auth details after successfully sign in
+          // context.read<AuthBloc>().updateAuthDetails(
+          //     authProvider: authProvider,
+          //     firebaseId: user.uid,
+          //     authStatus: true,
+          //     isNewUser: isNewUser);
+          if (isNewUser) {
+            //TODO: Handle flow new user.
+          } else {
+            await Navigator.of(context)
+                .pushReplacementNamed(Routes.home, arguments: false);
+          }
         }
-      }
-    }, resetPasswordEmailSent: () {
-      UiUtils.setSnackBar(
-          'Password reset link has been sent to your mail', context, false);
-    }, failure: (errorMessage, authProvider) {
-      if (authProvider == AuthProvider.email) {
-        UiUtils.setSnackBar(errorMessage, context, false);
-      }
-    });
+      },
+      resetPasswordEmailSent: () {
+        UiUtils.setSnackBar(
+            'Password reset link has been sent to your mail', context, false);
+      },
+      failure: (errorMessage, authProvider) {
+        if (authProvider == AuthProvider.email) {
+          UiUtils.setSnackBar(errorMessage, context, false);
+        }
+      },
+    );
   }
 }

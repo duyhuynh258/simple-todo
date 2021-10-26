@@ -9,7 +9,8 @@ class AuthFailure with _$AuthFailure {
   const factory AuthFailure.cancelledByUser() = _CancelledByUser;
   const factory AuthFailure.userNotFound() = _UserNotFound;
   const factory AuthFailure.invalidEmail() = _InvalidEmail;
+  const factory AuthFailure.emailNotVerified() = _EmailNotVerified;
   const factory AuthFailure.emailAlreadyInUse() = _EmailAlreadyInUse;
-  const factory AuthFailure.invalidEmailAndPasswordCombination() =
-      _InvalidEmailAndPasswordCombination;
+  const factory AuthFailure.wrongEmailAndPasswordCombination() =
+      _WrongEmailAndPasswordCombination;
 }

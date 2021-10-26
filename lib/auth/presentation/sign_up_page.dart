@@ -30,19 +30,22 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignUpBloc>(
-      create: (_) => SignUpBloc(context.read<AuthRepository>()),
-      child: Builder(
-          builder: (context) => Scaffold(
-                body: Stack(
-                  children: [
-                    const PageBackgroundGradientContainer(),
-                    SingleChildScrollView(
-                      child: form(),
-                    ),
-                  ],
-                ),
-              )),
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: BlocProvider<SignUpBloc>(
+        create: (_) => SignUpBloc(context.read<AuthRepository>()),
+        child: Builder(
+            builder: (context) => Scaffold(
+                  body: Stack(
+                    children: [
+                      const PageBackgroundGradientContainer(),
+                      SingleChildScrollView(
+                        child: form(),
+                      ),
+                    ],
+                  ),
+                )),
+      ),
     );
   }
 
@@ -232,7 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
         const SizedBox(width: 2),
         CupertinoButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(Routes.signIn);
+            Navigator.of(context).pushReplacementNamed(Routes.signIn);
           },
           padding: EdgeInsets.zero,
           child: Text(

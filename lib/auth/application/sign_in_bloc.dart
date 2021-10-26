@@ -52,8 +52,8 @@ class SignInBloc extends Cubit<SignInState> {
 
     signInFailureOrSuccess.fold((l) {
       //failure
-      emit(const SignInState.failure(
-          errorMessage: 'Storage error', authProvider: AuthProvider.email));
+      emit(SignInState.failure(
+          errorMessage: l.toString(), authProvider: AuthProvider.email));
     }, (r) {
       //success
       emit(SignInState.success(
@@ -80,10 +80,11 @@ class SignInBloc extends Cubit<SignInState> {
       isSignedInUserNew = isNewUser;
     });
 
-    signInWithGoogleFailureOrSuccess.fold(
-        (l) => emit(SignInState.failure(
-            errorMessage: l.toString(),
-            authProvider: AuthProvider.gmail)), (r) {
+    signInWithGoogleFailureOrSuccess.fold((l) {
+      //failure
+      emit(SignInState.failure(
+          errorMessage: l.toString(), authProvider: AuthProvider.gmail));
+    }, (r) {
       //success
       emit(SignInState.success(
           user: signedInUser,
