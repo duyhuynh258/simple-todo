@@ -13,6 +13,7 @@ class FirebaseUserMapper {
       id: _.uid,
       name: _.displayName ?? email.split('@').first,
       emailAddress: email,
+      emailVerified: _.emailVerified,
     );
   }
 }

@@ -7,12 +7,18 @@ import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 
 part 'auth_bloc.freezed.dart';
 
-enum AuthProvider { gmail, fb, email, mobile, apple }
+enum AuthProvider { gmail, email, apple }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(const AuthState.initial()) {
-    _userChangesSubscription = _authRepository.onUserChanged().listen((user) {
-      add(const AuthEvent.authCheckRequested());
+    _userChangesSubscription =
+        _authRepository.onUserChanged.listen((optionUser) {
+      final user = optionUser.getOrElse(() => null);
+      if (user?.emailVerified == false) {
+        return;
+      } else {
+        add(const AuthEvent.authCheckRequested());
+      }
     });
   }
 
@@ -32,7 +38,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield* event.map(
       authCheckRequested: (e) async* {
         final userOption = await _authRepository.getSignedInUser();
-        yield userOption.fold(
+
+        yield userOption.fold<AuthState>(
           () => const AuthState.unauthenticated(),
           (user) => AuthState.authenticated(user),
         );

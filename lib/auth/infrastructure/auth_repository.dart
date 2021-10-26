@@ -13,29 +13,28 @@ import 'package:simple_todo_app/auth/infrastructure/firebase_user_mapper.dart';
 typedef SignInSuccessCallback = void Function(User, bool);
 
 class AuthRepository {
-  const AuthRepository(
+  AuthRepository(
     this._firebaseAuth,
     this._googleSignIn,
     this._firebaseUserMapper,
-  );
+  ) {
+    _firebaseAuth.userChanges().listen((firebaseUser) {
+      _onUserChanged.add(optionOf(_firebaseUserMapper.toDomain(firebaseUser)));
+    });
+  }
 
   final firebase.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final FirebaseUserMapper _firebaseUserMapper;
+  Stream<Option<User?>> get onUserChanged => _onUserChanged.asBroadcastStream();
+  final BehaviorSubject<Option<User?>> _onUserChanged = BehaviorSubject();
+
+  void dispose() {
+    _onUserChanged.close();
+  }
 
   Future<Option<User>> getSignedInUser() async {
     return optionOf(_firebaseUserMapper.toDomain(_firebaseAuth.currentUser));
-  }
-
-  Stream<Option<User>> onUserChanged() async* {
-    yield* _firebaseAuth.userChanges().flatMap((firebaseUser) async* {
-      if (firebaseUser?.emailVerified == false) {
-        await _firebaseAuth.signOut();
-        return;
-      } else {
-        yield optionOf(_firebaseUserMapper.toDomain(firebaseUser));
-      }
-    });
   }
 
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({

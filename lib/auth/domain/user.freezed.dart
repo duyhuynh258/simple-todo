@@ -20,11 +20,13 @@ class _$UserTearOff {
   _User call(
       {required String id,
       required String name,
-      required String emailAddress}) {
+      required String emailAddress,
+      required bool emailVerified}) {
     return _User(
       id: id,
       name: name,
       emailAddress: emailAddress,
+      emailVerified: emailVerified,
     );
   }
 }
@@ -37,6 +39,7 @@ mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get emailAddress => throw _privateConstructorUsedError;
+  bool get emailVerified => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -46,7 +49,7 @@ mixin _$User {
 abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res>;
-  $Res call({String id, String name, String emailAddress});
+  $Res call({String id, String name, String emailAddress, bool emailVerified});
 }
 
 /// @nodoc
@@ -62,6 +65,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? emailAddress = freezed,
+    Object? emailVerified = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -76,6 +80,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      emailVerified: emailVerified == freezed
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -85,7 +93,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) then) =
       __$UserCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String emailAddress});
+  $Res call({String id, String name, String emailAddress, bool emailVerified});
 }
 
 /// @nodoc
@@ -102,6 +110,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? emailAddress = freezed,
+    Object? emailVerified = freezed,
   }) {
     return _then(_User(
       id: id == freezed
@@ -116,6 +125,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.emailAddress
           : emailAddress // ignore: cast_nullable_to_non_nullable
               as String,
+      emailVerified: emailVerified == freezed
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -124,7 +137,10 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 
 class _$_User implements _User {
   const _$_User(
-      {required this.id, required this.name, required this.emailAddress});
+      {required this.id,
+      required this.name,
+      required this.emailAddress,
+      required this.emailVerified});
 
   @override
   final String id;
@@ -132,10 +148,12 @@ class _$_User implements _User {
   final String name;
   @override
   final String emailAddress;
+  @override
+  final bool emailVerified;
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, emailAddress: $emailAddress)';
+    return 'User(id: $id, name: $name, emailAddress: $emailAddress, emailVerified: $emailVerified)';
   }
 
   @override
@@ -146,11 +164,14 @@ class _$_User implements _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.emailAddress, emailAddress) ||
-                other.emailAddress == emailAddress));
+                other.emailAddress == emailAddress) &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, emailAddress);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, emailAddress, emailVerified);
 
   @JsonKey(ignore: true)
   @override
@@ -162,7 +183,8 @@ abstract class _User implements User {
   const factory _User(
       {required String id,
       required String name,
-      required String emailAddress}) = _$_User;
+      required String emailAddress,
+      required bool emailVerified}) = _$_User;
 
   @override
   String get id;
@@ -170,6 +192,8 @@ abstract class _User implements User {
   String get name;
   @override
   String get emailAddress;
+  @override
+  bool get emailVerified;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
