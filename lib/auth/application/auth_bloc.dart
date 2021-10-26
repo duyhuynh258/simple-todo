@@ -17,8 +17,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final userOption = await _authRepository.getSignedInUser();
 
           final state = userOption.fold<AuthState>(
-              () => const AuthState.unauthenticated(),
-              (user) => AuthState.authenticated(user));
+            () => const AuthState.unauthenticated(),
+            (user) => AuthState.authenticated(user),
+          );
           emit(state);
         },
         signedOut: () async {

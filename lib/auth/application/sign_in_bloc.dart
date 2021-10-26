@@ -52,8 +52,12 @@ class SignInBloc extends Cubit<SignInState> {
 
     signInFailureOrSuccess.fold((l) {
       //failure
-      emit(SignInState.failure(
-          errorMessage: l.toString(), authProvider: AuthProvider.email));
+      emit(
+        SignInState.failure(
+          errorMessage: l.toString(),
+          authProvider: AuthProvider.email,
+        ),
+      );
     }, (r) {
       //success
       emit(SignInState.success(
@@ -68,22 +72,30 @@ class SignInBloc extends Cubit<SignInState> {
     final resultFailureOrSuccess =
         await _authRepository.resetPassword(withEmail);
     resultFailureOrSuccess.fold(
-        (l) => emit(const SignInState.resetPasswordEmailSent()), (r) => null);
+      (l) => emit(const SignInState.resetPasswordEmailSent()),
+      (r) => null,
+    );
   }
 
   Future<void> signInWithGoogle() async {
     late User signedInUser;
     late bool isSignedInUserNew;
     final signInWithGoogleFailureOrSuccess =
-        await _authRepository.signInWithGoogle(onSuccess: (user, isNewUser) {
-      signedInUser = user;
-      isSignedInUserNew = isNewUser;
-    });
+        await _authRepository.signInWithGoogle(
+      onSuccess: (user, isNewUser) {
+        signedInUser = user;
+        isSignedInUserNew = isNewUser;
+      },
+    );
 
     signInWithGoogleFailureOrSuccess.fold((l) {
       //failure
-      emit(SignInState.failure(
-          errorMessage: l.toString(), authProvider: AuthProvider.gmail));
+      emit(
+        SignInState.failure(
+          errorMessage: l.toString(),
+          authProvider: AuthProvider.gmail,
+        ),
+      );
     }, (r) {
       //success
       emit(SignInState.success(
