@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:simple_todo_app/core/shared/debouncer.dart';
 import 'package:simple_todo_app/task/application/task_item/task_item_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 import 'package:simple_todo_app/task/domain/task_failure.dart';
@@ -115,7 +114,6 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
   void _addTaskItemBloc(Task task) {
     taskItemBlocs[task.id.value] = TaskItemBloc(
       _taskRepository,
-      Debouncer(milliseconds: 300),
       task: task,
       onAction: (Task? task) {
         if (task == null) {
@@ -130,7 +128,6 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
     for (final Task task in tasks) {
       taskItemBlocs[task.id.value] = TaskItemBloc(
         _taskRepository,
-        Debouncer(milliseconds: 300),
         task: task,
         onAction: (Task? task) {
           if (task == null) {

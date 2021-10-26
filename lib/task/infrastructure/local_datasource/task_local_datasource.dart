@@ -137,6 +137,10 @@ class TaskLocalDatasource {
     //   }
     // }
   }
+
+  Future<void> clearTasks() async {
+    await _store.delete(_sembastDatabase.instance);
+  }
 }
 
 extension RemoveDocsOutOfPage

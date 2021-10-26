@@ -13,11 +13,12 @@ typedef OnTaskItemActionCallback = void Function(Task? resultTask);
 
 class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
   TaskItemBloc(
-    this._taskRepository,
-    this._autoSaveDebouncer, {
+    this._taskRepository, {
+    Debouncer? autoSaveDebouncer,
     Task? task,
     OnTaskItemActionCallback? onAction,
-  }) : super(TaskItemState(task: task ?? Task.draft())) {
+  })  : _autoSaveDebouncer = autoSaveDebouncer ?? Debouncer(milliseconds: 300),
+        super(TaskItemState(task: task ?? Task.draft())) {
     on<TaskItemEvent>((event, emit) async {
       await event.when(
         completed: () async {
@@ -46,7 +47,7 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
           final Task resultTask = state.task.copyWith(body: body);
           emit(state.copyWith(task: state.task.copyWith(body: body)));
           onAction?.call(resultTask);
-          _autoSaveDebouncer.run(() {
+          autoSaveDebouncer?.run(() {
             _taskRepository.upsertTasks([resultTask]);
           });
         },
@@ -56,11 +57,11 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
   }
 
   final TaskRepository _taskRepository;
-  final Debouncer _autoSaveDebouncer;
+  final Debouncer? _autoSaveDebouncer;
 
   @override
   Future<void> close() {
-    _autoSaveDebouncer.dispose();
+    _autoSaveDebouncer?.dispose();
     return super.close();
   }
 }

@@ -129,4 +129,13 @@ class TaskRepository {
     // TODO(steve): implement
     return right(unit);
   }
+
+  Future<Either<TaskFailure, Unit>> clearLocalTasks() async {
+    try {
+      await _taskLocalDatasource.clearTasks();
+      return right(unit);
+    } catch (e) {
+      return left(const TaskFailure.localFailed());
+    }
+  }
 }

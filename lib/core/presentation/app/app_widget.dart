@@ -78,7 +78,9 @@ class _AppWidgetState extends State<AppWidget> {
                 create: (_) => SettingsBloc(context.read<SettingsRepository>()),
               ),
               BlocProvider<AuthBloc>(
-                create: (_) => AuthBloc(context.read<AuthRepository>()),
+                create: (_) => AuthBloc(
+                  context.read<AuthRepository>(),
+                ),
               ),
             ],
             child: Builder(

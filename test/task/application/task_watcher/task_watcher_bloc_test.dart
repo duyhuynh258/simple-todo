@@ -24,7 +24,8 @@ void main() {
     resultCompletedTask = uncompletedTask.copyWith(isCompleted: true);
 
     when(() => taskRepositoryMock.getAllTasks()).thenAnswer(
-        (invocation) => Future.value(dartz.right(PaginatedList.empty())));
+      (invocation) => Future.value(dartz.right(PaginatedList.empty())),
+    );
   });
 
   group('TaskWatcherBloc', () {

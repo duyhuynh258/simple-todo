@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/auth/presentation/sign_in_page.dart';
 import 'package:simple_todo_app/auth/presentation/sign_up_page.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
@@ -51,7 +52,22 @@ class Routes {
                           ..add(const TaskWatcherEvent.allTasksRequested()),
                   ),
                 ],
-                child: const TaskHomePage(),
+                child: Builder(
+                  builder: (context) {
+                    return BlocListener<AuthBloc, AuthState>(
+                      listener: (context, state) async {
+                        await state.whenOrNull(
+                          unauthenticated: () async {
+                            await context
+                                .read<TaskRepository>()
+                                .clearLocalTasks();
+                          },
+                        );
+                      },
+                      child: const TaskHomePage(),
+                    );
+                  },
+                ),
               ),
             );
           },
