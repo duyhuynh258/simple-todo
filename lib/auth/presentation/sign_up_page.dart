@@ -280,7 +280,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         .signUpUserWithEmailAndPassword(
                             email: edtEmail.text.trim(),
                             password: edtPwd.text.trim());
-                    resetForm();
                   }
                 },
                 child: state.maybeMap(
