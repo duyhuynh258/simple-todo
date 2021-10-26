@@ -97,12 +97,7 @@ class SignInBloc extends Cubit<SignInState> {
 
     signInWithGoogleFailureOrSuccess.fold((l) {
       //failure
-      emit(
-        SignInState.failure(
-          errorMessage: l.toString(),
-          authProvider: AuthProvider.gmail,
-        ),
-      );
+      _emitFailure(l, AuthProvider.gmail);
     }, (r) {
       //success
       emit(

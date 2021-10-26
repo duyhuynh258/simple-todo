@@ -191,6 +191,124 @@ void main() {
               ),
         ],
       );
+
+      blocTest<SignInBloc, SignInState>(
+        'Emit success if resetPassword email is sent.',
+        setUp: () {
+          when(
+            () => authRepositoryMock.resetPassword(
+              'randomEmail',
+            ),
+          ).thenAnswer(
+            (_) => Future<dartz.Either<AuthFailure, dartz.Unit>>.value(
+              dartz.right(dartz.unit),
+            ),
+          );
+        },
+        build: () => SignInBloc(authRepositoryMock, authBlocMock),
+        act: (b) async => b.resetPassword(
+          withEmail: 'randomEmail',
+        ),
+        expect: () => [const SignInState.resetPasswordEmailSent()],
+      );
+    });
+
+    group('SignInBloc.signInWithGoogle', () {
+      blocTest<SignInBloc, SignInState>(
+        'Emit failure when AuthRepository.signInWithGoogle failed.',
+        setUp: () {
+          when(
+            () => authRepositoryMock.signInWithGoogle(
+              onSuccess: any(named: 'onSuccess'),
+            ),
+          ).thenAnswer(
+            (_) => Future<dartz.Either<AuthFailure, dartz.Unit>>.value(
+              dartz.left(
+                const AuthFailure.cancelledByUser(),
+              ),
+            ),
+          );
+        },
+        build: () => SignInBloc(authRepositoryMock, authBlocMock),
+        act: (b) async => b.signInWithGoogle(),
+        expect: () => [
+          isA<SignInFailed>()
+              .having(
+                (p0) => p0.errorMessage,
+                'Contained $AuthFailure',
+                contains('AuthFailure'),
+              )
+              .having(
+                (p1) => p1.authProvider,
+                'Auth provider is gmail',
+                equals(AuthProvider.gmail),
+              ),
+        ],
+      );
+
+      blocTest<SignInBloc, SignInState>(
+        'Emit exact errorMessage when AuthRepository.signInWithGoogle'
+        ' failed with AuthFailure.serverUnknownError if errorMessage omitted.',
+        setUp: () {
+          when(
+            () => authRepositoryMock.signInWithGoogle(
+              onSuccess: any(named: 'onSuccess'),
+            ),
+          ).thenAnswer(
+            (_) => Future<dartz.Either<AuthFailure, dartz.Unit>>.value(
+              dartz.left(
+                const AuthFailure.serverUnknownError(
+                  errorMessage: 'Unknown error',
+                ),
+              ),
+            ),
+          );
+        },
+        build: () => SignInBloc(authRepositoryMock, authBlocMock),
+        act: (b) async => b.signInWithGoogle(),
+        expect: () => [
+          isA<SignInFailed>()
+              .having(
+                (p0) => p0.errorMessage,
+                'Same message with unknown failure',
+                equals('Unknown error'),
+              )
+              .having(
+                (p1) => p1.authProvider,
+                'Auth provider is gmail',
+                equals(AuthProvider.gmail),
+              ),
+        ],
+      );
+
+      blocTest<SignInBloc, SignInState>(
+        'Emit sign in success with success sign in with google.',
+        setUp: () {
+          when(
+            () => authRepositoryMock.signInWithGoogle(
+              onSuccess: any(named: 'onSuccess'),
+            ),
+          ).thenAnswer(
+            (_) {
+              final dynamic onSuccess =
+                  _.namedArguments[const Symbol('onSuccess')];
+              if (onSuccess is SignInSuccessCallback) {
+                onSuccess.call(user, true);
+              }
+              return Future.value(dartz.right(dartz.unit));
+            },
+          );
+        },
+        build: () => SignInBloc(authRepositoryMock, authBlocMock),
+        act: (b) async => b.signInWithGoogle(),
+        expect: () => [
+          SignInState.success(
+            user: user,
+            authProvider: AuthProvider.gmail,
+            isNewUser: true,
+          )
+        ],
+      );
     });
   });
 }
