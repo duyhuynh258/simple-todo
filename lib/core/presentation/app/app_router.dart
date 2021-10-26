@@ -24,39 +24,47 @@ class Routes {
     switch (routeSettings.name) {
       case splash:
         return CupertinoPageRoute<void>(
-            builder: (context) => const SplashPage());
+          builder: (context) => const SplashPage(),
+        );
       case home:
-        return CupertinoPageRoute<void>(builder: (context) {
-          return RepositoryProvider(
-            create: (context) {
-              final currentUser = context.currentUser;
-              return TaskRepository(
-                TaskRemoteDataSource(FirebaseFirestore.instance, currentUser!),
-                TaskLocalDatasource(context.read<SembastDatabase>()),
-              );
-            },
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => HomeBloc(),
-                ),
-                BlocProvider(
-                  create: (context) =>
-                      TaskWatcherBloc(context.read<TaskRepository>())
-                        ..add(const TaskWatcherEvent.allTasksRequested()),
-                ),
-              ],
-              child: const TaskHomePage(),
-            ),
-          );
-        });
+        return CupertinoPageRoute<void>(
+          builder: (context) {
+            return RepositoryProvider(
+              create: (context) {
+                final currentUser = context.currentUser;
+                return TaskRepository(
+                  TaskRemoteDataSource(
+                    FirebaseFirestore.instance,
+                    currentUser!,
+                  ),
+                  TaskLocalDatasource(context.read<SembastDatabase>()),
+                );
+              },
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => HomeBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        TaskWatcherBloc(context.read<TaskRepository>())
+                          ..add(const TaskWatcherEvent.allTasksRequested()),
+                  ),
+                ],
+                child: const TaskHomePage(),
+              ),
+            );
+          },
+        );
 
       case signIn:
         return CupertinoPageRoute<void>(
-            builder: (context) => const SignInPage());
+          builder: (context) => const SignInPage(),
+        );
       case signUp:
         return CupertinoPageRoute<void>(
-            builder: (context) => const SignUpPage());
+          builder: (context) => const SignUpPage(),
+        );
 
       default:
         return CupertinoPageRoute<void>(builder: (context) => const Scaffold());

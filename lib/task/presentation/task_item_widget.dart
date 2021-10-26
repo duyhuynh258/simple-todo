@@ -83,7 +83,10 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
             shouldCheckTheBox: () {
               if (state.task.body.isEmpty) {
                 UiUtils.setSnackBar(
-                    'Empty task cannot be completed', context, false);
+                  'Empty task cannot be completed',
+                  context,
+                  showAction: false,
+                );
                 return false;
               }
               return true;

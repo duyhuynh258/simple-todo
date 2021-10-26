@@ -15,15 +15,16 @@ class SettingsRepository {
     try {
       final defaultSettingsDTO = SettingsDTO.fromDomain(Settings.byDefault());
       final settingsDTO = await settingsLocalDataSource.getSettings(
-          defaultValue: defaultSettingsDTO);
+        defaultValue: defaultSettingsDTO,
+      );
       return right(settingsDTO.toDomain());
     } catch (e) {
       return left(Failure.storage(errorMessage: e.toString()));
     }
   }
 
-  void changeVibration(bool value) =>
-      settingsLocalDataSource.setVibration(value);
+  void changeVibration({required bool value}) =>
+      settingsLocalDataSource.setVibration(value: value);
 
   void changeFontSize(double size) => settingsLocalDataSource.setFontSize(size);
 

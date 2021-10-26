@@ -13,34 +13,42 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   TaskWatcherBloc(this._taskRepository, {TaskWatcherState? initialState})
       : super(initialState ?? TaskWatcherState.initial()) {
     on<TaskWatcherEvent>((event, emit) async {
-      await event.when(tasksUpdated: (tasks) async {
-        _onTaskUpdated(updatedTasks: tasks, emit: emit);
-      }, createdDraftTask: () async {
-        if (state.hasEmptyTask == false) {
-          _addEmptyTask(emit);
-        }
-      }, taskEndEdited: (Task task) async {
-        if (task.body.isNotEmpty) {
-          await _taskRepository.upsertTasks([task]);
-          _onTaskUpdated(updatedTasks: [task], emit: emit);
-        } else {
-          _removeEmptyTasks(emit);
-        }
-      }, allTasksRequested: () async {
-        emit(state.copyWith(failure: null, isInProgress: true));
-        final failureOrTasks = await _taskRepository.getAllTasks();
-        failureOrTasks.fold((l) {
-          emit(state.copyWith(failure: l, isInProgress: false));
-        }, (r) {
-          if (r.entities.isNotEmpty) {
-            _addTaskItemBlocs(r.entities);
+      await event.when(
+        tasksUpdated: (tasks) async {
+          _onTaskUpdated(updatedTasks: tasks, emit: emit);
+        },
+        createdDraftTask: () async {
+          if (state.hasEmptyTask == false) {
+            _addEmptyTask(emit);
           }
+        },
+        taskEndEdited: (Task task) async {
+          if (task.body.isNotEmpty) {
+            await _taskRepository.upsertTasks([task]);
+            _onTaskUpdated(updatedTasks: [task], emit: emit);
+          } else {
+            _removeEmptyTasks(emit);
+          }
+        },
+        allTasksRequested: () async {
+          emit(state.copyWith(failure: null, isInProgress: true));
+          final failureOrTasks = await _taskRepository.getAllTasks();
+          failureOrTasks.fold((l) {
+            emit(state.copyWith(failure: l, isInProgress: false));
+          }, (r) {
+            if (r.entities.isNotEmpty) {
+              _addTaskItemBlocs(r.entities);
+            }
 
-          emit(state.copyWith(
-              isInProgress: false,
-              allTasks: List.from(r.entities, growable: false)));
-        });
-      });
+            emit(
+              state.copyWith(
+                isInProgress: false,
+                allTasks: List.from(r.entities, growable: false),
+              ),
+            );
+          });
+        },
+      );
     });
   }
 
@@ -63,9 +71,12 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   void _addEmptyTask(Emitter<TaskWatcherState> emit) {
     final emptyTask = Task.empty();
     _addTaskItemBloc(emptyTask);
-    emit(state.copyWith(
+    emit(
+      state.copyWith(
         allTasks:
-            List.from(<Task>[...state.allTasks, emptyTask], growable: false)));
+            List.from(<Task>[...state.allTasks, emptyTask], growable: false),
+      ),
+    );
   }
 
   void _removeEmptyTasks(Emitter<TaskWatcherState> emit) {
@@ -82,16 +93,19 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
     }
   }
 
-  void _onTaskUpdated(
-      {required List<Task> updatedTasks,
-      required Emitter<TaskWatcherState> emit}) {
+  void _onTaskUpdated({
+    required List<Task> updatedTasks,
+    required Emitter<TaskWatcherState> emit,
+  }) {
     final updatedTaskIds = updatedTasks.map((e) => e.id).toList();
-    final resultTaskList = List<Task>.from(state.allTasks.map((e) {
-      if (updatedTaskIds.contains(e.id)) {
-        return updatedTasks.firstWhereOrNull((task) => task.id == e.id);
-      }
-      return e;
-    }).toList());
+    final resultTaskList = List<Task>.from(
+      state.allTasks.map((e) {
+        if (updatedTaskIds.contains(e.id)) {
+          return updatedTasks.firstWhereOrNull((task) => task.id == e.id);
+        }
+        return e;
+      }).toList(),
+    );
     emit(state.copyWith(allTasks: List.from(resultTaskList, growable: false)));
   }
 }

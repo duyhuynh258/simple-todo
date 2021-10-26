@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/auth/application/auth_bloc.dart';
+import 'package:simple_todo_app/auth/domain/auth_failure.dart';
 import 'package:simple_todo_app/auth/domain/user.dart';
 import 'package:simple_todo_app/auth/infrastructure/auth_repository.dart';
 
@@ -11,19 +12,20 @@ class SignInState with _$SignInState {
   const factory SignInState.initial() = _Initial;
 
   const factory SignInState.inProgress(AuthProvider authProvider) =
-      SignInProgress;
+      SignInInProgress;
 
-  const factory SignInState.success(
-      {required User user,
-      required AuthProvider authProvider,
-      required bool isNewUser}) = _Success;
+  const factory SignInState.success({
+    required User user,
+    required AuthProvider authProvider,
+    required bool isNewUser,
+  }) = _Success;
 
   const factory SignInState.resetPasswordEmailSent() = _ResetPasswordEmailSent;
 
   const factory SignInState.failure({
     required String errorMessage,
     required AuthProvider authProvider,
-  }) = _Failure;
+  }) = SignInFailed;
 }
 
 class SignInBloc extends Cubit<SignInState> {
@@ -43,27 +45,26 @@ class SignInBloc extends Cubit<SignInState> {
     late bool isSignedInUserNew;
     final signInFailureOrSuccess =
         await _authRepository.signInWithEmailAndPassword(
-            email: email,
-            password: password,
-            onSuccess: (user, isNewUser) {
-              signedInUser = user;
-              isSignedInUserNew = isNewUser;
-            });
+      email: email,
+      password: password,
+      onSuccess: (user, isNewUser) {
+        signedInUser = user;
+        isSignedInUserNew = isNewUser;
+      },
+    );
 
     signInFailureOrSuccess.fold((l) {
       //failure
-      emit(
-        SignInState.failure(
-          errorMessage: l.toString(),
-          authProvider: AuthProvider.email,
-        ),
-      );
+      _emitFailure(l, AuthProvider.email);
     }, (r) {
       //success
-      emit(SignInState.success(
+      emit(
+        SignInState.success(
           user: signedInUser,
           authProvider: AuthProvider.email,
-          isNewUser: isSignedInUserNew));
+          isNewUser: isSignedInUserNew,
+        ),
+      );
       _authBloc.add(const AuthEvent.authCheckRequested());
     });
   }
@@ -72,8 +73,14 @@ class SignInBloc extends Cubit<SignInState> {
     final resultFailureOrSuccess =
         await _authRepository.resetPassword(withEmail);
     resultFailureOrSuccess.fold(
-      (l) => emit(const SignInState.resetPasswordEmailSent()),
-      (r) => null,
+      (l) {
+        //failure
+        _emitFailure(l, AuthProvider.email);
+      },
+      (r) {
+        //success
+        emit(const SignInState.resetPasswordEmailSent());
+      },
     );
   }
 
@@ -98,11 +105,27 @@ class SignInBloc extends Cubit<SignInState> {
       );
     }, (r) {
       //success
-      emit(SignInState.success(
+      emit(
+        SignInState.success(
           user: signedInUser,
           authProvider: AuthProvider.gmail,
-          isNewUser: isSignedInUserNew));
+          isNewUser: isSignedInUserNew,
+        ),
+      );
       _authBloc.add(const AuthEvent.authCheckRequested());
     });
+  }
+
+  void _emitFailure(AuthFailure authFailure, AuthProvider authProvider) {
+    emit(
+      SignInState.failure(
+        errorMessage: authFailure.maybeMap(
+          orElse: () => authFailure.toString(),
+          serverUnknownError: (serverError) =>
+              serverError.errorMessage ?? authFailure.toString(),
+        ),
+        authProvider: authProvider,
+      ),
+    );
   }
 }

@@ -21,8 +21,10 @@ import 'package:simple_todo_app/core/presentation/app/app_theme.dart';
 import 'package:simple_todo_app/l10n/l10n.dart';
 import 'package:simple_todo_app/splash/presentation/splash_page.dart';
 
-typedef AppInitializeFunction = Future<void> Function(BuildContext,
-    {required bool mounted});
+typedef AppInitializeFunction = Future<void> Function(
+  BuildContext, {
+  required bool mounted,
+});
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -45,77 +47,102 @@ class _AppWidgetState extends State<AppWidget> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<SembastDatabase>(
-            create: (context) => SembastDatabase()),
+          create: (context) => SembastDatabase(),
+        ),
         RepositoryProvider<AuthRepository>(
-            create: (context) => AuthRepository(
-                FirebaseAuth.instance, GoogleSignIn(), FirebaseUserMapper())),
+          create: (context) => AuthRepository(
+            FirebaseAuth.instance,
+            GoogleSignIn(),
+            FirebaseUserMapper(),
+          ),
+        ),
         RepositoryProvider<SettingsRepository>(
-            create: (context) => SettingsRepository(
-                SettingsLocalDataSource(context.read<SembastDatabase>()))),
+          create: (context) => SettingsRepository(
+            SettingsLocalDataSource(context.read<SembastDatabase>()),
+          ),
+        ),
         RepositoryProvider<FirebaseFirestore>(
-            create: (context) => FirebaseFirestore.instance),
+          create: (context) => FirebaseFirestore.instance,
+        ),
       ],
-      child: Builder(builder: (context) {
-        return MultiBlocProvider(
-          providers: [
-            //Creating cubit/bloc that will be use in whole app or
-            //will be use in multiple screens
-            BlocProvider<ThemeBloc>(
-                create: (_) => ThemeBloc(context.read<SettingsRepository>())),
-            BlocProvider<SettingsBloc>(
-                create: (_) =>
-                    SettingsBloc(context.read<SettingsRepository>())),
-            BlocProvider<AuthBloc>(
-                create: (_) => AuthBloc(context.read<AuthRepository>())),
-          ],
-          child: Builder(builder: (context) {
-            final currentTheme = context.watch<ThemeBloc>().state.appTheme;
-            return MaterialApp(
-              theme: appThemeData[currentTheme]!.copyWith(
-                  textTheme: GoogleFonts.poppinsTextTheme(
-                      Theme.of(context).textTheme)),
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-              ],
-              supportedLocales: AppLocalizations.supportedLocales,
-              onGenerateRoute: Routes.onGenerateRouted,
-              home: FutureBuilder<void>(
-                future: appInitializeFunction(context, mounted: mounted),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      return ErrorWidget('ConnectionState.none');
-                    case ConnectionState.done:
-                      if (snapshot.hasError == false) {
-                        return BlocListener<AuthBloc, AuthState>(
-                          listener: (context, state) async {
-                            await state.whenOrNull(authenticated: (user) async {
-                              await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(Routes.home,
-                                      (route) => route.settings.name == '/');
-                            }, unauthenticated: () async {
-                              await Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(Routes.signIn,
-                                      (route) => route.settings.name == '/');
-                            });
-                          },
-                          child: const SplashPage(),
-                        );
-                      }
-                      break;
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                      return const SplashPage();
-                  }
-                  return ErrorWidget('App initialize failed');
-                },
+      child: Builder(
+        builder: (context) {
+          return MultiBlocProvider(
+            providers: [
+              //Creating cubit/bloc that will be use in whole app or
+              //will be use in multiple screens
+              BlocProvider<ThemeBloc>(
+                create: (_) => ThemeBloc(context.read<SettingsRepository>()),
               ),
-            );
-          }),
-        );
-      }),
+              BlocProvider<SettingsBloc>(
+                create: (_) => SettingsBloc(context.read<SettingsRepository>()),
+              ),
+              BlocProvider<AuthBloc>(
+                create: (_) => AuthBloc(context.read<AuthRepository>()),
+              ),
+            ],
+            child: Builder(
+              builder: (context) {
+                final currentTheme = context.watch<ThemeBloc>().state.appTheme;
+                return MaterialApp(
+                  theme: appThemeData[currentTheme]!.copyWith(
+                    textTheme: GoogleFonts.poppinsTextTheme(
+                      Theme.of(context).textTheme,
+                    ),
+                  ),
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  onGenerateRoute: Routes.onGenerateRouted,
+                  home: FutureBuilder<void>(
+                    future: appInitializeFunction(context, mounted: mounted),
+                    builder: (
+                      BuildContext context,
+                      AsyncSnapshot<dynamic> snapshot,
+                    ) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          return ErrorWidget('ConnectionState.none');
+                        case ConnectionState.done:
+                          if (snapshot.hasError == false) {
+                            return BlocListener<AuthBloc, AuthState>(
+                              listener: (context, state) async {
+                                await state.whenOrNull(
+                                  authenticated: (user) async {
+                                    await Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                      Routes.home,
+                                      (route) => route.settings.name == '/',
+                                    );
+                                  },
+                                  unauthenticated: () async {
+                                    await Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                      Routes.signIn,
+                                      (route) => route.settings.name == '/',
+                                    );
+                                  },
+                                );
+                              },
+                              child: const SplashPage(),
+                            );
+                          }
+                          break;
+                        case ConnectionState.waiting:
+                        case ConnectionState.active:
+                          return const SplashPage();
+                      }
+                      return ErrorWidget('App initialize failed');
+                    },
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -124,8 +151,10 @@ Future<void> flutterInitialize() async {
   WidgetsFlutterBinding.ensureInitialized();
 }
 
-Future<void> initializeApp(BuildContext context,
-    {required bool mounted}) async {
+Future<void> initializeApp(
+  BuildContext context, {
+  required bool mounted,
+}) async {
   if (!kIsWeb) {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(

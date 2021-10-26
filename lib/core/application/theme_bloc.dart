@@ -35,8 +35,11 @@ class ThemeBloc extends Cubit<ThemeState> {
   }
 
   void changeTheme(AppTheme appTheme) {
-    settingsRepository.changeTheme(appTheme).fold((l) {
-      emit(state.copyWith(failure: l));
-    }, (r) => emit(ThemeState(appTheme: appTheme)));
+    settingsRepository.changeTheme(appTheme).fold(
+      (l) {
+        emit(state.copyWith(failure: l));
+      },
+      (r) => emit(ThemeState(appTheme: appTheme)),
+    );
   }
 }

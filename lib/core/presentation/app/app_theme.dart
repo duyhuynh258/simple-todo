@@ -6,15 +6,16 @@ enum AppTheme { light, dark }
 
 final appThemeData = {
   AppTheme.light: ThemeData(
-      shadowColor: primaryColor.withOpacity(0.25),
-      brightness: Brightness.light,
-      primaryColor: primaryColor,
-      scaffoldBackgroundColor: pageBackgroundColor,
-      backgroundColor: backgroundColor,
-      canvasColor: canvasColor,
-      colorScheme: ThemeData().colorScheme.copyWith(
-            secondary: secondaryColor,
-          )),
+    shadowColor: primaryColor.withOpacity(0.25),
+    brightness: Brightness.light,
+    primaryColor: primaryColor,
+    scaffoldBackgroundColor: pageBackgroundColor,
+    backgroundColor: backgroundColor,
+    canvasColor: canvasColor,
+    colorScheme: ThemeData().colorScheme.copyWith(
+          secondary: secondaryColor,
+        ),
+  ),
   AppTheme.dark: ThemeData(
     shadowColor: darkPrimaryColor.withOpacity(0.25),
     brightness: Brightness.dark,

@@ -37,7 +37,9 @@ class SignInPageState extends State<SignInPage> {
       onWillPop: () => Future.value(false),
       child: BlocProvider<SignInBloc>(
         create: (context) => SignInBloc(
-            context.read<AuthRepository>(), context.read<AuthBloc>()),
+          context.read<AuthRepository>(),
+          context.read<AuthBloc>(),
+        ),
         child: Builder(
           builder: (context) => Scaffold(
             body: Stack(
@@ -59,8 +61,9 @@ class SignInPageState extends State<SignInPage> {
       key: _formKey,
       child: Padding(
         padding: EdgeInsetsDirectional.only(
-            start: MediaQuery.of(context).size.width * .08,
-            end: MediaQuery.of(context).size.width * .08),
+          start: MediaQuery.of(context).size.width * .08,
+          end: MediaQuery.of(context).size.width * .08,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -96,9 +99,10 @@ class SignInPageState extends State<SignInPage> {
     return Text(
       'Login',
       style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontSize: 22,
-          fontWeight: FontWeight.bold),
+        color: Theme.of(context).primaryColor,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -192,23 +196,26 @@ class SignInPageState extends State<SignInPage> {
         return CupertinoButton(
           color: Theme.of(context).primaryColor,
           onPressed: () => state.maybeMap(
-              orElse: () async {
-                if (_formKey.currentState!.validate()) {
-                  {
-                    await context.read<SignInBloc>().signInWithEmailAndPassword(
+            orElse: () async {
+              if (_formKey.currentState!.validate()) {
+                {
+                  await context.read<SignInBloc>().signInWithEmailAndPassword(
                         email: edtEmail.text.trim(),
-                        password: edtPwd.text.trim());
-                  }
+                        password: edtPwd.text.trim(),
+                      );
                 }
-              },
-              inProgress: (_) async {}),
-          child: state is SignInProgress &&
+              }
+            },
+            inProgress: (_) async {},
+          ),
+          child: state is SignInInProgress &&
                   state.authProvider == AuthProvider.email
               ? const Center(
                   child: CircularProgressContainer(
-                  heightAndWidth: 40,
-                  useWhiteLoader: true,
-                ))
+                    heightAndWidth: 40,
+                    useWhiteLoader: true,
+                  ),
+                )
               : Text(
                   'Login',
                   style: TextStyle(color: Theme.of(context).backgroundColor),
@@ -220,29 +227,34 @@ class SignInPageState extends State<SignInPage> {
 
   Widget showEmailForForgotPwd() {
     return TextFormField(
-        controller: edtEmailReset,
-        keyboardType: TextInputType.emailAddress,
-        validator: (val) => Validators.validateEmail(
-            val!, 'Email is Required', 'Enter valid email'),
-        onSaved: (value) => edtEmailReset.text = value!.trim(),
-        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-        decoration: InputDecoration(
-          fillColor: Theme.of(context).backgroundColor,
-          filled: true,
-          border: InputBorder.none,
-          hintText: 'Enter email',
-          hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5)),
-          contentPadding: const EdgeInsets.all(15),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Colors.white),
-          ),
-        ));
+      controller: edtEmailReset,
+      keyboardType: TextInputType.emailAddress,
+      validator: (val) => Validators.validateEmail(
+        val!,
+        'Email is Required',
+        'Enter valid email',
+      ),
+      onSaved: (value) => edtEmailReset.text = value!.trim(),
+      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+      decoration: InputDecoration(
+        fillColor: Theme.of(context).backgroundColor,
+        filled: true,
+        border: InputBorder.none,
+        hintText: 'Enter email',
+        hintStyle: TextStyle(
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+        ),
+        contentPadding: const EdgeInsets.all(15),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
+      ),
+    );
   }
 
   Padding forgetPwd(BuildContext context) {
@@ -251,124 +263,145 @@ class SignInPageState extends State<SignInPage> {
       child: Align(
         alignment: Alignment.bottomRight,
         child: InkWell(
-            splashColor: Colors.white,
-            onTap: () async {
-              await showModalBottomSheet<void>(
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0)),
+          splashColor: Colors.white,
+          onTap: () async {
+            await showModalBottomSheet<void>(
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              context: context,
+              builder: (modalContext) => Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: UiUtils.buildLinerGradient(
+                      [
+                        Theme.of(context).scaffoldBackgroundColor,
+                        Theme.of(context).canvasColor
+                      ],
+                      Alignment.topCenter,
+                      Alignment.bottomCenter,
+                    ),
+                    color: Theme.of(context).backgroundColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
                   ),
-                  context: context,
-                  builder: (modalContext) => Padding(
-                      padding: MediaQuery.of(context).viewInsets,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            gradient: UiUtils.buildLinerGradient([
-                              Theme.of(context).scaffoldBackgroundColor,
-                              Theme.of(context).canvasColor
-                            ], Alignment.topCenter, Alignment.bottomCenter),
-                            color: Theme.of(context).backgroundColor,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        constraints: BoxConstraints(
-                            maxHeight:
-                                MediaQuery.of(context).size.height * (0.4)),
-                        child: Form(
-                          key: _formKeyDialog,
-                          child: Column(
-                            children: [
-                              Text(
-                                'Reset Password',
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsetsDirectional.only(
-                                      start: 20, end: 20, top: 20),
-                                  child: Text(
-                                    'Enter the email address associated with your account',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                              Padding(
-                                  padding: EdgeInsetsDirectional.only(
-                                      start: MediaQuery.of(context).size.width *
-                                          .08,
-                                      end: MediaQuery.of(context).size.width *
-                                          .08,
-                                      top: 20),
-                                  child: showEmailForForgotPwd()),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              CustomRoundedButton(
-                                  widthPercentage: 0.85,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  buttonTitle: 'Submit',
-                                  radius: 10,
-                                  showBorder: false,
-                                  height: 50,
-                                  onTap: () async {
-                                    final form = _formKeyDialog.currentState;
-                                    if (form!.validate()) {
-                                      form.save();
-
-                                      await context
-                                          .read<SignInBloc>()
-                                          .resetPassword(
-                                              withEmail:
-                                                  edtEmailReset.text.trim());
-                                      Future.delayed(const Duration(seconds: 1),
-                                          () {
-                                        Navigator.pop(context, 'Cancel');
-                                      });
-                                    }
-                                  })
-                            ],
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * (0.4),
+                  ),
+                  child: Form(
+                    key: _formKeyDialog,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Reset Password',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      )));
-            },
-            child: Text('Forgot Password',
-                style: TextStyle(
-                    fontSize: 11, color: Theme.of(context).primaryColor))),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(
+                            start: 20,
+                            end: 20,
+                            top: 20,
+                          ),
+                          child: Text(
+                            'Enter the email address associated with your account',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.only(
+                            start: MediaQuery.of(context).size.width * .08,
+                            end: MediaQuery.of(context).size.width * .08,
+                            top: 20,
+                          ),
+                          child: showEmailForForgotPwd(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomRoundedButton(
+                          widthPercentage: 0.85,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          buttonTitle: 'Submit',
+                          radius: 10,
+                          showBorder: false,
+                          height: 50,
+                          onTap: () async {
+                            final form = _formKeyDialog.currentState;
+                            if (form!.validate()) {
+                              form.save();
+
+                              await context.read<SignInBloc>().resetPassword(
+                                    withEmail: edtEmailReset.text.trim(),
+                                  );
+                              Future.delayed(const Duration(seconds: 1), () {
+                                Navigator.pop(context, 'Cancel');
+                              });
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          child: Text(
+            'Forgot Password',
+            style: TextStyle(
+              fontSize: 11,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget orLabel() {
-    return Stack(alignment: Alignment.center, children: [
-      Center(
-        child: Container(
-          color: Theme.of(context).primaryColor,
-          width: MediaQuery.of(context).size.width * .5,
-          height: 1.75,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Center(
+          child: Container(
+            color: Theme.of(context).primaryColor,
+            width: MediaQuery.of(context).size.width * .5,
+            height: 1.75,
+          ),
         ),
-      ),
-      Container(
-        padding: const EdgeInsets.all(7.5),
-        decoration: BoxDecoration(
+        Container(
+          padding: const EdgeInsets.all(7.5),
+          decoration: BoxDecoration(
             color: canvasColor,
             border: Border.all(color: canvasColor),
-            shape: BoxShape.circle),
-        child: Text(
-          'OR',
-          style: Theme.of(context)
-              .textTheme
-              .subtitle1!
-              .copyWith(color: Theme.of(context).primaryColor),
+            shape: BoxShape.circle,
+          ),
+          child: Text(
+            'OR',
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(color: Theme.of(context).primaryColor),
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 
   Widget loginWith(BuildContext context) {
@@ -376,25 +409,27 @@ class SignInPageState extends State<SignInPage> {
       'Connect with one of the following Option',
       textAlign: TextAlign.center,
       style: TextStyle(
-          fontWeight: FontWeight.w300,
-          color: Theme.of(context).primaryColor,
-          fontSize: 14),
+        fontWeight: FontWeight.w300,
+        color: Theme.of(context).primaryColor,
+        fontSize: 14,
+      ),
     );
   }
 
   Widget showSocialMedia(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
       builder: (context, state) {
-        if (state is SignInProgress &&
+        if (state is SignInInProgress &&
             state.authProvider != AuthProvider.email) {
           return const Center(
-              child: CircularProgressContainer(
-            useWhiteLoader: false,
-          ));
+            child: CircularProgressContainer(
+              useWhiteLoader: false,
+            ),
+          );
         }
         return Container(
           padding: EdgeInsets.only(
-            top: state is SignInProgress ? 30.0 : 20,
+            top: state is SignInInProgress ? 30.0 : 20,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -404,8 +439,12 @@ class SignInPageState extends State<SignInPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: InkWell(
                     onTap: () async {
-                      UiUtils.setSnackBar('Coming soon', context, false);
-                      //TODO: Handle sign in with apple flow
+                      UiUtils.setSnackBar(
+                        'Coming soon',
+                        context,
+                        showAction: false,
+                      );
+                      // TODO(steve): Handle sign in with apple flow
                     },
                     child: SvgPicture.asset(
                       'assets/images/icon_apple.svg',
@@ -454,9 +493,10 @@ class SignInPageState extends State<SignInPage> {
           child: Text(
             'Sign Up',
             style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).primaryColor),
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ),
       ],
@@ -475,7 +515,7 @@ class SignInPageState extends State<SignInPage> {
           //     authStatus: true,
           //     isNewUser: isNewUser);
           if (isNewUser) {
-            //TODO: Handle flow new user.
+            // TODO(steve): Handle flow new user.
           } else {
             await Navigator.of(context)
                 .pushReplacementNamed(Routes.home, arguments: false);
@@ -484,11 +524,14 @@ class SignInPageState extends State<SignInPage> {
       },
       resetPasswordEmailSent: () {
         UiUtils.setSnackBar(
-            'Password reset link has been sent to your mail', context, false);
+          'Password reset link has been sent to your mail',
+          context,
+          showAction: false,
+        );
       },
       failure: (errorMessage, authProvider) {
         if (authProvider == AuthProvider.email) {
-          UiUtils.setSnackBar(errorMessage, context, false);
+          UiUtils.setSnackBar(errorMessage, context, showAction: false);
         }
       },
     );

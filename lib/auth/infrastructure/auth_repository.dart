@@ -26,6 +26,7 @@ class AuthRepository {
   final firebase.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final FirebaseUserMapper _firebaseUserMapper;
+
   Stream<Option<User?>> get onUserChanged => _onUserChanged.asBroadcastStream();
   final BehaviorSubject<Option<User?>> _onUserChanged = BehaviorSubject();
 
@@ -50,11 +51,11 @@ class AuthRepository {
           .then((_) => right(unit));
     } on PlatformException catch (e) {
       if (e.code == 'email-already-in-use') {
-        return left(const AuthFailure.emailAlreadyInUse());
+        return left(const AuthFailure.serverEmailAlreadyInUse());
       } else if (e.code == 'invalid-email') {
-        return left(const AuthFailure.invalidEmail());
+        return left(const AuthFailure.serverInvalidEmail());
       } else {
-        return left(const AuthFailure.serverError());
+        return left(const AuthFailure.serverUnknownError());
       }
     }
   }
@@ -72,10 +73,10 @@ class AuthRepository {
       final firebaseUser = credentials.user;
       if (firebaseUser == null) {
         // Should not happen.
-        return left(const AuthFailure.userNotFound());
+        return left(const AuthFailure.serverUserNotFound());
       }
       if (firebaseUser.emailVerified == false) {
-        return left(const AuthFailure.emailNotVerified());
+        return left(const AuthFailure.serverEmailNotVerified());
       }
 
       final user = FirebaseUserMapper().toDomain(firebaseUser)!;
@@ -85,19 +86,19 @@ class AuthRepository {
     } on PlatformException catch (e) {
       if (e.code == 'ERROR_WRONG_PASSWORD' ||
           e.code == 'ERROR_USER_NOT_FOUND') {
-        return left(const AuthFailure.wrongEmailAndPasswordCombination());
+        return left(const AuthFailure.serverWrongEmailAndPasswordCombination());
       }
-      return left(const AuthFailure.serverError());
-    } on firebase.FirebaseException catch (e) {
+      return left(const AuthFailure.serverUnknownError());
+    } on firebase.FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return left(const AuthFailure.userNotFound());
+        return left(const AuthFailure.serverUserNotFound());
       } else if (e.code == 'wrong-password') {
-        return left(const AuthFailure.wrongEmailAndPasswordCombination());
+        return left(const AuthFailure.serverWrongEmailAndPasswordCombination());
       } else {
-        return left(AuthFailure.serverError(errorMessage: e.code));
+        return left(AuthFailure.serverUnknownError(errorMessage: e.code));
       }
     } catch (e) {
-      return left(AuthFailure.serverError(errorMessage: e.toString()));
+      return left(AuthFailure.serverUnknownError(errorMessage: e.toString()));
     }
   }
 
@@ -121,12 +122,12 @@ class AuthRepository {
       final user = FirebaseUserMapper().toDomain(credentials.user);
       if (user == null) {
         // Should not happen.
-        return left(const AuthFailure.userNotFound());
+        return left(const AuthFailure.serverUserNotFound());
       }
       onSuccess?.call(user, credentials.additionalUserInfo?.isNewUser ?? false);
       return right(unit);
     } on PlatformException catch (_) {
-      return left(const AuthFailure.serverError());
+      return left(const AuthFailure.serverUnknownError());
     }
   }
 
@@ -143,11 +144,11 @@ class AuthRepository {
       return right(unit);
     } on firebase.FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
-        return left(const AuthFailure.invalidEmail());
+        return left(const AuthFailure.serverInvalidEmail());
       } else if (e.code == 'user-not-found') {
-        return left(const AuthFailure.userNotFound());
+        return left(const AuthFailure.serverUserNotFound());
       } else {
-        return left(const AuthFailure.serverError());
+        return left(const AuthFailure.serverUnknownError());
       }
     } catch (e) {
       rethrow;
@@ -162,22 +163,27 @@ class AuthRepository {
   }) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       final user = FirebaseUserMapper().toDomain(userCredential.user);
       if (user == null) {
-        return left(const AuthFailure.userNotFound());
+        return left(const AuthFailure.serverUserNotFound());
       }
       //verify email address
-      await userCredential.user!.sendEmailVerification().then((value) =>
-          onSuccess?.call(
-              user, userCredential.additionalUserInfo?.isNewUser ?? false));
+      await userCredential.user!.sendEmailVerification().then(
+            (value) => onSuccess?.call(
+              user,
+              userCredential.additionalUserInfo?.isNewUser ?? false,
+            ),
+          );
       return right(unit);
     } on firebase.FirebaseAuthException catch (e) {
       return left(e.code.firebaseErrorCodeToFailure());
     } on SocketException catch (_) {
       return left(const AuthFailure.noInternet());
     } catch (e) {
-      return left(AuthFailure.serverError(errorMessage: e.toString()));
+      return left(AuthFailure.serverUnknownError(errorMessage: e.toString()));
     }
   }
 }

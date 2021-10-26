@@ -22,8 +22,6 @@ class _TaskHomePageState extends State<TaskHomePage> {
     return KeyboardDismissOnTap(
       child: KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible) {
-          final bool shouldNotShowFAB = isKeyboardVisible &&
-              context.read<HomeBloc>().state.selectedTabIndex != 0;
           return Scaffold(
             floatingActionButton: const _AddTaskButton(),
             bottomNavigationBar: const TabBarWidget(),
@@ -36,11 +34,14 @@ class _TaskHomePageState extends State<TaskHomePage> {
                   );
                 }
                 if (state.failure != null) {
-                  return state.failure!.maybeMap(orElse: () {
-                    return ErrorWidget(state.failure!.toString());
-                  }, localSuccessButSyncFailed: (localSuccessButSyncFailed) {
-                    return const _TaskHomePageBody();
-                  });
+                  return state.failure!.maybeMap(
+                    orElse: () {
+                      return ErrorWidget(state.failure!.toString());
+                    },
+                    localSuccessButSyncFailed: (localSuccessButSyncFailed) {
+                      return const _TaskHomePageBody();
+                    },
+                  );
                 }
                 return const _TaskHomePageBody();
               },

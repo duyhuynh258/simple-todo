@@ -42,7 +42,8 @@ class CustomRoundedButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
         onTap: onTap as void Function()?,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0), //
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          //
           alignment: Alignment.center,
           height: height,
           decoration: BoxDecoration(
@@ -60,9 +61,10 @@ class CustomRoundedButton extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                fontSize: textSize ?? 16.0,
-                color: titleColor ?? Theme.of(context).scaffoldBackgroundColor,
-                fontWeight: fontWeight ?? FontWeight.normal),
+              fontSize: textSize ?? 16.0,
+              color: titleColor ?? Theme.of(context).scaffoldBackgroundColor,
+              fontWeight: fontWeight ?? FontWeight.normal,
+            ),
           ),
         ),
       ),

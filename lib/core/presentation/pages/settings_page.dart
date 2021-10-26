@@ -7,11 +7,13 @@ import 'package:simple_todo_app/core/presentation/widgets/page_background_gradie
 import 'package:simple_todo_app/core/shared/ui_utils.dart';
 
 class Menu {
-  const Menu(
-      {required this.title,
-      required this.imagePath,
-      required this.routeName,
-      required this.routeArguments});
+  const Menu({
+    required this.title,
+    required this.imagePath,
+    required this.routeName,
+    required this.routeArguments,
+  });
+
   final String title;
   final String imagePath;
   final String routeName;
@@ -35,38 +37,39 @@ class SettingsPage extends StatelessWidget {
   void onMenuTap(String menuItem, BuildContext context) {
     if (menuItem == 'Log out') {
       showDialog<void>(
-          context: context,
-          builder: (_) => AlertDialog(
-                content: Text(
-                  'Are you sure to logout?',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+        context: context,
+        builder: (_) => AlertDialog(
+          content: Text(
+            'Are you sure to logout?',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
 
-                        context
-                            .read<AuthBloc>()
-                            .add(const AuthEvent.signedOut());
-                      },
-                      child: Text(
-                        'Yes',
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      )),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'No',
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      )),
-                ],
-              ));
+                context.read<AuthBloc>().add(const AuthEvent.signedOut());
+              },
+              child: Text(
+                'Yes',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'No',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -81,24 +84,26 @@ class SettingsPage extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5.0),
       child: Column(
         children: menuList
-            .map((e) => ListTile(
-                  onTap: () {
-                    onMenuTap(e.title, context);
-                  },
-                  title: Text(
-                    e.title,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+            .map(
+              (e) => ListTile(
+                onTap: () {
+                  onMenuTap(e.title, context);
+                },
+                title: Text(
+                  e.title,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                leading: Container(
+                  width: 60,
+                  //decoration: BoxDecoration(border: Border.all()),
+                  transform: Matrix4.identity()..scale(0.45),
+                  transformAlignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    e.imagePath,
                   ),
-                  leading: Container(
-                    width: 60,
-                    //decoration: BoxDecoration(border: Border.all()),
-                    transform: Matrix4.identity()..scale(0.45),
-                    transformAlignment: Alignment.center,
-                    child: SvgPicture.asset(
-                      e.imagePath,
-                    ),
-                  ),
-                ))
+                ),
+              ),
+            )
             .toList(),
       ),
     );

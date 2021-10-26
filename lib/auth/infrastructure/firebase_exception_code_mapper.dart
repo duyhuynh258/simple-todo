@@ -18,15 +18,15 @@ extension FirebaseExceptionX on String {
   AuthFailure firebaseErrorCodeToFailure() {
     switch (this) {
       case 'invalid-email':
-        return const AuthFailure.invalidEmail();
+        return const AuthFailure.serverInvalidEmail();
       case 'user-not-found':
-        return const AuthFailure.userNotFound();
+        return const AuthFailure.serverUserNotFound();
       case 'wrong-password':
-        return const AuthFailure.wrongEmailAndPasswordCombination();
+        return const AuthFailure.serverWrongEmailAndPasswordCombination();
       case 'invalid-credential':
-        return const AuthFailure.wrongEmailAndPasswordCombination();
+        return const AuthFailure.serverWrongEmailAndPasswordCombination();
       case 'email-already-in-use':
-        return const AuthFailure.emailAlreadyInUse();
+        return const AuthFailure.serverEmailAlreadyInUse();
       case 'user-disabled':
       case 'verifyEmail':
       case 'weak-password':
@@ -34,7 +34,7 @@ extension FirebaseExceptionX on String {
       case 'account-exists-with-different-credential':
       case 'invalid-verification-code':
       default:
-        return AuthFailure.serverError(errorMessage: this);
+        return AuthFailure.serverUnknownError(errorMessage: this);
     }
   }
 }

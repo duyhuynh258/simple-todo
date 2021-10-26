@@ -21,8 +21,8 @@ class _$SignInStateTearOff {
     return const _Initial();
   }
 
-  SignInProgress inProgress(AuthProvider authProvider) {
-    return SignInProgress(
+  SignInInProgress inProgress(AuthProvider authProvider) {
+    return SignInInProgress(
       authProvider,
     );
   }
@@ -42,9 +42,9 @@ class _$SignInStateTearOff {
     return const _ResetPasswordEmailSent();
   }
 
-  _Failure failure(
+  SignInFailed failure(
       {required String errorMessage, required AuthProvider authProvider}) {
-    return _Failure(
+    return SignInFailed(
       errorMessage: errorMessage,
       authProvider: authProvider,
     );
@@ -92,29 +92,29 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -220,11 +220,11 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) {
     return initial(this);
   }
@@ -233,10 +233,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) {
     return initial?.call(this);
   }
@@ -245,10 +245,10 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -263,28 +263,29 @@ abstract class _Initial implements SignInState {
 }
 
 /// @nodoc
-abstract class $SignInProgressCopyWith<$Res> {
-  factory $SignInProgressCopyWith(
-          SignInProgress value, $Res Function(SignInProgress) then) =
-      _$SignInProgressCopyWithImpl<$Res>;
+abstract class $SignInInProgressCopyWith<$Res> {
+  factory $SignInInProgressCopyWith(
+          SignInInProgress value, $Res Function(SignInInProgress) then) =
+      _$SignInInProgressCopyWithImpl<$Res>;
   $Res call({AuthProvider authProvider});
 }
 
 /// @nodoc
-class _$SignInProgressCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
-    implements $SignInProgressCopyWith<$Res> {
-  _$SignInProgressCopyWithImpl(
-      SignInProgress _value, $Res Function(SignInProgress) _then)
-      : super(_value, (v) => _then(v as SignInProgress));
+class _$SignInInProgressCopyWithImpl<$Res>
+    extends _$SignInStateCopyWithImpl<$Res>
+    implements $SignInInProgressCopyWith<$Res> {
+  _$SignInInProgressCopyWithImpl(
+      SignInInProgress _value, $Res Function(SignInInProgress) _then)
+      : super(_value, (v) => _then(v as SignInInProgress));
 
   @override
-  SignInProgress get _value => super._value as SignInProgress;
+  SignInInProgress get _value => super._value as SignInInProgress;
 
   @override
   $Res call({
     Object? authProvider = freezed,
   }) {
-    return _then(SignInProgress(
+    return _then(SignInInProgress(
       authProvider == freezed
           ? _value.authProvider
           : authProvider // ignore: cast_nullable_to_non_nullable
@@ -295,8 +296,8 @@ class _$SignInProgressCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SignInProgress implements SignInProgress {
-  const _$SignInProgress(this.authProvider);
+class _$SignInInProgress implements SignInInProgress {
+  const _$SignInInProgress(this.authProvider);
 
   @override
   final AuthProvider authProvider;
@@ -310,7 +311,7 @@ class _$SignInProgress implements SignInProgress {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SignInProgress &&
+            other is SignInInProgress &&
             (identical(other.authProvider, authProvider) ||
                 other.authProvider == authProvider));
   }
@@ -320,8 +321,8 @@ class _$SignInProgress implements SignInProgress {
 
   @JsonKey(ignore: true)
   @override
-  $SignInProgressCopyWith<SignInProgress> get copyWith =>
-      _$SignInProgressCopyWithImpl<SignInProgress>(this, _$identity);
+  $SignInInProgressCopyWith<SignInInProgress> get copyWith =>
+      _$SignInInProgressCopyWithImpl<SignInInProgress>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -372,11 +373,11 @@ class _$SignInProgress implements SignInProgress {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) {
     return inProgress(this);
   }
@@ -385,10 +386,10 @@ class _$SignInProgress implements SignInProgress {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) {
     return inProgress?.call(this);
   }
@@ -397,10 +398,10 @@ class _$SignInProgress implements SignInProgress {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -410,12 +411,13 @@ class _$SignInProgress implements SignInProgress {
   }
 }
 
-abstract class SignInProgress implements SignInState {
-  const factory SignInProgress(AuthProvider authProvider) = _$SignInProgress;
+abstract class SignInInProgress implements SignInState {
+  const factory SignInInProgress(AuthProvider authProvider) =
+      _$SignInInProgress;
 
   AuthProvider get authProvider;
   @JsonKey(ignore: true)
-  $SignInProgressCopyWith<SignInProgress> get copyWith =>
+  $SignInInProgressCopyWith<SignInInProgress> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -556,11 +558,11 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) {
     return success(this);
   }
@@ -569,10 +571,10 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) {
     return success?.call(this);
   }
@@ -581,10 +583,10 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -695,11 +697,11 @@ class _$_ResetPasswordEmailSent implements _ResetPasswordEmailSent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) {
     return resetPasswordEmailSent(this);
   }
@@ -708,10 +710,10 @@ class _$_ResetPasswordEmailSent implements _ResetPasswordEmailSent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) {
     return resetPasswordEmailSent?.call(this);
   }
@@ -720,10 +722,10 @@ class _$_ResetPasswordEmailSent implements _ResetPasswordEmailSent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) {
     if (resetPasswordEmailSent != null) {
@@ -738,27 +740,29 @@ abstract class _ResetPasswordEmailSent implements SignInState {
 }
 
 /// @nodoc
-abstract class _$FailureCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
-      __$FailureCopyWithImpl<$Res>;
+abstract class $SignInFailedCopyWith<$Res> {
+  factory $SignInFailedCopyWith(
+          SignInFailed value, $Res Function(SignInFailed) then) =
+      _$SignInFailedCopyWithImpl<$Res>;
   $Res call({String errorMessage, AuthProvider authProvider});
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
-      : super(_value, (v) => _then(v as _Failure));
+class _$SignInFailedCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
+    implements $SignInFailedCopyWith<$Res> {
+  _$SignInFailedCopyWithImpl(
+      SignInFailed _value, $Res Function(SignInFailed) _then)
+      : super(_value, (v) => _then(v as SignInFailed));
 
   @override
-  _Failure get _value => super._value as _Failure;
+  SignInFailed get _value => super._value as SignInFailed;
 
   @override
   $Res call({
     Object? errorMessage = freezed,
     Object? authProvider = freezed,
   }) {
-    return _then(_Failure(
+    return _then(SignInFailed(
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -773,8 +777,9 @@ class __$FailureCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Failure implements _Failure {
-  const _$_Failure({required this.errorMessage, required this.authProvider});
+class _$SignInFailed implements SignInFailed {
+  const _$SignInFailed(
+      {required this.errorMessage, required this.authProvider});
 
   @override
   final String errorMessage;
@@ -790,7 +795,7 @@ class _$_Failure implements _Failure {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Failure &&
+            other is SignInFailed &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.authProvider, authProvider) ||
@@ -802,8 +807,8 @@ class _$_Failure implements _Failure {
 
   @JsonKey(ignore: true)
   @override
-  _$FailureCopyWith<_Failure> get copyWith =>
-      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+  $SignInFailedCopyWith<SignInFailed> get copyWith =>
+      _$SignInFailedCopyWithImpl<SignInFailed>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -854,11 +859,11 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(SignInProgress value) inProgress,
+    required TResult Function(SignInInProgress value) inProgress,
     required TResult Function(_Success value) success,
     required TResult Function(_ResetPasswordEmailSent value)
         resetPasswordEmailSent,
-    required TResult Function(_Failure value) failure,
+    required TResult Function(SignInFailed value) failure,
   }) {
     return failure(this);
   }
@@ -867,10 +872,10 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -879,10 +884,10 @@ class _$_Failure implements _Failure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(SignInProgress value)? inProgress,
+    TResult Function(SignInInProgress value)? inProgress,
     TResult Function(_Success value)? success,
     TResult Function(_ResetPasswordEmailSent value)? resetPasswordEmailSent,
-    TResult Function(_Failure value)? failure,
+    TResult Function(SignInFailed value)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -892,14 +897,14 @@ class _$_Failure implements _Failure {
   }
 }
 
-abstract class _Failure implements SignInState {
-  const factory _Failure(
+abstract class SignInFailed implements SignInState {
+  const factory SignInFailed(
       {required String errorMessage,
-      required AuthProvider authProvider}) = _$_Failure;
+      required AuthProvider authProvider}) = _$SignInFailed;
 
   String get errorMessage;
   AuthProvider get authProvider;
   @JsonKey(ignore: true)
-  _$FailureCopyWith<_Failure> get copyWith =>
+  $SignInFailedCopyWith<SignInFailed> get copyWith =>
       throw _privateConstructorUsedError;
 }

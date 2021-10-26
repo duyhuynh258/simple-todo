@@ -26,12 +26,15 @@ class _CompletedTasksListPageState extends State<CompletedTasksListPage> {
             }
 
             return ListView.separated(
-                itemBuilder: (context, index) {
-                  return TaskItemWidgetWithProvider(
-                      key: Key(tasks[index].id), task: tasks[index]);
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: tasks.length);
+              itemBuilder: (context, index) {
+                return TaskItemWidgetWithProvider(
+                  key: Key(tasks[index].id),
+                  task: tasks[index],
+                );
+              },
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: tasks.length,
+            );
           },
         ),
       ),

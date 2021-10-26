@@ -6,10 +6,11 @@ part 'settings.freezed.dart';
 @freezed
 class Settings with _$Settings {
   const Settings._();
-  const factory Settings(
-      {required bool vibration,
-      required AppTheme theme,
-      required double fontSize}) = _Settings;
+  const factory Settings({
+    required bool vibration,
+    required AppTheme theme,
+    required double fontSize,
+  }) = _Settings;
 
   factory Settings.byDefault() =>
       const Settings(vibration: true, theme: AppTheme.light, fontSize: 14.0);

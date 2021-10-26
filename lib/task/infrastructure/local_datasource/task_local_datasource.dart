@@ -11,16 +11,19 @@ import 'package:simple_todo_app/task/infrastructure/pagination_config.dart';
 class TaskLocalDatasource {
   TaskLocalDatasource(this._sembastDatabase) {
     _getAllPaginatedFinder = TaskPaginatedSembastFinder(
-        numberOfItemToFetch:
-            PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
-        finder: Finder(sortOrders: [SortOrder('localTimeStamp', false)]));
+      numberOfItemToFetch:
+          PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
+      finder: Finder(sortOrders: [SortOrder('localTimeStamp', false)]),
+    );
 
     _getUncompletedPaginatedFinder = TaskPaginatedSembastFinder(
-        numberOfItemToFetch:
-            PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
-        finder: Finder(
-            sortOrders: [SortOrder('localTimeStamp', false)],
-            filter: Filter.equals('isCompleted', false)));
+      numberOfItemToFetch:
+          PaginationConfig.itemsShouldFetchToCheckNextPageAvailable,
+      finder: Finder(
+        sortOrders: [SortOrder('localTimeStamp', false)],
+        filter: Filter.equals('isCompleted', false),
+      ),
+    );
   }
 
   final SembastDatabase _sembastDatabase;
@@ -40,8 +43,10 @@ class TaskLocalDatasource {
     }
     try {
       final List<RecordSnapshot<String, Map<String, dynamic>>> records =
-          await _store.find(_sembastDatabase.instance,
-              finder: _getAllPaginatedFinder.paginatedFinder);
+          await _store.find(
+        _sembastDatabase.instance,
+        finder: _getAllPaginatedFinder.paginatedFinder,
+      );
 
       if (records.isEmpty) {
         return const PaginatedList(
@@ -64,13 +69,14 @@ class TaskLocalDatasource {
         isNextPageAvailable: isNextPageAvailable,
       );
     } catch (e) {
-      //TODO: handle more exceptions
+      // TODO(steve): handle more exceptions
       throw const TaskLocalDataSourceException.platformException();
     }
   }
 
-  Future<PaginatedList<Task>> getUncompletedTasks(
-      {bool nextPage = false}) async {
+  Future<PaginatedList<Task>> getUncompletedTasks({
+    bool nextPage = false,
+  }) async {
     if (nextPage == false) {
       _getUncompletedPaginatedFinder =
           _getUncompletedPaginatedFinder.copyWith(lastRecord: null);
@@ -95,7 +101,7 @@ class TaskLocalDatasource {
         isNextPageAvailable: isNextPageAvailable,
       );
     } catch (e) {
-      //TODO: handle more exceptions
+      // TODO(steve): handle more exceptions
       throw const TaskLocalDataSourceException.platformException();
     }
   }
@@ -110,7 +116,7 @@ class TaskLocalDatasource {
             tasksDTO.map((e) => e.toJson()).toList(),
           );
     } catch (e) {
-      //TODO: handle more exceptions
+      // TODO(steve): handle more exceptions
       throw const TaskLocalDataSourceException.platformException();
     }
   }

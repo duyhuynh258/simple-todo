@@ -22,15 +22,22 @@ class TaskRepository {
       return right(tasksPage);
     } on TaskRemoteDataSourceException catch (e) {
       return e.maybeWhen(
-        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
-            syncFailure: SyncFailure.noInternet())),
+        noInternet: () => left(
+          const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet(),
+          ),
+        ),
         insufficientPermissions: () => left(
           const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.insufficientPermissions()),
+            syncFailure: SyncFailure.insufficientPermissions(),
+          ),
         ),
         orElse: () async {
-          return left(const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.unexpected()));
+          return left(
+            const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected(),
+            ),
+          );
         },
       );
     } on TaskLocalDataSourceException catch (_) {
@@ -40,23 +47,32 @@ class TaskRepository {
     }
   }
 
-  Future<Either<TaskFailure, PaginatedList<domain.Task>>> getUncompletedTasks(
-      {bool nextPage = false, int loadedItemsCount = 0}) async {
+  Future<Either<TaskFailure, PaginatedList<domain.Task>>> getUncompletedTasks({
+    bool nextPage = false,
+    int loadedItemsCount = 0,
+  }) async {
     try {
       final tasksPage =
           await _taskLocalDatasource.getUncompletedTasks(nextPage: nextPage);
       return right(tasksPage);
     } on TaskRemoteDataSourceException catch (e) {
       return e.maybeWhen(
-        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
-            syncFailure: SyncFailure.noInternet())),
+        noInternet: () => left(
+          const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet(),
+          ),
+        ),
         insufficientPermissions: () => left(
           const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.insufficientPermissions()),
+            syncFailure: SyncFailure.insufficientPermissions(),
+          ),
         ),
         orElse: () async {
-          return left(const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.unexpected()));
+          return left(
+            const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected(),
+            ),
+          );
         },
       );
     } on TaskLocalDataSourceException catch (_) {
@@ -72,15 +88,22 @@ class TaskRepository {
       return right(unit);
     } on TaskRemoteDataSourceException catch (e) {
       return e.maybeWhen(
-        noInternet: () => left(const TaskFailure.localSuccessButSyncFailed(
-            syncFailure: SyncFailure.noInternet())),
+        noInternet: () => left(
+          const TaskFailure.localSuccessButSyncFailed(
+            syncFailure: SyncFailure.noInternet(),
+          ),
+        ),
         insufficientPermissions: () => left(
           const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.insufficientPermissions()),
+            syncFailure: SyncFailure.insufficientPermissions(),
+          ),
         ),
         orElse: () async {
-          return left(const TaskFailure.localSuccessButSyncFailed(
-              syncFailure: SyncFailure.unexpected()));
+          return left(
+            const TaskFailure.localSuccessButSyncFailed(
+              syncFailure: SyncFailure.unexpected(),
+            ),
+          );
         },
       );
     } on TaskLocalDataSourceException catch (_) {
@@ -91,18 +114,19 @@ class TaskRepository {
   }
 
   Future<Either<TaskFailure, Unit>> deleteTasks(List<domain.Task> task) async {
-    // TODO: implement
+    // TODO(steve): implement
     return right(unit);
   }
 
   Future<Either<TaskFailure, Unit>> syncToRemote(List<domain.Task> task) async {
-    // TODO: implement
+    // TODO(steve): implement
     return right(unit);
   }
 
   Future<Either<TaskFailure, Unit>> syncFromRemote(
-      List<domain.Task> task) async {
-    // TODO: implement
+    List<domain.Task> task,
+  ) async {
+    // TODO(steve): implement
     return right(unit);
   }
 }

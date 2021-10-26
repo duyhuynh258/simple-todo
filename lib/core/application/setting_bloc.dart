@@ -32,12 +32,12 @@ class SettingsBloc extends Cubit<SettingsState> {
     });
   }
 
-  void changeVibration(bool value) {
-    _settingsRepository.changeVibration(value);
+  void changeVibration({required bool value}) {
+    _settingsRepository.changeVibration(value: value);
     emit(SettingsState(settings: state.settings.copyWith(vibration: value)));
   }
 
-  void changeFontSize(double value) {
+  void changeFontSize({required double value}) {
     _settingsRepository.changeFontSize(value);
     emit(SettingsState(settings: state.settings.copyWith(fontSize: value)));
   }

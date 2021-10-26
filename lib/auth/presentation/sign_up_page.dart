@@ -35,16 +35,17 @@ class _SignUpPageState extends State<SignUpPage> {
       child: BlocProvider<SignUpBloc>(
         create: (_) => SignUpBloc(context.read<AuthRepository>()),
         child: Builder(
-            builder: (context) => Scaffold(
-                  body: Stack(
-                    children: [
-                      const PageBackgroundGradientContainer(),
-                      SingleChildScrollView(
-                        child: form(),
-                      ),
-                    ],
-                  ),
-                )),
+          builder: (context) => Scaffold(
+            body: Stack(
+              children: [
+                const PageBackgroundGradientContainer(),
+                SingleChildScrollView(
+                  child: form(),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -54,8 +55,9 @@ class _SignUpPageState extends State<SignUpPage> {
       key: _formKey,
       child: Padding(
         padding: EdgeInsetsDirectional.only(
-            start: MediaQuery.of(context).size.width * .08,
-            end: MediaQuery.of(context).size.width * .08),
+          start: MediaQuery.of(context).size.width * .08,
+          end: MediaQuery.of(context).size.width * .08,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -94,9 +96,10 @@ class _SignUpPageState extends State<SignUpPage> {
     return Text(
       'Sign Up',
       style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontSize: 22,
-          fontWeight: FontWeight.bold),
+        color: Theme.of(context).primaryColor,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -258,19 +261,27 @@ class _SignUpPageState extends State<SignUpPage> {
           width: 300,
           child: BlocConsumer<SignUpBloc, SignUpState>(
             listener: (context, state) async {
-              state.whenOrNull(success: () {
-                //on signup success navigate user to sign in screen
-                UiUtils.setSnackBar(
+              state.whenOrNull(
+                success: () {
+                  //on signup success navigate user to sign in screen
+                  UiUtils.setSnackBar(
                     'Verification email sent to ${edtEmail.text.trim()}',
                     context,
-                    false);
-                setState(() {
-                  Navigator.pop(context);
-                });
-              }, failure: (failure) {
-                //show error message
-                UiUtils.setSnackBar(failure.toString(), context, false);
-              });
+                    showAction: false,
+                  );
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+                failure: (failure) {
+                  //show error message
+                  UiUtils.setSnackBar(
+                    failure.toString(),
+                    context,
+                    showAction: false,
+                  );
+                },
+              );
             },
             builder: (context, state) {
               return CupertinoButton(
@@ -281,8 +292,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     await context
                         .read<SignUpBloc>()
                         .signUpUserWithEmailAndPassword(
-                            email: edtEmail.text.trim(),
-                            password: edtPwd.text.trim());
+                          email: edtEmail.text.trim(),
+                          password: edtPwd.text.trim(),
+                        );
                   }
                 },
                 child: state.maybeMap(

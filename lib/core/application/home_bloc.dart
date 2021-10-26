@@ -23,8 +23,12 @@ class HomeBloc extends Cubit<HomeState> {
   HomeBloc() : super(HomeState.initial());
 
   void changeTab(int index, {TaskAction? forAction}) {
-    emit(state.copyWith(
-        selectedTabIndex: index, tabChangesForAction: forAction));
+    emit(
+      state.copyWith(
+        selectedTabIndex: index,
+        tabChangesForAction: forAction,
+      ),
+    );
   }
 
   void changeToUnCompletedTab({TaskAction? forAction}) {

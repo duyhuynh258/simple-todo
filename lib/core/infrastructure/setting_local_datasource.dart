@@ -10,7 +10,7 @@ class SettingsLocalDataSource {
   final SembastDatabase _sembastDatabase;
   final _store = stringMapStoreFactory.store(settingsStore);
 
-  Future<void> setVibration(bool value) async {
+  Future<void> setVibration({required bool value}) async {
     final settingsDTO = await getSettings();
     await _upsertSettings(settingsDTO.copyWith(vibration: value));
   }

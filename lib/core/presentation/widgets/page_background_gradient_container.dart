@@ -8,10 +8,14 @@ class PageBackgroundGradientContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: UiUtils.buildLinerGradient([
-          Theme.of(context).scaffoldBackgroundColor,
-          Theme.of(context).canvasColor
-        ], Alignment.topCenter, Alignment.bottomCenter),
+        gradient: UiUtils.buildLinerGradient(
+          [
+            Theme.of(context).scaffoldBackgroundColor,
+            Theme.of(context).canvasColor
+          ],
+          Alignment.topCenter,
+          Alignment.bottomCenter,
+        ),
       ),
     );
   }

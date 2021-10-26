@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class CircularProgressContainer extends StatelessWidget {
-  const CircularProgressContainer(
-      {Key? key, required this.useWhiteLoader, this.heightAndWidth})
-      : super(key: key);
+  const CircularProgressContainer({
+    Key? key,
+    required this.useWhiteLoader,
+    this.heightAndWidth,
+  }) : super(key: key);
   final bool useWhiteLoader;
   final double? heightAndWidth;
 

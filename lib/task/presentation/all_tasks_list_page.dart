@@ -7,6 +7,7 @@ import 'package:simple_todo_app/task/presentation/task_item_widget.dart';
 class AllTasksListPage extends StatefulWidget {
   const AllTasksListPage({Key? key}) : super(key: key);
 
+  @protected
   @override
   _AllTasksListPageState createState() => _AllTasksListPageState();
 }
@@ -25,14 +26,15 @@ class _AllTasksListPageState extends State<AllTasksListPage> {
             }
 
             return ListView.separated(
-                itemBuilder: (context, index) {
-                  return TaskItemWidgetWithProvider(
-                    key: Key(tasks[index].id),
-                    task: tasks[index],
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: tasks.length);
+              itemBuilder: (context, index) {
+                return TaskItemWidgetWithProvider(
+                  key: Key(tasks[index].id),
+                  task: tasks[index],
+                );
+              },
+              separatorBuilder: (context, index) => const Divider(),
+              itemCount: tasks.length,
+            );
           },
         ),
       ),
