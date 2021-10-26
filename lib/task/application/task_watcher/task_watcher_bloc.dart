@@ -69,7 +69,7 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
   }
 
   void _addEmptyTask(Emitter<TaskWatcherState> emit) {
-    final emptyTask = Task.empty();
+    final emptyTask = Task.draft();
     _addTaskItemBloc(emptyTask);
     emit(
       state.copyWith(
@@ -81,10 +81,10 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
 
   void _removeEmptyTasks(Emitter<TaskWatcherState> emit) {
     final List<Task> emptyTasks = List<Task>.from(state.allTasks)
-        .where((element) => element.isEmpty)
+        .where((element) => element.isDraft)
         .toList();
     final resultTaskList = List<Task>.from(state.allTasks)
-      ..removeWhere((element) => element.isEmpty == true);
+      ..removeWhere((element) => element.isDraft == true);
 
     emit(state.copyWith(allTasks: List.from(resultTaskList, growable: false)));
     //Remove bloc with empty task
@@ -112,7 +112,7 @@ class TaskWatcherBloc extends Bloc<TaskWatcherEvent, TaskWatcherState> {
 
 extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
   void _addTaskItemBloc(Task task) {
-    taskItemBlocs[task.id] = TaskItemBloc(
+    taskItemBlocs[task.id.value] = TaskItemBloc(
       _taskRepository,
       task: task,
       onAction: (Task? task) {
@@ -126,7 +126,7 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
 
   void _addTaskItemBlocs(List<Task> tasks) {
     for (final Task task in tasks) {
-      taskItemBlocs[task.id] = TaskItemBloc(
+      taskItemBlocs[task.id.value] = TaskItemBloc(
         _taskRepository,
         task: task,
         onAction: (Task? task) {
@@ -144,9 +144,9 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
       return;
     }
     for (final Task task in tasks) {
-      final TaskItemBloc? removeBloc =
-          taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
-      taskItemBlocs.removeWhere((key, value) => key == task.id);
+      final TaskItemBloc? removeBloc = taskItemBlocs[
+          taskItemBlocs.keys.firstWhere((e) => e == task.id.value)];
+      taskItemBlocs.removeWhere((key, value) => key == task.id.value);
       removeBloc?.close();
     }
   }
@@ -156,8 +156,8 @@ extension TaskItemBlocsMapUpdate on TaskWatcherBloc {
       return;
     }
     final TaskItemBloc? removeBloc =
-        taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id)];
-    taskItemBlocs.removeWhere((key, value) => key == task.id);
+        taskItemBlocs[taskItemBlocs.keys.firstWhere((e) => e == task.id.value)];
+    taskItemBlocs.removeWhere((key, value) => key == task.id.value);
     removeBloc?.close();
   }
 }

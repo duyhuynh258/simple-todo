@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/timestamp.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
+import 'package:simple_todo_app/task/domain/unique_id.dart';
 
 part 'task_sembast_dto.freezed.dart';
 part 'task_sembast_dto.g.dart';
@@ -18,7 +19,7 @@ class TaskSembastDTO with _$TaskSembastDTO {
 
   factory TaskSembastDTO.fromDomain(Task task) {
     return TaskSembastDTO(
-      id: task.id,
+      id: task.id.value,
       body: task.body,
       localTimeStamp: Timestamp.now(),
       isCompleted: task.isCompleted,
@@ -55,7 +56,7 @@ class LocalTimestampConverter implements JsonConverter<Timestamp, Object> {
 extension TaskSembastDTOX on TaskSembastDTO {
   Task toDomain() {
     return Task(
-      id: id,
+      id: UniqueId.fromUUID(id),
       body: body,
       isCompleted: isCompleted,
       isSynchronized: isSynchronized,

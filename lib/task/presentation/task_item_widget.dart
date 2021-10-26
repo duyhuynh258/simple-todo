@@ -69,9 +69,21 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskItemBloc, TaskItemState>(
+    return BlocConsumer<TaskItemBloc, TaskItemState>(
+      listener: (context, state) {
+        if (state.failure != null) {
+          UiUtils.setSnackBar(
+            state.failure.toString(),
+            context,
+            showAction: false,
+          );
+          context
+              .read<TaskItemBloc>()
+              .add(const TaskItemEvent.failureHandled());
+        }
+      },
       builder: (context, state) {
-        final bool isAutoFocus = state.task.isEmpty;
+        final bool isAutoFocus = state.task.isDraft;
         final bool isTaskCompleted = state.task.isCompleted;
         return ListTile(
           leading: RoundCheckBox(

@@ -6,9 +6,8 @@ import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart' as domain;
 import 'package:simple_todo_app/task/domain/unique_id.dart';
-import 'package:simple_todo_app/task/infrastructure/task_repository.dart';
 
-class TaskRepositoryMock extends Mock implements TaskRepository {}
+import '../../../helpers/helpers.dart';
 
 void main() {
   late TaskRepositoryMock taskRepositoryMock;
@@ -16,7 +15,7 @@ void main() {
   setUp(() {
     taskRepositoryMock = TaskRepositoryMock();
     uncompletedTask = domain.Task(
-      id: UniqueId().value,
+      id: UniqueId(),
       body: 'This is uncompleted task',
       isSynchronized: false,
       isCompleted: false,
@@ -33,7 +32,7 @@ void main() {
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
       expect: () => [
         isA<TaskWatcherState>().having(
-          (state) => state.allTasks.first.isEmpty,
+          (state) => state.allTasks.first.isDraft,
           'Created task have empty body',
           true,
         )
@@ -48,7 +47,7 @@ void main() {
           isInProgress: false,
           isNextCompletedTasksAvailable: false,
           isNextUnCompletedTasksAvailable: false,
-          allTasks: [domain.Task.empty()],
+          allTasks: [domain.Task.draft()],
         ),
       ),
       act: (bloc) {
@@ -74,7 +73,7 @@ void main() {
           isInProgress: false,
           isNextCompletedTasksAvailable: false,
           isNextUnCompletedTasksAvailable: false,
-          allTasks: [domain.Task.empty()],
+          allTasks: [domain.Task.draft()],
         ),
       ),
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),

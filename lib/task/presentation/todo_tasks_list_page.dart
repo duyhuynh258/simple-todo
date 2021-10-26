@@ -29,7 +29,7 @@ class _TodoTasksListPageState extends State<TodoTasksListPage> {
             return ListView.separated(
               itemBuilder: (context, index) {
                 return TaskItemWidgetWithProvider(
-                  key: Key(tasks[index].id),
+                  key: Key(tasks[index].id.value),
                   task: tasks[index],
                 );
               },

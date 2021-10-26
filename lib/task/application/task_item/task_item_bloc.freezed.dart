@@ -17,16 +17,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TaskItemEventTearOff {
   const _$TaskItemEventTearOff();
 
-  _TaskSaved saved() {
-    return const _TaskSaved();
-  }
-
   _TaskCompleted completed() {
     return const _TaskCompleted();
   }
 
   _TaskUnCompleted unCompleted() {
     return const _TaskUnCompleted();
+  }
+
+  _FailureHandled failureHandled() {
+    return const _FailureHandled();
   }
 
   _TaskBodyChanged bodyChanged({required String body}) {
@@ -43,50 +43,50 @@ const $TaskItemEvent = _$TaskItemEventTearOff();
 mixin _$TaskItemEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function() failureHandled,
     required TResult Function(String body) bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_FailureHandled value) failureHandled,
     required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) =>
@@ -108,122 +108,6 @@ class _$TaskItemEventCopyWithImpl<$Res>
   final TaskItemEvent _value;
   // ignore: unused_field
   final $Res Function(TaskItemEvent) _then;
-}
-
-/// @nodoc
-abstract class _$TaskSavedCopyWith<$Res> {
-  factory _$TaskSavedCopyWith(
-          _TaskSaved value, $Res Function(_TaskSaved) then) =
-      __$TaskSavedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$TaskSavedCopyWithImpl<$Res> extends _$TaskItemEventCopyWithImpl<$Res>
-    implements _$TaskSavedCopyWith<$Res> {
-  __$TaskSavedCopyWithImpl(_TaskSaved _value, $Res Function(_TaskSaved) _then)
-      : super(_value, (v) => _then(v as _TaskSaved));
-
-  @override
-  _TaskSaved get _value => super._value as _TaskSaved;
-}
-
-/// @nodoc
-
-class _$_TaskSaved extends _TaskSaved {
-  const _$_TaskSaved() : super._();
-
-  @override
-  String toString() {
-    return 'TaskItemEvent.saved()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _TaskSaved);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() saved,
-    required TResult Function() completed,
-    required TResult Function() unCompleted,
-    required TResult Function(String body) bodyChanged,
-  }) {
-    return saved();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? saved,
-    TResult Function()? completed,
-    TResult Function()? unCompleted,
-    TResult Function(String body)? bodyChanged,
-  }) {
-    return saved?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? saved,
-    TResult Function()? completed,
-    TResult Function()? unCompleted,
-    TResult Function(String body)? bodyChanged,
-    required TResult orElse(),
-  }) {
-    if (saved != null) {
-      return saved();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_TaskSaved value) saved,
-    required TResult Function(_TaskCompleted value) completed,
-    required TResult Function(_TaskUnCompleted value) unCompleted,
-    required TResult Function(_TaskBodyChanged value) bodyChanged,
-  }) {
-    return saved(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
-    TResult Function(_TaskCompleted value)? completed,
-    TResult Function(_TaskUnCompleted value)? unCompleted,
-    TResult Function(_TaskBodyChanged value)? bodyChanged,
-  }) {
-    return saved?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
-    TResult Function(_TaskCompleted value)? completed,
-    TResult Function(_TaskUnCompleted value)? unCompleted,
-    TResult Function(_TaskBodyChanged value)? bodyChanged,
-    required TResult orElse(),
-  }) {
-    if (saved != null) {
-      return saved(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _TaskSaved extends TaskItemEvent {
-  const factory _TaskSaved() = _$_TaskSaved;
-  const _TaskSaved._() : super._();
 }
 
 /// @nodoc
@@ -267,9 +151,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function() failureHandled,
     required TResult Function(String body) bodyChanged,
   }) {
     return completed();
@@ -278,9 +162,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
   }) {
     return completed?.call();
@@ -289,9 +173,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -304,9 +188,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_FailureHandled value) failureHandled,
     required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return completed(this);
@@ -315,9 +199,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return completed?.call(this);
@@ -326,9 +210,9 @@ class _$_TaskCompleted extends _TaskCompleted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -385,9 +269,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function() failureHandled,
     required TResult Function(String body) bodyChanged,
   }) {
     return unCompleted();
@@ -396,9 +280,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
   }) {
     return unCompleted?.call();
@@ -407,9 +291,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -422,9 +306,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_FailureHandled value) failureHandled,
     required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return unCompleted(this);
@@ -433,9 +317,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return unCompleted?.call(this);
@@ -444,9 +328,9 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -460,6 +344,124 @@ class _$_TaskUnCompleted extends _TaskUnCompleted {
 abstract class _TaskUnCompleted extends TaskItemEvent {
   const factory _TaskUnCompleted() = _$_TaskUnCompleted;
   const _TaskUnCompleted._() : super._();
+}
+
+/// @nodoc
+abstract class _$FailureHandledCopyWith<$Res> {
+  factory _$FailureHandledCopyWith(
+          _FailureHandled value, $Res Function(_FailureHandled) then) =
+      __$FailureHandledCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$FailureHandledCopyWithImpl<$Res>
+    extends _$TaskItemEventCopyWithImpl<$Res>
+    implements _$FailureHandledCopyWith<$Res> {
+  __$FailureHandledCopyWithImpl(
+      _FailureHandled _value, $Res Function(_FailureHandled) _then)
+      : super(_value, (v) => _then(v as _FailureHandled));
+
+  @override
+  _FailureHandled get _value => super._value as _FailureHandled;
+}
+
+/// @nodoc
+
+class _$_FailureHandled extends _FailureHandled {
+  const _$_FailureHandled() : super._();
+
+  @override
+  String toString() {
+    return 'TaskItemEvent.failureHandled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _FailureHandled);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() completed,
+    required TResult Function() unCompleted,
+    required TResult Function() failureHandled,
+    required TResult Function(String body) bodyChanged,
+  }) {
+    return failureHandled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? completed,
+    TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
+    TResult Function(String body)? bodyChanged,
+  }) {
+    return failureHandled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? completed,
+    TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
+    TResult Function(String body)? bodyChanged,
+    required TResult orElse(),
+  }) {
+    if (failureHandled != null) {
+      return failureHandled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TaskCompleted value) completed,
+    required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_FailureHandled value) failureHandled,
+    required TResult Function(_TaskBodyChanged value) bodyChanged,
+  }) {
+    return failureHandled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TaskCompleted value)? completed,
+    TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
+  }) {
+    return failureHandled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TaskCompleted value)? completed,
+    TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
+    TResult Function(_TaskBodyChanged value)? bodyChanged,
+    required TResult orElse(),
+  }) {
+    if (failureHandled != null) {
+      return failureHandled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _FailureHandled extends TaskItemEvent {
+  const factory _FailureHandled() = _$_FailureHandled;
+  const _FailureHandled._() : super._();
 }
 
 /// @nodoc
@@ -526,9 +528,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() saved,
     required TResult Function() completed,
     required TResult Function() unCompleted,
+    required TResult Function() failureHandled,
     required TResult Function(String body) bodyChanged,
   }) {
     return bodyChanged(body);
@@ -537,9 +539,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
   }) {
     return bodyChanged?.call(body);
@@ -548,9 +550,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? saved,
     TResult Function()? completed,
     TResult Function()? unCompleted,
+    TResult Function()? failureHandled,
     TResult Function(String body)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -563,9 +565,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_TaskSaved value) saved,
     required TResult Function(_TaskCompleted value) completed,
     required TResult Function(_TaskUnCompleted value) unCompleted,
+    required TResult Function(_FailureHandled value) failureHandled,
     required TResult Function(_TaskBodyChanged value) bodyChanged,
   }) {
     return bodyChanged(this);
@@ -574,9 +576,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
   }) {
     return bodyChanged?.call(this);
@@ -585,9 +587,9 @@ class _$_TaskBodyChanged extends _TaskBodyChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_TaskSaved value)? saved,
     TResult Function(_TaskCompleted value)? completed,
     TResult Function(_TaskUnCompleted value)? unCompleted,
+    TResult Function(_FailureHandled value)? failureHandled,
     TResult Function(_TaskBodyChanged value)? bodyChanged,
     required TResult orElse(),
   }) {
@@ -612,9 +614,10 @@ abstract class _TaskBodyChanged extends TaskItemEvent {
 class _$TaskItemStateTearOff {
   const _$TaskItemStateTearOff();
 
-  _TaskItemState call({required Task task}) {
+  _TaskItemState call({required Task task, TaskFailure? failure}) {
     return _TaskItemState(
       task: task,
+      failure: failure,
     );
   }
 }
@@ -625,6 +628,7 @@ const $TaskItemState = _$TaskItemStateTearOff();
 /// @nodoc
 mixin _$TaskItemState {
   Task get task => throw _privateConstructorUsedError;
+  TaskFailure? get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TaskItemStateCopyWith<TaskItemState> get copyWith =>
@@ -636,9 +640,10 @@ abstract class $TaskItemStateCopyWith<$Res> {
   factory $TaskItemStateCopyWith(
           TaskItemState value, $Res Function(TaskItemState) then) =
       _$TaskItemStateCopyWithImpl<$Res>;
-  $Res call({Task task});
+  $Res call({Task task, TaskFailure? failure});
 
   $TaskCopyWith<$Res> get task;
+  $TaskFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -653,12 +658,17 @@ class _$TaskItemStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
       task: task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task,
+      failure: failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as TaskFailure?,
     ));
   }
 
@@ -666,6 +676,17 @@ class _$TaskItemStateCopyWithImpl<$Res>
   $TaskCopyWith<$Res> get task {
     return $TaskCopyWith<$Res>(_value.task, (value) {
       return _then(_value.copyWith(task: value));
+    });
+  }
+
+  @override
+  $TaskFailureCopyWith<$Res>? get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+
+    return $TaskFailureCopyWith<$Res>(_value.failure!, (value) {
+      return _then(_value.copyWith(failure: value));
     });
   }
 }
@@ -677,10 +698,12 @@ abstract class _$TaskItemStateCopyWith<$Res>
           _TaskItemState value, $Res Function(_TaskItemState) then) =
       __$TaskItemStateCopyWithImpl<$Res>;
   @override
-  $Res call({Task task});
+  $Res call({Task task, TaskFailure? failure});
 
   @override
   $TaskCopyWith<$Res> get task;
+  @override
+  $TaskFailureCopyWith<$Res>? get failure;
 }
 
 /// @nodoc
@@ -697,12 +720,17 @@ class __$TaskItemStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = freezed,
+    Object? failure = freezed,
   }) {
     return _then(_TaskItemState(
       task: task == freezed
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as Task,
+      failure: failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as TaskFailure?,
     ));
   }
 }
@@ -710,14 +738,16 @@ class __$TaskItemStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TaskItemState extends _TaskItemState {
-  const _$_TaskItemState({required this.task}) : super._();
+  const _$_TaskItemState({required this.task, this.failure}) : super._();
 
   @override
   final Task task;
+  @override
+  final TaskFailure? failure;
 
   @override
   String toString() {
-    return 'TaskItemState(task: $task)';
+    return 'TaskItemState(task: $task, failure: $failure)';
   }
 
   @override
@@ -725,11 +755,12 @@ class _$_TaskItemState extends _TaskItemState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _TaskItemState &&
-            (identical(other.task, task) || other.task == task));
+            (identical(other.task, task) || other.task == task) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, task);
+  int get hashCode => Object.hash(runtimeType, task, failure);
 
   @JsonKey(ignore: true)
   @override
@@ -738,11 +769,14 @@ class _$_TaskItemState extends _TaskItemState {
 }
 
 abstract class _TaskItemState extends TaskItemState {
-  const factory _TaskItemState({required Task task}) = _$_TaskItemState;
+  const factory _TaskItemState({required Task task, TaskFailure? failure}) =
+      _$_TaskItemState;
   const _TaskItemState._() : super._();
 
   @override
   Task get task;
+  @override
+  TaskFailure? get failure;
   @override
   @JsonKey(ignore: true)
   _$TaskItemStateCopyWith<_TaskItemState> get copyWith =>

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
+import 'package:simple_todo_app/task/domain/unique_id.dart';
 
 part 'task_firestore_dto.freezed.dart';
 part 'task_firestore_dto.g.dart';
@@ -16,7 +17,7 @@ class TaskFirestoreDTO with _$TaskFirestoreDTO {
 
   factory TaskFirestoreDTO.fromDomain(Task task) {
     return TaskFirestoreDTO(
-      id: task.id,
+      id: task.id.value,
       body: task.body,
       serverTimeStamp: FieldValue.serverTimestamp(),
       isCompleted: task.isCompleted,
@@ -49,7 +50,7 @@ extension TaskFirestoreDTOX on TaskFirestoreDTO {
     return Task(
       body: body,
       isCompleted: isCompleted,
-      id: id!,
+      id: UniqueId.fromUUID(id!),
       isSynchronized: true,
     );
   }

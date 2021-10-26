@@ -18,7 +18,7 @@ class _$TaskTearOff {
   const _$TaskTearOff();
 
   _Task call(
-      {required String id,
+      {required UniqueId id,
       required String body,
       required bool isSynchronized,
       required bool isCompleted}) {
@@ -36,7 +36,7 @@ const $Task = _$TaskTearOff();
 
 /// @nodoc
 mixin _$Task {
-  String get id => throw _privateConstructorUsedError;
+  UniqueId get id => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
   bool get isSynchronized => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ mixin _$Task {
 abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res>;
-  $Res call({String id, String body, bool isSynchronized, bool isCompleted});
+  $Res call({UniqueId id, String body, bool isSynchronized, bool isCompleted});
 }
 
 /// @nodoc
@@ -71,7 +71,7 @@ class _$TaskCopyWithImpl<$Res> implements $TaskCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UniqueId,
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -93,7 +93,7 @@ abstract class _$TaskCopyWith<$Res> implements $TaskCopyWith<$Res> {
   factory _$TaskCopyWith(_Task value, $Res Function(_Task) then) =
       __$TaskCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String body, bool isSynchronized, bool isCompleted});
+  $Res call({UniqueId id, String body, bool isSynchronized, bool isCompleted});
 }
 
 /// @nodoc
@@ -116,7 +116,7 @@ class __$TaskCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as UniqueId,
       body: body == freezed
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ class _$_Task extends _Task {
       : super._();
 
   @override
-  final String id;
+  final UniqueId id;
   @override
   final String body;
   @override
@@ -182,14 +182,14 @@ class _$_Task extends _Task {
 
 abstract class _Task extends Task {
   const factory _Task(
-      {required String id,
+      {required UniqueId id,
       required String body,
       required bool isSynchronized,
       required bool isCompleted}) = _$_Task;
   const _Task._() : super._();
 
   @override
-  String get id;
+  UniqueId get id;
   @override
   String get body;
   @override
