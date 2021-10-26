@@ -20,7 +20,7 @@ User get user => const User(
 void main() {
   late AuthRepository authRepositoryMock;
   late AuthBloc authBlocMock;
-  setUpAll(() {
+  setUp(() {
     authRepositoryMock = AuthRepositoryMock();
     authBlocMock = MockAuthBloc();
   });

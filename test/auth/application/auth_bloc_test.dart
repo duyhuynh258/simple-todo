@@ -26,7 +26,7 @@ User get notVerifiedUser => const User(
 void main() {
   late AuthRepository authRepositoryMock;
   late BehaviorSubject<dartz.Option<User?>> userChangesSubject;
-  setUpAll(() {
+  setUp(() {
     authRepositoryMock = AuthRepositoryMock();
     userChangesSubject = BehaviorSubject<dartz.Option<User?>>();
   });

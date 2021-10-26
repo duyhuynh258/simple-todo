@@ -86,4 +86,41 @@ class Routes {
         return CupertinoPageRoute<void>(builder: (context) => const Scaffold());
     }
   }
+
+  static Widget homeBuilder(
+    BuildContext context,
+    AsyncSnapshot<dynamic> snapshot,
+  ) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.none:
+        return ErrorWidget('ConnectionState.none');
+      case ConnectionState.done:
+        if (snapshot.hasError == false) {
+          return BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) async {
+              await state.whenOrNull(
+                authenticated: (user) async {
+                  await Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.home,
+                    (route) => route.settings.name == '/',
+                  );
+                },
+                unauthenticated: () async {
+                  await Navigator.of(context).pushNamedAndRemoveUntil(
+                    Routes.signIn,
+                    (route) => route.settings.name == '/',
+                  );
+                },
+              );
+            },
+            child: const SplashPage(),
+          );
+        }
+        break;
+      case ConnectionState.waiting:
+      case ConnectionState.active:
+        return const SplashPage();
+    }
+    return ErrorWidget('App initialize failed');
+  }
 }

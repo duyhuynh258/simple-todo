@@ -7,6 +7,6 @@ class AuthRepositoryMock extends Mock implements AuthRepository {}
 
 class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
 
-class AuthStateFake extends Fake implements AuthState {}
+class FakeAuthState extends Fake implements AuthState {}
 
-class AuthEventFake extends Fake implements AuthEvent {}
+class FakeAuthEvent extends Fake implements AuthEvent {}
