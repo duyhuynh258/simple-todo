@@ -1,27 +1,30 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
-import 'package:simple_todo_app/task/domain/task.dart' as domain;
+import 'package:simple_todo_app/task/domain/task.dart';
 
 import '../../../helpers/helpers.dart';
 
 void main() {
   late TaskRepositoryMock taskRepositoryMock;
-  late domain.Task uncompletedTask;
+  late Task uncompletedTask;
+  late Task resultCompletedTask;
   setUp(() {
     taskRepositoryMock = TaskRepositoryMock();
-    uncompletedTask = domain.Task.fromData(
+    uncompletedTask = Task.fromData(
       id: 'uncompleted-task-unique-id',
       body: 'This is uncompleted task',
       isSynchronized: false,
       isCompleted: false,
     );
 
-    when(() => taskRepositoryMock.getAllTasks())
-        .thenAnswer((invocation) => Future.value(right(PaginatedList.empty())));
+    resultCompletedTask = uncompletedTask.copyWith(isCompleted: true);
+
+    when(() => taskRepositoryMock.getAllTasks()).thenAnswer(
+        (invocation) => Future.value(dartz.right(PaginatedList.empty())));
   });
 
   group('TaskWatcherBloc', () {
@@ -53,10 +56,10 @@ void main() {
         isInProgress: false,
         isNextCompletedTasksAvailable: false,
         isNextUnCompletedTasksAvailable: false,
-        allTasks: [domain.Task.draft()],
+        allTasks: [Task.draft()],
       ),
       act: (bloc) {
-        final domain.Task draftTask = bloc.state.allTasks.first;
+        final Task draftTask = bloc.state.allTasks.first;
         bloc.add(TaskWatcherEvent.taskEndEdited(task: draftTask));
       },
       expect: () => [
@@ -79,7 +82,7 @@ void main() {
         isInProgress: false,
         isNextCompletedTasksAvailable: false,
         isNextUnCompletedTasksAvailable: false,
-        allTasks: [domain.Task.draft()],
+        allTasks: [Task.draft()],
       ),
       act: (bloc) => bloc.add(const TaskWatcherEvent.createdDraftTask()),
       expect: () => <TaskWatcherState>[],
@@ -92,16 +95,16 @@ void main() {
     blocTest<TaskWatcherBloc, TaskWatcherState>(
       'after complete task, right value is store in bloc, right value is saved via repository',
       setUp: () {
-        when(() => taskRepositoryMock.upsertTasks(any()))
+        when(() => taskRepositoryMock.upsertTasks([resultCompletedTask]))
             .thenAnswer((invocation) {
           final dynamic args = invocation.positionalArguments.first;
-          if (args is List<domain.Task>) {
-            final domain.Task savedTask = args.first;
+          if (args is List<Task>) {
+            final Task savedTask = args.first;
             expect(savedTask.id, uncompletedTask.id);
             expect(savedTask.isCompleted, true);
           }
 
-          return Future.value(right(unit));
+          return Future.value(dartz.right(dartz.unit));
         });
       },
       build: () => TaskWatcherBloc(
@@ -115,7 +118,7 @@ void main() {
       ),
       act: (bloc) => bloc.add(
         TaskWatcherEvent.taskEndEdited(
-          task: uncompletedTask.copyWith(isCompleted: true),
+          task: resultCompletedTask,
         ),
       ),
       expect: () => [
