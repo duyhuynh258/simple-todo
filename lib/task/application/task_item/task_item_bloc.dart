@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:simple_todo_app/core/shared/debouncer.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 import 'package:simple_todo_app/task/domain/task_failure.dart';
 import 'package:simple_todo_app/task/infrastructure/task_repository.dart';
@@ -12,12 +13,13 @@ typedef OnTaskItemActionCallback = void Function(Task? resultTask);
 
 class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
   TaskItemBloc(
-    this._taskRepository, {
+    this._taskRepository,
+    this._autoSaveDebouncer, {
     Task? task,
     OnTaskItemActionCallback? onAction,
   }) : super(TaskItemState(task: task ?? Task.draft())) {
-    on<TaskItemEvent>((event, emit) {
-      event.when(
+    on<TaskItemEvent>((event, emit) async {
+      await event.when(
         completed: () async {
           final Task resultTask = state.task.completed();
           final failureOrSuccess =
@@ -40,15 +42,25 @@ class TaskItemBloc extends Bloc<TaskItemEvent, TaskItemState> {
             onAction?.call(resultTask);
           });
         },
-        bodyChanged: (body) {
+        bodyChanged: (body) async {
           final Task resultTask = state.task.copyWith(body: body);
           emit(state.copyWith(task: state.task.copyWith(body: body)));
           onAction?.call(resultTask);
+          _autoSaveDebouncer.run(() {
+            _taskRepository.upsertTasks([resultTask]);
+          });
         },
-        failureHandled: () => emit(state.copyWith(failure: null)),
+        failureHandled: () async => emit(state.copyWith(failure: null)),
       );
     });
   }
 
   final TaskRepository _taskRepository;
+  final Debouncer _autoSaveDebouncer;
+
+  @override
+  Future<void> close() {
+    _autoSaveDebouncer.dispose();
+    return super.close();
+  }
 }

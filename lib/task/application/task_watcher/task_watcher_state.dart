@@ -25,5 +25,5 @@ class TaskWatcherState with _$TaskWatcherState {
   List<Task> get completedTasks =>
       allTasks.where((element) => element.isCompleted == true).toList();
 
-  bool get hasEmptyTask => allTasks.any((element) => element.body.isEmpty);
+  bool get hasDraftTask => allTasks.any((element) => element.isDraft);
 }

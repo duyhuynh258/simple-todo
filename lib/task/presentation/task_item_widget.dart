@@ -17,9 +17,9 @@ class TaskItemWidgetWithProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskItemBloc =
-        context.watch<TaskWatcherBloc>().taskItemBlocs[task.id];
+        context.watch<TaskWatcherBloc>().taskItemBlocs[task.id.value];
     if (taskItemBloc == null) {
-      return ErrorWidget('TaskItemBloc with taskId = ${task.id},is null');
+      return ErrorWidget('TaskItemBloc with taskId = ${task.id.value},is null');
     }
     return BlocProvider<TaskItemBloc>.value(
       key: key,
@@ -80,6 +80,10 @@ class _TaskItemWidgetState extends State<_TaskItemWidget> {
           context
               .read<TaskItemBloc>()
               .add(const TaskItemEvent.failureHandled());
+        }
+        if (_focusNode.hasFocus == false) {
+          // This will update other task items listen to same TaskItemBloc
+          _bodyTextController.text = state.task.body;
         }
       },
       builder: (context, state) {

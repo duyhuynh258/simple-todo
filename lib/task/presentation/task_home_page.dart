@@ -93,10 +93,6 @@ class _AddTaskButton extends StatelessWidget {
           splashColor: Theme.of(context).scaffoldBackgroundColor,
           highlightElevation: 3.0,
           onPressed: () {
-            if (context.read<TaskWatcherBloc>().state.hasEmptyTask) {
-              // Only allow one new
-              return;
-            }
             context
                 .read<HomeBloc>()
                 .changeToUnCompletedTab(forAction: TaskAction.create);
