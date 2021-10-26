@@ -6,7 +6,6 @@ import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/task/application/task_item/task_item_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
 import 'package:simple_todo_app/task/domain/task_failure.dart';
-import 'package:simple_todo_app/task/domain/unique_id.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -23,8 +22,8 @@ void main() {
     taskRepositoryMock = TaskRepositoryMock();
     newlyCreatedTask =
         Task.draft().copyWith(body: 'This is a newly created task');
-    uncompletedTask = const Task(
-      id: UniqueId.fromUUID('uncompleted-task-unique-id'),
+    uncompletedTask = Task.fromData(
+      id: 'uncompleted-task-unique-id',
       body: 'This is an uncompleted task',
       isSynchronized: false,
       isCompleted: false,
@@ -33,8 +32,8 @@ void main() {
     resultCompletedExistingTask = uncompletedTask.completed();
     resultCompletedNewlyTask = newlyCreatedTask.completed();
 
-    completedTask = const Task(
-      id: UniqueId.fromUUID('completed-task-unique-id'),
+    completedTask = Task.fromData(
+      id: 'completed-task-unique-id',
       body: 'This is a completed task',
       isSynchronized: false,
       isCompleted: false,

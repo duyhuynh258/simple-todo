@@ -5,7 +5,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:simple_todo_app/core/domain/paginated_list.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
 import 'package:simple_todo_app/task/domain/task.dart' as domain;
-import 'package:simple_todo_app/task/domain/unique_id.dart';
 
 import '../../../helpers/helpers.dart';
 
@@ -14,8 +13,8 @@ void main() {
   late domain.Task uncompletedTask;
   setUp(() {
     taskRepositoryMock = TaskRepositoryMock();
-    uncompletedTask = domain.Task(
-      id: UniqueId(),
+    uncompletedTask = domain.Task.fromData(
+      id: 'uncompleted-task-unique-id',
       body: 'This is uncompleted task',
       isSynchronized: false,
       isCompleted: false,

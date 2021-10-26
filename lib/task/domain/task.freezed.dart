@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$TaskTearOff {
   const _$TaskTearOff();
 
-  _Task call(
+  _Task __(
       {required UniqueId id,
       required String body,
       required bool isSynchronized,
@@ -154,7 +154,7 @@ class _$_Task extends _Task {
 
   @override
   String toString() {
-    return 'Task(id: $id, body: $body, isSynchronized: $isSynchronized, isCompleted: $isCompleted)';
+    return 'Task.__(id: $id, body: $body, isSynchronized: $isSynchronized, isCompleted: $isCompleted)';
   }
 
   @override

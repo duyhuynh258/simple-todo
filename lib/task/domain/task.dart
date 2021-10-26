@@ -4,17 +4,30 @@ import 'package:simple_todo_app/task/domain/unique_id.dart';
 part 'task.freezed.dart';
 
 @freezed
-abstract class Task with _$Task {
-  const factory Task({
+class Task with _$Task {
+  const Task._();
+
+  const factory Task.__({
     required UniqueId id,
     required String body,
     required bool isSynchronized,
     required bool isCompleted,
   }) = _Task;
 
-  const Task._();
+  factory Task.fromData({
+    required String id,
+    required String body,
+    required bool isSynchronized,
+    required bool isCompleted,
+  }) =>
+      Task.__(
+        id: UniqueId.fromUUID(id),
+        body: body,
+        isSynchronized: isSynchronized,
+        isCompleted: isCompleted,
+      );
 
-  factory Task.draft() => Task(
+  factory Task.draft() => Task.__(
         id: UniqueId(),
         body: '',
         isSynchronized: false,

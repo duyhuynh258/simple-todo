@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_todo_app/task/domain/task.dart';
-import 'package:simple_todo_app/task/domain/unique_id.dart';
 
 part 'task_firestore_dto.freezed.dart';
 part 'task_firestore_dto.g.dart';
@@ -47,10 +46,10 @@ class ServerTimestampConverter implements JsonConverter<FieldValue, Object> {
 
 extension TaskFirestoreDTOX on TaskFirestoreDTO {
   Task toDomain() {
-    return Task(
+    return Task.fromData(
       body: body,
       isCompleted: isCompleted,
-      id: UniqueId.fromUUID(id!),
+      id: id!,
       isSynchronized: true,
     );
   }
