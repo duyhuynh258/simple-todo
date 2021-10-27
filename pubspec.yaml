@@ -52,3 +52,4 @@ flutter:
     - assets/images/logout_icon.svg
     - assets/animations/whiteLoading.json
     - assets/animations/loading.json
+    - assets/google_fonts/

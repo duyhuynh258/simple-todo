@@ -1,22 +1,75 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_todo_app/auth/application/auth_bloc.dart';
 import 'package:simple_todo_app/core/application/home_bloc.dart';
+import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
 import 'package:simple_todo_app/core/presentation/pages/settings_page.dart';
+import 'package:simple_todo_app/core/shared/user_info_reader.dart';
 import 'package:simple_todo_app/task/application/task_watcher/task_watcher_bloc.dart';
+import 'package:simple_todo_app/task/infrastructure/local_datasource/task_local_datasource.dart';
+import 'package:simple_todo_app/task/infrastructure/remote_datasource/task_remote_data_source.dart';
+import 'package:simple_todo_app/task/infrastructure/task_repository.dart';
 import 'package:simple_todo_app/task/presentation/all_tasks_list_page.dart';
 import 'package:simple_todo_app/task/presentation/completed_tasks_list_page.dart';
 import 'package:simple_todo_app/task/presentation/tab_bar_widget.dart';
 import 'package:simple_todo_app/task/presentation/todo_tasks_list_page.dart';
 
-class TaskHomePage extends StatefulWidget {
-  const TaskHomePage({Key? key}) : super(key: key);
+class TaskHomePageWithProvider extends StatelessWidget {
+  const TaskHomePageWithProvider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider(
+      create: (context) {
+        final currentUser = context.currentUser;
+        return TaskRepository(
+          TaskRemoteDataSource(
+            context.read<FirebaseFirestore>(),
+            currentUser!,
+          ),
+          TaskLocalDatasource(context.read<SembastDatabase>()),
+        );
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => HomeBloc(),
+          ),
+          BlocProvider(
+            create: (context) => TaskWatcherBloc(context.read<TaskRepository>())
+              ..add(const TaskWatcherEvent.allTasksRequested()),
+          ),
+        ],
+        child: Builder(
+          builder: (context) {
+            return BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) async {
+                await state.whenOrNull(
+                  unauthenticated: () async {
+                    await context.read<TaskRepository>().clearLocalTasks();
+                  },
+                );
+              },
+              child: const _TaskHomePage(),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _TaskHomePage extends StatefulWidget {
+  const _TaskHomePage({Key? key}) : super(key: key);
 
   @override
   _TaskHomePageState createState() => _TaskHomePageState();
 }
 
-class _TaskHomePageState extends State<TaskHomePage> {
+class _TaskHomePageState extends State<_TaskHomePage> {
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(

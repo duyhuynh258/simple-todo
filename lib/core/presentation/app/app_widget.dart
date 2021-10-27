@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,19 +14,16 @@ import 'package:simple_todo_app/core/application/theme_bloc.dart';
 import 'package:simple_todo_app/core/infrastructure/sembast_database.dart';
 import 'package:simple_todo_app/core/infrastructure/setting_local_datasource.dart';
 import 'package:simple_todo_app/core/infrastructure/setting_repository.dart';
+import 'package:simple_todo_app/core/presentation/app/app_initializer.dart';
 import 'package:simple_todo_app/core/presentation/app/app_router.dart';
 import 'package:simple_todo_app/core/presentation/app/app_theme.dart';
 import 'package:simple_todo_app/l10n/l10n.dart';
-
-typedef AppInitializeFunction = Future<void> Function(
-  BuildContext, {
-  required bool mounted,
-});
+import 'package:simple_todo_app/splash/presentation/splash_page.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({
     Key? key,
-    this.appInitializeFunction,
+    this.appInitializer,
     this.sembastDatabase,
     this.authRepository,
     this.settingsRepository,
@@ -41,7 +36,7 @@ class AppWidget extends StatefulWidget {
     this.home,
   }) : super(key: key);
 
-  final AppInitializeFunction? appInitializeFunction;
+  final AppInitializer? appInitializer;
   final SembastDatabase? sembastDatabase;
   final AuthRepository? authRepository;
   final SettingsRepository? settingsRepository;
@@ -58,12 +53,12 @@ class AppWidget extends StatefulWidget {
 }
 
 class _AppWidgetState extends State<AppWidget> {
-  late AppInitializeFunction appInitializeFunction;
+  late AppInitializer appInitializer;
 
   @override
   void initState() {
     super.initState();
-    appInitializeFunction = widget.appInitializeFunction ?? initializeApp;
+    appInitializer = widget.appInitializer ?? AppInitializer();
   }
 
   @override
@@ -112,20 +107,23 @@ class _AppWidgetState extends State<AppWidget> {
               //will be use in multiple screens
               if (widget.themeBloc == null)
                 BlocProvider<ThemeBloc>(
-                  create: (_) => ThemeBloc(context.read<SettingsRepository>()),
+                  create: (context) =>
+                      ThemeBloc(context.read<SettingsRepository>()),
                 )
               else
                 BlocProvider.value(value: widget.themeBloc!),
               if (widget.settingsBloc == null)
                 BlocProvider<SettingsBloc>(
-                  create: (_) =>
+                  create: (context) =>
                       SettingsBloc(context.read<SettingsRepository>()),
                 )
               else
                 BlocProvider.value(value: widget.settingsBloc!),
               if (widget.authBloc == null)
                 BlocProvider<AuthBloc>(
-                  create: (_) => AuthBloc(context.read<AuthRepository>()),
+                  create: (context) {
+                    return AuthBloc(context.read<AuthRepository>());
+                  },
                 )
               else
                 BlocProvider.value(value: widget.authBloc!),
@@ -148,8 +146,45 @@ class _AppWidgetState extends State<AppWidget> {
                   home: widget.home ??
                       FutureBuilder<void>(
                         future:
-                            appInitializeFunction(context, mounted: mounted),
-                        builder: Routes.homeBuilder,
+                            appInitializer.initFunc(context, mounted: mounted),
+                        builder: (
+                          BuildContext context,
+                          AsyncSnapshot<void> snapshot,
+                        ) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none:
+                              return ErrorWidget('ConnectionState.none');
+                            case ConnectionState.done:
+                              if (snapshot.hasError == false) {
+                                return BlocListener<AuthBloc, AuthState>(
+                                  listener: (context, state) async {
+                                    await state.whenOrNull(
+                                      authenticated: (user) async {
+                                        await Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                          Routes.home,
+                                          (route) => route.settings.name == '/',
+                                        );
+                                      },
+                                      unauthenticated: () async {
+                                        await Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                          Routes.signIn,
+                                          (route) => route.settings.name == '/',
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const SplashPage(),
+                                );
+                              }
+                              break;
+                            case ConnectionState.waiting:
+                            case ConnectionState.active:
+                              return const SplashPage();
+                          }
+                          return ErrorWidget('App initialize failed');
+                        },
                       ),
                 );
               },
@@ -159,37 +194,4 @@ class _AppWidgetState extends State<AppWidget> {
       ),
     );
   }
-}
-
-Future<void> flutterInitialize() async {
-  WidgetsFlutterBinding.ensureInitialized();
-}
-
-Future<void> initializeApp(
-  BuildContext context, {
-  required bool mounted,
-}) async {
-  if (!kIsWeb) {
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-  if (mounted) {
-    await context.read<SembastDatabase>().init().then((_) async {
-      await Future.wait([
-        context.read<SettingsBloc>().init(),
-        context.read<ThemeBloc>().init(),
-      ]);
-    });
-  }
-
-  await Firebase.initializeApp();
-
-  FirebaseFirestore.instance.settings =
-      const Settings(persistenceEnabled: false);
 }
